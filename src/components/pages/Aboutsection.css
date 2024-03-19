@@ -1,0 +1,145 @@
+/* Aboutsection.css */
+
+.home-container {
+  padding: 80px;
+  background-color: #000;
+}
+
+.intro-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  background-color:black;
+  border-radius:10px;
+  max-height:592px;
+}
+
+.about-col-1 {
+  flex-basis: 35%;
+}
+
+.about-col-2 {
+  flex-basis: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.topic {
+  display: flex;
+  align-items: center;
+}
+
+.intro-image {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.user-icon {
+  width: 100px;
+  height: auto;
+  filter: invert(75%) sepia(87%) saturate(1171%) hue-rotate(169deg) brightness(93%) contrast(96%);
+  margin-right: 20px; /* Add margin to separate user-icon and text */
+}
+
+.heading {
+  font-size: 100px;
+  font-weight: 600;
+  color: white;
+  margin: 0; /* Remove default margin */
+}
+
+.about-text {
+  justify-content: left;
+  text-align: left;
+  align-items: left;
+}
+
+.line {
+  width: 100%;
+  height: 1px;
+  background-color: #A0DDFF;
+  margin-bottom: 20px;
+}
+
+.about-text p{
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 10px; /* Add margin to separate paragraphs */
+  text-align: left; /* Ensure text alignment is explicitly set to left */
+  margin-right: 20px;
+}
+
+.aravind-face-2 {
+  width: 100%;
+  height: auto;
+  border-radius: 15px;
+  margin-bottom: 20px; /* Add margin between the image and text */
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  text-align: left;
+}
+
+.button {
+  padding: 10px 20px;
+  color: #A0DDFF;
+  text-decoration: none;
+  border-radius: 5px;
+  cursor: pointer;
+  position: relative;
+  margin-right: 20px;
+  text-align : left;
+  background-color: transparent;
+  border-color: transparent;
+  font-size:16px;
+}
+
+.button::after {
+  content: '';
+  width: 0;
+  height: 3px;
+  background-color: #A0DDFF;
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  transition: width 0.5s ease;
+}
+
+.button:hover::after {
+  width: 100%;
+}
+
+.popup-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: transparent;
+  padding: 20px; /* Padding for the popup */
+  border-radius: 5px; /* Border radius for rounded corners */
+  top: 100%; /* Position the popup below the buttons */
+  left: 0;
+  width: 100%;
+  color: white;
+  list-style: none;
+  margin:10px 0;
+}
+
+.popup-text p {
+  color: #A0DDFF;
+  font-size:14px;
+  margin-bottom: 10px;
+  font-family:Arial, Helvetica, sans-serif;
+}
+
+.popup-text h6{
+  margin-bottom: 10px;
+  font-size: 15px;
+  font-weight:lighter;
+  font-family:Arial, Helvetica, sans-serif;
+}

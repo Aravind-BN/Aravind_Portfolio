@@ -1,0 +1,93 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .image-container {
+    position: relative;
+  }
+  
+  .fav-image {
+    width: 1400px;
+    height: 600px;
+  }
+  
+  .circle-image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: transform 2s;
+    transform: translate(-50%, -50%) translateX(0);
+  }
+  
+  .text {
+    position: absolute;
+    top: 45%;
+    right: 85%;
+    transform: translate(100%, -50%);
+    background-color: rgb(123, 216, 250);
+    opacity: 50%;
+    transition: opacity 1s, transform 2s;
+    color: rgb(0, 0, 0);
+    font-size: 30px;
+    font-weight: bold;
+    width: 500px; /* Adjust the width as needed */
+    padding-right: 20px; /* Add padding to create space between the circle image and text */
+    text-align: right; /* Align the text to the right side */
+  }
+  
+  
+  .blur .fav-image {
+    filter: blur(10px);
+  }
+  
+  .blur .circle-image {
+    transform: translate(-50%, -50%) translateX(200px);
+  }
+  
+  .show .text {
+    opacity: 1;
+  }
+  .button-container {
+    position: absolute;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+  }
+  
+  .button {
+    background-color: transparent;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    color: white;
+    background-color: #b52323;
+    border-color: white;
+    border: 3px solid white;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .button:hover {
+    background-color: rgba(177, 43, 43, 0.2);
+  }
+  
+  .content-container {
+    margin-top: -90px; /* Adjust the value as needed */
+  }
+  
+  /* Other styles for the Homescreen component */
+  
+  

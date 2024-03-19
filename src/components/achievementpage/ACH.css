@@ -1,0 +1,50 @@
+.achievements-container {
+    margin: 20px; /* Adjust margin as needed */
+}
+  
+.achievements-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+  
+.achievements-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+  
+.achievement {
+    display: flex;
+    margin-bottom: 20px; /* Adjust spacing between achievements */
+}
+  
+.achievement:nth-child(even) .achievement-details {
+    order: -1; /* Reorder text to the left for even-numbered achievements */
+}
+  
+.achievement-image {
+    width: 150px; /* Adjust image size as needed */
+    margin-right: 20px; /* Adjust spacing between image and text */
+}
+  
+.achievement-details {
+    flex: 1;
+}
+  
+.achievement-title {
+    font-weight: bold;
+    margin: 0 0 5px;
+}
+  
+.achievement-description {
+    margin: 0;
+}
+  
+.duplicate-indicator {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: yellow; /* Adjust background color of the star */
+    color: black; /* Adjust text color of the star */
+    padding: 2px 5px;
+}
+  
