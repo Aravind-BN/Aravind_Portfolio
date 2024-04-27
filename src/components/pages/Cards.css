@@ -1,23 +1,14 @@
 .cards {
-    padding: 4rem;
+    padding: 2rem;
     background: #fff;
     color : white;
   }
   
   h1 {
     text-align: center;
-    margin-top: -20px;
-    margin-bottom: 12px;
+    margin-bottom: 22px;
     justify-content: center;
     display:flex;
-  }
-
-  p {
-      text-align: center;
-      margin-top: 5px;
-      margin-bottom:5px;
-      justify-content: center;
-      display: flex;
   }
   
   .cards__container {
@@ -26,24 +17,17 @@
     align-items: center;
     max-width: 1120px;
     width: 100%;
-    margin: 0 auto;
   }
   
   .cards__wrapper {
     position: relative;
-    margin: 10px 0 10px;
-  }
-  
-  .cards__items {
-    margin-bottom: 50px;
-    margin-left: -70px;
-    margin-right:-70px;
+    margin: 20px;
   }
   
   .cards__item {
     display: flex;
     flex: 1;
-    margin: 0 1rem;
+    margin: 0;
     border-radius: 10px;
   }
   
@@ -75,7 +59,7 @@
     content: attr(data-category);
     position: absolute;
     bottom: 0;
-    margin-left: 10px;
+    margin-left: 5px;
     padding: 8px 10px;
     max-width: calc((100%) - 60px);
     font-size: 12px;
@@ -105,13 +89,16 @@
   }
   
   .cards__item__info {
-    padding: 20px 40px 10px; /* Height, Width, Idk the last on */
+    padding: 0; /* Remove padding */
+    margin-left: 5px; /* Adjust margin as needed */
   }
   
   .cards__item__text {
     color: white;
     font-size: 20px;
     line-height: 24px;
+    text-align: left; /* Align text to the left */
+    margin-left: 5px;
   }
   
   @media only screen and (min-width: 1200px) {

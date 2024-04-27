@@ -2,11 +2,9 @@ import React from 'react';
 import CardItem from './mainprojectitem';
 import './mainprojects.css';
 import img3 from '../../images/img-3.jpeg';
-import img4 from '../../images/img-4.jpeg';
 import img5 from '../../images/img-5.jpeg';
-import img6 from '../../images/img-6.jpeg';
-import img7 from '../../images/img-7.jpeg';
-import img8 from '../../images/img-8.jpeg';
+import sitimage from '../../images/sitimage.png';
+import growcalth from '../../images/growcalth.jpeg';
 
 
 function Cards() {
@@ -18,112 +16,39 @@ function Cards() {
                 <div className="cards__wrapper">
                     <ul className="cards__items">
                         <CardItem
-                        src={img4}
-                        text="Find out more about my skills and passion which I truly like!"
-                        label='Skill'
+                        src={growcalth}
+                        text="A one stop platform for students to contribute to their houses through daily steps!"
+                        label='GrowCalth'
                         path='/More'
                         />
                         <CardItem
                         src={img3}
-                        text="Explore some of my leadership skills that I have displayed in my school!"
-                        label='Responsibilities'
+                        text="Canteen Ordering App (Computing+ Coursework)"
+                        label='Front-end development'
                         path='/More'
                         />
                     </ul>
                     <ul className="cards__items">
                         <CardItem
-                        src={img4}
-                        text="Find out more about my skills and passion which I truly like!"
-                        label='Skill'
-                        path='/More'
+                        src={img5}
+                        text="Homework Tracking Website"
+                        label='Front-end Development'
+                        path='/Achievements'
                         />
                         <CardItem
                         src={img3}
-                        text="Explore some of my leadership skills that I have displayed in my school!"
-                        label='Responsibilities'
-                        path='/More'
-                        />
-                    </ul>
-                    <ul className="cards__items">
-                        <CardItem
-                        src={img5}
-                        text="Check out some of my achievements and my experience!"
-                        label='Achievements'
-                        path='/Achievements'
-                        />
-                        <CardItem
-                        src={img6}
-                        text="Watch out for my lifelong-journey and my reflections on some key events!"
-                        label='Life Journey'
+                        text="Hwa Chong Student Leader Conference"
+                        label='Student Leadership'
                         path='/Life'
                         />
                         <CardItem
-                        src={img7}
-                        text="Look out for the biggest project that I have did in my WHOLE LIFE!"
-                        label='Projects'
-                        path='/More'
-                        />
-                        <CardItem
-                        src={img8}
-                        text="Here are some remarks that my previous teacher left for me!"
-                        label='Remarks'
-                        path='/More'
-                        />
-                    </ul>
-                    <ul className="cards__items">
-                        <CardItem
-                        src={img5}
-                        text="Check out some of my achievements and my experience!"
-                        label='Achievements'
-                        path='/Achievements'
-                        />
-                        <CardItem
-                        src={img6}
-                        text="Watch out for my lifelong-journey and my reflections on some key events!"
-                        label='Life Journey'
-                        path='/Life'
-                        />
-                        <CardItem
-                        src={img7}
-                        text="Look out for the biggest project that I have did in my WHOLE LIFE!"
-                        label='Projects'
-                        path='/More'
-                        />
-                        <CardItem
-                        src={img8}
-                        text="Here are some remarks that my previous teacher left for me!"
-                        label='Remarks'
-                        path='/More'
-                        />
-                    </ul>
-                    <ul className="cards__items">
-                        <CardItem
-                        src={img5}
-                        text="Check out some of my achievements and my experience!"
-                        label='Achievements'
-                        path='/Achievements'
-                        />
-                        <CardItem
-                        src={img6}
-                        text="Watch out for my lifelong-journey and my reflections on some key events!"
-                        label='Life Journey'
-                        path='/Life'
-                        />
-                        <CardItem
-                        src={img7}
-                        text="Look out for the biggest project that I have did in my WHOLE LIFE!"
-                        label='Projects'
-                        path='/More'
-                        />
-                        <CardItem
-                        src={img8}
-                        text="Here are some remarks that my previous teacher left for me!"
-                        label='Remarks'
+                        src={sitimage}
+                        text="Project Technogates"
+                        label='SIT Project'
                         path='/More'
                         />
                     </ul>
             </div>
-
         </div>
     </div>
 )
