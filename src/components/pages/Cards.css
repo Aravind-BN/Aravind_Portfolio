@@ -1,12 +1,12 @@
 .cards {
-    padding: 2rem;
-    background: #fff;
+    padding: 1rem;
+    background: #000;
     color : white;
   }
   
   h1 {
     text-align: center;
-    margin-bottom: 22px;
+    margin-bottom: 12px;
     justify-content: center;
     display:flex;
   }
@@ -17,11 +17,15 @@
     align-items: center;
     max-width: 1120px;
     width: 100%;
+    margin: 0 auto;
   }
   
   .cards__wrapper {
-    position: relative;
-    margin: 20px;
+    position: relative
+  }
+
+  .cards__items {
+    margin-bottom: 50px;
   }
   
   .cards__item {
@@ -39,7 +43,6 @@
     -webkit-filter: drop-shadow(0 6px 20px rgba(56, 125, 255, 0.017));
     filter: drop-shadow(0 6px 20px rgba(56, 125, 255, 0.017));
     border-radius: 10px;
-    overflow: hidden;
     text-decoration: none;
   }
   
@@ -47,7 +50,7 @@
     position: relative;
     width: 100%;
     padding-top: 67%;
-    overflow: hidden;
+    overflow:visible;
   }
   
   .fade-img {

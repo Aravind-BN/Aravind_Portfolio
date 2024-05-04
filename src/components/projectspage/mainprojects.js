@@ -1,5 +1,5 @@
 import React from 'react';
-import CardItem from './mainprojectitem';
+import MainprojectItem from './mainprojectitem';
 import './mainprojects.css';
 import img3 from '../../images/img-3.jpeg';
 import img5 from '../../images/img-5.jpeg';
@@ -15,33 +15,33 @@ function Cards() {
             <div className="cards__container">
                 <div className="cards__wrapper">
                     <ul className="cards__items">
-                        <CardItem
+                        <MainprojectItem
                         src={growcalth}
                         text="A one stop platform for students to contribute to their houses through daily steps!"
                         label='GrowCalth'
                         path='/More'
                         />
-                        <CardItem
+                        <MainprojectItem
                         src={img3}
                         text="Canteen Ordering App (Computing+ Coursework)"
                         label='Front-end development'
                         path='/More'
                         />
                     </ul>
-                    <ul className="cards__items">
-                        <CardItem
+                    <ul className="cards__item">
+                        <MainprojectItem
                         src={img5}
                         text="Homework Tracking Website"
                         label='Front-end Development'
                         path='/Achievements'
                         />
-                        <CardItem
+                        <MainprojectItem
                         src={img3}
                         text="Hwa Chong Student Leader Conference"
                         label='Student Leadership'
                         path='/Life'
                         />
-                        <CardItem
+                        <MainprojectItem
                         src={sitimage}
                         text="Project Technogates"
                         label='SIT Project'

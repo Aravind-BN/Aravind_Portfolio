@@ -29,7 +29,7 @@ function Cards() {
                         path='/Achievements'
                         />
                     </ul>
-                    <ul className="cards__items">
+                    <ul className="cards__item">
                         <CardItem
                         src={img6}
                         text="My Journey!"
