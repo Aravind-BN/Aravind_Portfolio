@@ -1,50 +1,47 @@
 .achievements-container {
-    margin: 20px; /* Adjust margin as needed */
+    background-color: #000; 
+    padding: 20px; 
 }
-  
-.achievements-title {
-    font-size: 24px;
-    margin-bottom: 10px;
-}
-  
-.achievements-list {
-    display: flex;
-    flex-wrap: wrap;
-}
-  
+
 .achievement {
     display: flex;
+    flex-direction: row; /* Align image and details side by side */
     margin-bottom: 20px; /* Adjust spacing between achievements */
+    position: relative; /* Add position relative */
+    max-width: 400px; /* Maximum width */
 }
-  
-.achievement:nth-child(even) .achievement-details {
-    order: -1; /* Reorder text to the left for even-numbered achievements */
+
+.achievement-image-left,
+.achievement-image-right {
+    width: 50%; /* Image takes up half of the container */
+    max-width: 150px; /* Maximum width */
 }
-  
-.achievement-image {
-    width: 150px; /* Adjust image size as needed */
-    margin-right: 20px; /* Adjust spacing between image and text */
+
+.achievement-details-left,
+.achievement-details-right {
+    width: 50%; /* Details take up half of the container */
+    padding-left: 10px; /* Add some spacing between image and details */
 }
-  
-.achievement-details {
-    flex: 1;
-}
-  
-.achievement-title {
+
+.achievement-title-left,
+.achievement-title-right {
     font-weight: bold;
     margin: 0 0 5px;
+    color: #A0DDFF; /* Text color for titles */
 }
-  
-.achievement-description {
+
+.achievement-description-left,
+.achievement-description-right {
     margin: 0;
+    color: #A0DDFF; /* Text color for descriptions */
 }
-  
+
 .duplicate-indicator {
     position: absolute;
-    top: 0;
-    right: 0;
-    background-color: yellow; /* Adjust background color of the star */
+    top: 5px;
+    right: 5px;
+    background-color: #A0DFFF; /* Adjust background color of the star */
     color: black; /* Adjust text color of the star */
     padding: 2px 5px;
+    border-radius: 50%; /* Make duplicate indicator circular */
 }
-  
