@@ -5,10 +5,10 @@ const PROJECTS = [
   {
     id: 'growcalth',
     title: 'GrowCalth',
-    href: 'https://github.com', // replace with real GitHub repo
-    websiteUrl: 'https://growcalth.example.com', // replace with real GrowCalth site
-    image: '/projects/growcalth.png',
-    role: 'Developer / team member',
+    href: 'https://github.com/cheesetan/growcalth-kotlin.git', // replace with real GitHub repo
+    websiteUrl: 'https://growcalth.com/', // replace with real GrowCalth site
+    image: require('../../images/growcalth2.jpg'),
+    role: 'Co-Founder & Lead Android Developer',
     contributions: [
       'Co-designed and built the step-tracking and house contribution flow.',
       'Worked on front-end UI and integration with backend services.',
@@ -74,6 +74,20 @@ function ProjectRow({ project, expanded, onToggle }) {
       </button>
       {expanded && (
         <div className="project-details">
+          <p className="project-role">
+            <strong>Role:</strong> {project.role}
+          </p>
+          <div className="project-contributions">
+            <strong>Contributions:</strong>
+            <ul>
+              {project.contributions.map((c, i) => (
+                <li key={i}>{c}</li>
+              ))}
+            </ul>
+          </div>
+          <p className="project-tech">
+            <strong>Tech:</strong> {project.tech}
+          </p>
           {imageUrl && (
             <div className="project-image-wrap">
               <img src={imageUrl} alt="" className="project-image" />
@@ -103,40 +117,6 @@ function ProjectRow({ project, expanded, onToggle }) {
               </div>
             </div>
           )}
-          <p className="project-role">
-            <strong>Role:</strong> {project.role}
-          </p>
-          <div className="project-contributions">
-            <strong>Contributions:</strong>
-            <ul>
-              {project.contributions.map((c, i) => (
-                <li key={i}>{c}</li>
-              ))}
-            </ul>
-          </div>
-          <p className="project-tech">
-            <strong>Tech:</strong> {project.tech}
-          </p>
-          <div className="project-links">
-            {project.websiteUrl && (
-              <a
-                href={project.websiteUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="project-github-link"
-              >
-                Visit website →
-              </a>
-            )}
-            <a
-              href={project.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="project-github-link"
-            >
-              View on GitHub →
-            </a>
-          </div>
         </div>
       )}
     </li>

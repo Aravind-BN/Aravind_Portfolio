@@ -48,7 +48,7 @@
 }
 
 .project-details {
-  padding: 0 0 1.5rem 0;
+  padding: 1.5rem 0 1.5rem 0;
   margin-top: -0.5rem;
   border-top: 1px solid rgba(255, 255, 255, 0.04);
   animation: expandIn 0.2s ease-out;
@@ -62,7 +62,7 @@
 .project-image-wrap {
   position: relative;
   width: 100%;
-  max-width: 560px;
+  max-width: 390px;
   border-radius: 10px;
   overflow: hidden;
   background: rgba(255, 255, 255, 0.04);

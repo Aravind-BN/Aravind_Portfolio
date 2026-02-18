@@ -96,8 +96,8 @@ function Certificates() {
               : f === 'technical'
               ? 'technical skills'
               : f === 'leadership'
-              ? 'leadership'
-              : 'cybersecurity'}
+              ? 'interpersonal skills'
+              : 'cybersecurity skills'}
           </button>
         ))}
       </div>
