@@ -2,22 +2,56 @@ import React, { useState, useMemo } from 'react';
 import placeholder from '../../images/placeholder';
 import './Certificates.css';
 
-// Match to images in public/images/ (e.g. Aravind_CBPaul.jpeg). Filter by category.
+// Certificates are grouped by broad category for filtering.
 const FILTERS = ['all', 'technical', 'leadership', 'cybersecurity'];
 
+// Images are expected under src/images with the original filenames from ACH.
+// If an image fails to load, a placeholder is shown.
 const CERTIFICATES = [
-  { title: 'Perse Competition — Round 1 Distinction, Round 2 Higher Participation', image: '/images/Aravind_.jpeg', category: 'technical' },
-  { title: 'SASMO — Certificate of Participation', image: '/images/Aravind_SASMO.jpeg', category: 'technical' },
-  { title: 'AI for Literacy (Literacy in AI)', image: '/images/Aravind_AI.jpeg', category: 'technical' },
-  { title: 'Edusave Certificate of Academic Achievement', image: '/images/Aravind_AcademicAcheivement.jpg', category: 'technical' },
-  { title: 'CCC–CDC Education Merit Award', image: '/images/Aravind_AcademicAcheivement.jpg', category: 'technical' },
-  { title: 'C.B. Paul Science Quiz — Individual Participation', image: '/images/Aravind_CBPaul.jpeg', category: 'technical' },
-  { title: 'Stem Seeds Social Innovators (SIT) — 3rd Place', image: '/images/Aravind_SITImage.jpg', category: 'technical' },
-  { title: 'Blue House Vice-Captain / JHL', image: null, category: 'leadership' },
+  {
+    title: 'Perse Competition — Round 1 Distinction, Round 2 Higher Participation',
+    image: require('../../images/Aravind_.jpeg'),
+    category: 'technical',
+  },
+  {
+    title: 'SASMO — Certificate of Participation',
+    image: require('../../images/Aravind_SASMO.jpeg'),
+    category: 'technical',
+  },
+  {
+    title: 'AI for Literacy (Literacy in AI)',
+    image: require('../../images/Aravind_AI.jpeg'),
+    category: 'technical',
+  },
+  {
+    title: 'Edusave Certificate of Academic Achievement',
+    image: require('../../images/Aravind_AcademicAcheivement.jpg'),
+    category: 'technical',
+  },
+  {
+    title: 'CCC–CDC Education Merit Award',
+    image: require('../../images/Aravind_AcademicAcheivement.jpg'),
+    category: 'technical',
+  },
+  {
+    title: 'C.B. Paul Science Quiz — Individual Participation',
+    image: require('../../images/Aravind_CBPaul.jpeg'),
+    category: 'technical',
+  },
+  {
+    title: 'Stem Seeds Social Innovators (SIT) — 3rd Place',
+    image: require('../../images/Aravind_SITImage.jpg'),
+    category: 'technical',
+  },
+  {
+    title: 'Blue House Vice-Captain / Junior House Leader',
+    image: null,
+    category: 'leadership',
+  },
 ];
 
 function CertItem({ item }) {
-  const imgSrc = item.image ? process.env.PUBLIC_URL + item.image : null;
+  const imgSrc = item.image;
   return (
     <li className="cert-item">
       <div className="cert-content">
@@ -26,7 +60,9 @@ function CertItem({ item }) {
             <img
               src={imgSrc}
               alt=""
-              onError={(e) => { e.target.src = placeholder; }}
+              onError={(e) => {
+                e.target.src = placeholder;
+              }}
             />
           </div>
         )}
@@ -55,7 +91,13 @@ function Certificates() {
             className={`cert-filter-btn ${filter === f ? 'active' : ''}`}
             onClick={() => setFilter(f)}
           >
-            {f === 'all' ? 'all' : f === 'technical' ? 'technical skills' : f === 'leadership' ? 'leadership' : 'cybersecurity'}
+            {f === 'all'
+              ? 'all'
+              : f === 'technical'
+              ? 'technical skills'
+              : f === 'leadership'
+              ? 'leadership'
+              : 'cybersecurity'}
           </button>
         ))}
       </div>

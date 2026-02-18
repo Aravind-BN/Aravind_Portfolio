@@ -6,7 +6,7 @@
 }
 
 .hero-inner {
-  max-width: 720px;
+  max-width: 960px;
   margin: 0 auto;
   width: 100%;
   display: flex;
@@ -23,12 +23,12 @@
 
 .hero-photo-wrap {
   flex-shrink: 0;
-  width: 160px;
-  height: 160px;
+  width: 270px;
+  height: 270px;
   border-radius: 50%;
   overflow: hidden;
-  border: 3px solid rgba(124, 58, 237, 0.4);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  border: 6px solid rgba(124, 58, 237, 0.4);
+  box-shadow: 0 8px 32px rgba(52, 26, 66, 0.4);
 }
 
 .hero-photo {
@@ -62,16 +62,16 @@
 }
 
 .hero-tagline {
-  font-size: 1rem;
-  color: #a1a1aa;
+  font-size: 1.1rem;
+  color: #8548ef;
   margin-bottom: 1rem;
 }
 
 .hero-bio {
-  font-size: 1rem;
+  font-size: 0.8rem;
   line-height: 1.6;
   color: #a1a1aa;
-  max-width: 480px;
+  max-width: 540px;
   margin-bottom: 2rem;
 }
 

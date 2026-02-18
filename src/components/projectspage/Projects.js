@@ -5,54 +5,54 @@ const PROJECTS = [
   {
     id: 'growcalth',
     title: 'GrowCalth',
-    href: 'https://github.com',
-    websiteUrl: 'https://growcalth.example.com',
+    href: 'https://github.com', // replace with real GitHub repo
+    websiteUrl: 'https://growcalth.example.com', // replace with real GrowCalth site
     image: '/projects/growcalth.png',
-    role: 'Developer / Team member',
+    role: 'Developer / team member',
     contributions: [
-      'Designed and built the step-tracking and house contribution flow.',
-      'Collaborated on front-end UI and integration with backend.',
+      'Co-designed and built the step-tracking and house contribution flow.',
+      'Worked on front-end UI and integration with backend services.',
     ],
-    tech: 'React, JavaScript, CSS',
+    tech: 'React, JavaScript, CSS, Firebase',
   },
   {
     id: 'canteen',
     title: 'Canteen Ordering App',
-    href: 'https://github.com',
+    href: 'https://github.com', // replace with real GitHub repo
     websiteUrl: null,
     image: '/projects/canteen.png',
     role: 'Front-end developer',
     contributions: [
-      'Implemented ordering interface and cart logic.',
-      'Responsive layout and accessibility improvements.',
+      'Implemented ordering interface, cart behaviour and basic validations.',
+      'Improved responsiveness and accessibility for different devices.',
     ],
     tech: 'HTML, CSS, JavaScript',
   },
   {
-    id: 'homework',
-    title: 'Homework Tracking Website',
-    href: 'https://github.com',
+    id: 'crypto',
+    title: 'Apple Pay Cryptography Mockup',
+    href: 'https://github.com', // replace with real GitHub repo
     websiteUrl: null,
-    image: '/projects/homework.png',
+    image: '/projects/crypto.png',
     role: 'Solo developer',
     contributions: [
-      'Full design and implementation of tracking and filtering.',
-      'Local storage persistence and simple UI.',
+      'Built a prototype flow that mimics Apple Pay style payments.',
+      'Implemented CRYSTALS-Kyber for key encapsulation and ChaCha20‑Poly1305 for authenticated encryption.',
     ],
-    tech: 'React, CSS',
+    tech: 'Python, cryptography libraries (CRYSTALS‑Kyber, ChaCha20‑Poly1305)',
   },
   {
     id: 'technogates',
     title: 'Project Technogates (SIT)',
-    href: 'https://github.com',
+    href: 'https://github.com', // replace with real GitHub repo
     websiteUrl: null,
     image: '/projects/technogates.png',
     role: 'Team member',
     contributions: [
-      'Contributed to concept and prototype for climate-focused solution.',
-      'Presented at SIT and supported demo.',
+      'Contributed to concept and prototype for a climate‑focused solution.',
+      'Helped prepare and deliver the presentation and demo at SIT.',
     ],
-    tech: 'Various',
+    tech: 'Various (web, data and presentation tools)',
   },
 ];
 
@@ -68,7 +68,9 @@ function ProjectRow({ project, expanded, onToggle }) {
         aria-expanded={expanded}
       >
         <span className="project-title">{project.title}</span>
-        <span className="project-chevron" aria-hidden>{expanded ? '▼' : '▶'}</span>
+        <span className="project-chevron" aria-hidden>
+          {expanded ? '▼' : '▶'}
+        </span>
       </button>
       {expanded && (
         <div className="project-details">
@@ -101,7 +103,9 @@ function ProjectRow({ project, expanded, onToggle }) {
               </div>
             </div>
           )}
-          <p className="project-role"><strong>Role:</strong> {project.role}</p>
+          <p className="project-role">
+            <strong>Role:</strong> {project.role}
+          </p>
           <div className="project-contributions">
             <strong>Contributions:</strong>
             <ul>
@@ -110,14 +114,26 @@ function ProjectRow({ project, expanded, onToggle }) {
               ))}
             </ul>
           </div>
-          <p className="project-tech"><strong>Tech:</strong> {project.tech}</p>
+          <p className="project-tech">
+            <strong>Tech:</strong> {project.tech}
+          </p>
           <div className="project-links">
             {project.websiteUrl && (
-              <a href={project.websiteUrl} target="_blank" rel="noopener noreferrer" className="project-github-link">
+              <a
+                href={project.websiteUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="project-github-link"
+              >
                 Visit website →
               </a>
             )}
-            <a href={project.href} target="_blank" rel="noopener noreferrer" className="project-github-link">
+            <a
+              href={project.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="project-github-link"
+            >
               View on GitHub →
             </a>
           </div>
@@ -152,3 +168,4 @@ function Projects() {
 }
 
 export default Projects;
+
