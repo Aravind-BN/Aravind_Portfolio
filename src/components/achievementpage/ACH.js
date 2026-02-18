@@ -1,13 +1,15 @@
 // ACH.js
 import React from 'react';
 import './ACH.css';
-import CBPaul from '../../images/Aravind_CBPaul.jpeg';
-import SITImage from '../../images/Aravind_SITImage.jpg';
-import EducationMerit from '../../images/Aravind_AcademicAcheivement.jpg';
-import AcademicAchievement from '../../images/Aravind_AcademicAcheivement.jpg';
-import SASMO from '../../images/Aravind_SASMO.jpeg';
-import Perse from '../../images/Aravind_.jpeg';
-import AI from '../../images/Aravind_AI.jpeg';
+import placeholder from '../../images/placeholder';
+// Use real images when available from ../../images/
+const CBPaul = placeholder;
+const SITImage = placeholder;
+const EducationMerit = placeholder;
+const AcademicAchievement = placeholder;
+const SASMO = placeholder;
+const Perse = placeholder;
+const AI = placeholder;
 
 function ACH() {
   return (

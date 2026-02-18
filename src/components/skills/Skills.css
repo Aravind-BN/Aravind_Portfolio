@@ -1,0 +1,26 @@
+.skills-section {
+  padding-top: 3rem;
+}
+
+.skills-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.skill-tag {
+  display: inline-block;
+  padding: 0.4rem 0.85rem;
+  font-size: 0.85rem;
+  color: #a1a1aa;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+
+.skill-tag:hover {
+  color: #e4e4e7;
+  border-color: rgba(124, 58, 237, 0.4);
+  background: rgba(124, 58, 237, 0.08);
+}

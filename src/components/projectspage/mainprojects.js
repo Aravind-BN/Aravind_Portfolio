@@ -1,10 +1,12 @@
 import React from 'react';
 import MainprojectItem from './mainprojectitem';
 import './mainprojects.css';
-import img3 from '../../images/img-3.jpeg';
-import img5 from '../../images/img-5.jpeg';
-import sitimage from '../../images/sitimage.png';
-import growcalth from '../../images/growcalth.jpeg';
+import placeholder from '../../images/placeholder';
+// Use real images when available from ../../images/
+const img3 = placeholder;
+const img5 = placeholder;
+const sitimage = placeholder;
+const growcalth = placeholder;
 
 
 function Cards() {

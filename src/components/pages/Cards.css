@@ -44,6 +44,12 @@
     filter: drop-shadow(0 6px 20px rgba(56, 125, 255, 0.017));
     border-radius: 10px;
     text-decoration: none;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font: inherit;
+    text-align: left;
+    padding: 0;
   }
   
   .cards__item__pic-wrap {

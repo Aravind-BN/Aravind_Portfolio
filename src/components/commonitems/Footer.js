@@ -8,7 +8,7 @@ function Footer() {
       <div className="social-media">
         <div className="social-media-wrap">
           <small className="website-rights">
-            This product may download large amounts of data. Consider using a Wi-Fi connection. Copyright © Aravind 2024. All rights reserved.
+            © {new Date().getFullYear()} Aravind. All rights reserved.
           </small>
           <div className="social-icons">
             <a

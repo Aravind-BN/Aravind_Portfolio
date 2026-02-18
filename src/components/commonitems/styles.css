@@ -28,7 +28,8 @@
 	display: flex;
 	align-items: center;
 	font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-
+	border: none;
+	background: transparent;
   }
   
   .fa-typo3 {
@@ -67,6 +68,10 @@
 	height: 10%;
 	font-size: 18px;
 	position: relative; /* Added relative positioning */
+	border: none;
+	background: none;
+	cursor: pointer;
+	font-family: inherit;
   }
   
   .nav-links::after {

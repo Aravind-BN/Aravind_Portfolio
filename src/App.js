@@ -1,30 +1,40 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import NavBar from './components/Navbar';
-import HomeScreen from './components/pages/HomeScreen';
-import Achievements from './components/pages/Achievements';
-import MorePage from './components/pages/MorePage';
-import Life from './components/pages/Life';
-import LearnMore from './components/pages/LearnMore';
-import Footer from './components/Footer';
+import './App.css';
+import Navbar from './components/commonitems/Navbar';
+import Home from './components/pages/Home';
+import Projects from './components/projectspage/Projects';
+import Certificates from './components/certificates/Certificates';
+import Skills from './components/skills/Skills';
+import Featured from './components/featured/Featured';
+import AchievementsTimeline from './components/achievementpage/AchievementsTimeline';
+import Footer from './components/commonitems/Footer';
 
 const App = () => {
   return (
-    <>
-    <Router>
-        <NavBar />
-        <div>
-          <Route path="/home" exact component={HomeScreen} />
-          <Route path="/achievements" exact component={Achievements} />
-          <Route path="/more" exact component={MorePage} />
-          <Route path="/life" exact component={Life} />
-          <Route path="/learn-more" exact component={LearnMore} />
-        </div>
-        <Router>
-          <Footer />
-        </Router>
-    </Router>
-    </>
+    <div className="app-wrap">
+      <Navbar />
+      <main>
+        <section id="home">
+          <Home />
+        </section>
+        <section id="skills">
+          <Skills />
+        </section>
+        <section id="featured">
+          <Featured />
+        </section>
+        <section id="projects">
+          <Projects />
+        </section>
+        <section id="achievements">
+          <AchievementsTimeline />
+        </section>
+        <section id="certificates">
+          <Certificates />
+        </section>
+      </main>
+      <Footer />
+    </div>
   );
 };
 
