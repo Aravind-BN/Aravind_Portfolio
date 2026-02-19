@@ -7,6 +7,7 @@ const BALLS = [
   { r: 28, hue: 205, opacity: 0.10 },
   { r: 44, hue: 250, opacity: 0.08 },
   { r: 32, hue: 215, opacity: 0.09 },
+  { r: 67, hue: 267, opacity: 0.067 },
 ];
 
 function randomBetween(a, b) {

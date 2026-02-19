@@ -25,6 +25,15 @@ const CERTIFICATES = [
     credlyUrl: null,
   },
   {
+    title: "Hwa Chong Institution's 28th Edition Student Leaders Convention 2023",
+    subtitle: 'Certificate of Participation',
+    issuer: 'Hwa Chong Institution',
+    image: require('../../images/aravind_hci.jpeg'),
+    categories: ['interpersonal'],
+    year: '2023',
+    credlyUrl: null,
+  },
+  {
     title: 'C.B. Paul Science Quiz',
     subtitle: 'Individual Participation',
     issuer: 'Anglo-Chinese School',
@@ -181,6 +190,7 @@ const ISSUER_COLORS = {
   'CSIT':                               { bg: 'rgba(251,146,60,0.12)',  color: '#fb923c', border: 'rgba(251,146,60,0.28)' },
   'SST':                                { bg: 'rgba(220,38,38,0.12)',   color: '#f87171', border: 'rgba(220,38,38,0.30)' },
   'Ngee Ann Polytechnic':               { bg: 'rgba(37,99,235,0.10)',   color: '#f0c940', border: 'rgba(234,179,8,0.35)' },
+  'Hwa Chong Institution':               { bg: 'rgba(159, 26, 17, 0.1)',   color: 'rgb(230, 78, 67)', border: 'rgba(224, 87, 87, 0.35)' },
 };
 
 const CATEGORY_COLORS = {
