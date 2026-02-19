@@ -8,32 +8,25 @@ import Skills from './components/skills/Skills';
 import Featured from './components/featured/Featured';
 import AchievementsTimeline from './components/achievementpage/AchievementsTimeline';
 import Footer from './components/commonitems/Footer';
+import FloatingCircles from './FloatingCircles';
+
 
 const App = () => {
   return (
-    <div className="app-wrap">
-      <Navbar />
-      <main>
-        <section id="home">
-          <Home />
-        </section>
-        <section id="skills">
-          <Skills />
-        </section>
-        <section id="featured">
-          <Featured />
-        </section>
-        <section id="projects">
-          <Projects />
-        </section>
-        <section id="achievements">
-          <AchievementsTimeline />
-        </section>
-        <section id="certificates">
-          <Certificates />
-        </section>
-      </main>
-      <Footer />
+    <div className="app-wrap" style={{ position: 'relative' }}>
+      <FloatingCircles />
+      <div style={{ position: 'relative', zIndex: 1 }}>
+        <Navbar />
+        <main>
+          <section id="home"><Home /></section>
+          <section id="skills"><Skills /></section>
+          <section id="featured"><Featured /></section>
+          <section id="projects"><Projects /></section>
+          <section id="achievements"><AchievementsTimeline /></section>
+          <section id="certificates"><Certificates /></section>
+        </main>
+        <Footer />
+      </div>
     </div>
   );
 };
