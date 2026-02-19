@@ -313,7 +313,7 @@ function CertCard({ item, onExpand }) {
         <div
           onClick={() => onExpand(item)}
           title="View full image"
-          style={{ flexShrink: 0, position: 'relative', cursor: 'zoom-in' }}
+          style={{ flexShrink: 0, position: 'relative', cursor: 'pointer' }}
         >
           <div style={{
             width: '90px', height: '90px', borderRadius: '9px', overflow: 'hidden',
