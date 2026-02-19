@@ -28,7 +28,7 @@ const POSTS = [
   },
 ];
 
-const LINKEDIN_URL = 'https://www.linkedin.com/in/YOUR_PROFILE'; // ← replace with your URL
+const LINKEDIN_URL = 'https://www.linkedin.com/in/aravind-nandakumar/'; // ← replace with your URL
 
 function LinkedInIcon() {
   return (

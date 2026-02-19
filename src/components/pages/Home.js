@@ -45,13 +45,13 @@ function Home() {
           <p className="hero-tagline">{TAGLINE}</p>
           <p className="hero-bio">{BIO}</p>
           <div className="hero-links">
-          <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="hero-link" aria-label="GitHub">
+          <a href="https://github.com/Aravind-BN" target="_blank" rel="noopener noreferrer" className="hero-link" aria-label="GitHub">
             <i className="fab fa-github" />
           </a>
           <a href="https://www.linkedin.com/in/aravind-nandakumar-a8ba05226/" target="_blank" rel="noopener noreferrer" className="hero-link" aria-label="LinkedIn">
             <i className="fab fa-linkedin-in" />
           </a>
-          <a href="mailto:bellam_nandakumar_aravind@s2021.sst.edu.sg" className="hero-link" aria-label="Email">
+          <a href="mailto:aravindbn54@gmail.com" className="hero-link" aria-label="Email">
             <i className="fas fa-envelope" />
           </a>
           </div>

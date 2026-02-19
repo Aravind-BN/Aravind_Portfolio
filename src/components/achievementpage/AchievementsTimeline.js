@@ -23,6 +23,7 @@ const TIMELINE = [
     year: '2023',
     items: [
       { text: 'Became Blue House Vice-Captain. Led Inter-House Cheer & Dance rehearsals and chaired S2 OEE training, recce and hike.', tag: 'Leadership' },
+      { text: "Represented SST House for Hwa Chong Institution's 28th Edition Student Leader Convention 2023.", tag: 'Leadership' },
       { text: 'Wide range of activities: Games Carnival, Inter-House Cheerleading, OBS, SEP Dragonboat, Sec 2 OEE Camp as facilitator, Technopreneurship Programme.', tag: 'Activities' },
       { text: 'Represented SST at NSG Football B Division (League 5) and in the international C.B. Paul Science Quiz.', tag: 'Sports' },
       { text: "GrowCalth selected as top 3 in SSTInc — earned a learning trip to San Francisco and DeveloperWeek 2023. Received the Eagles Award.", tag: 'Project' },
