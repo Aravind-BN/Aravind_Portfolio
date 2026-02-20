@@ -40,25 +40,29 @@
 .project-chevron {
   font-size: 0.75rem;
   color: #71717a;
-  transition: transform 0.2s;
+  flex-shrink: 0;
 }
 
 .project-item.expanded .project-chevron {
   color: #a78bfa;
 }
 
+/* ── Expanded panel ── */
 .project-details {
-  padding: 1.5rem 0 1.5rem 0;
-  margin-top: -0.5rem;
+  padding: 0 0 1.75rem 0;
+  margin-top: -0.25rem;
   border-top: 1px solid rgba(255, 255, 255, 0.04);
   animation: expandIn 0.2s ease-out;
+  /* Prevent any child from overflowing the section width */
+  overflow: hidden;
 }
 
 @keyframes expandIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
+/* ── Single image card ── */
 .project-image-wrap {
   position: relative;
   width: 100%;
@@ -66,7 +70,7 @@
   border-radius: 10px;
   overflow: hidden;
   background: rgba(255, 255, 255, 0.04);
-  margin-bottom: 1rem;
+  margin: 1.25rem 0;
 }
 
 .project-image {
@@ -104,33 +108,144 @@
   color: #fff;
 }
 
-.project-details .project-role,
-.project-details .project-tech {
-  font-size: 0.9rem;
-  color: #a1a1aa;
-  margin: 0 0 0.75rem 0;
+/* ── Multi-media grid ── */
+.project-media-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.4rem;
+  max-width: 480px;
+  margin: 1.25rem 0;
+  box-sizing: border-box;
 }
 
-.project-contributions {
-  font-size: 0.9rem;
-  color: #a1a1aa;
-  margin-bottom: 0.75rem;
+.project-media-cell {
+  border-radius: 8px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.04);
+  aspect-ratio: 4 / 3;
+  min-width: 0;
+  max-height: 120px;
 }
 
-.project-contributions ul {
-  margin: 0.35rem 0 0 1.25rem;
+/* Videos span all 3 columns but stay compact */
+.project-media-cell--video {
+  grid-column: 1 / -1;
+  aspect-ratio: 16 / 9;
+  max-height: 200px;
+}
+
+.project-media-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: opacity 0.2s;
+}
+
+.project-media-img:hover {
+  opacity: 0.85;
+}
+
+.project-media-video {
+  width: 100%;
+  height: 100%;
+  display: block;
+  /* cover keeps video filling the cell without letterboxing */
+  object-fit: cover;
+}
+
+/* ── Info grid ── */
+.project-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem 1.25rem;
+}
+
+.project-info-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  padding: 0.75rem 0.9rem;
+  min-width: 0;
+}
+
+/* About + Contributions span both columns */
+.project-info-block:nth-child(1),
+.project-info-block:nth-child(3) {
+  grid-column: 1 / -1;
+}
+
+.project-info-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #52525b;
+}
+
+.project-info-list {
+  list-style: none;
+  margin: 0;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
 }
 
-.project-contributions li {
-  margin-bottom: 0.25rem;
+.project-info-list li {
+  font-size: 0.875rem;
+  color: #a1a1aa;
+  padding-left: 1rem;
+  position: relative;
+  line-height: 1.5;
 }
 
+.project-info-list li::before {
+  content: '–';
+  position: absolute;
+  left: 0;
+  color: #52525b;
+}
+
+/* ── Role badge ── */
+.project-role-badge {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #c4b5fd;
+  background: rgba(124, 58, 237, 0.12);
+  border: 1px solid rgba(124, 58, 237, 0.25);
+  border-radius: 6px;
+  padding: 0.2rem 0.6rem;
+  width: fit-content;
+}
+
+/* ── Tech tags ── */
+.project-tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.project-tech-tag {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #a1a1aa;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  padding: 0.2rem 0.55rem;
+}
+
+/* ── Text links fallback ── */
 .project-links {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
-  margin-top: 0.5rem;
+  margin-top: 1rem;
 }
 
 .project-github-link {
@@ -144,8 +259,23 @@
   color: #c4b5fd;
 }
 
-@media (max-width: 480px) {
-  .project-header {
-    flex-direction: row;
+/* ── Mobile ── */
+@media (max-width: 520px) {
+  /* Images drop to 2 columns on small screens */
+  .project-media-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .project-media-cell--video {
+    grid-column: 1 / -1;
+  }
+
+  .project-info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .project-info-block:nth-child(1),
+  .project-info-block:nth-child(3) {
+    grid-column: 1;
   }
 }
