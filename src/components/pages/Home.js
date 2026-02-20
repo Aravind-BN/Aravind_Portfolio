@@ -18,7 +18,6 @@ function Home() {
         i++;
       } else {
         clearInterval(interval);
-        setCursorVisible(false);
       }
     }, 80);
     return () => clearInterval(interval);
