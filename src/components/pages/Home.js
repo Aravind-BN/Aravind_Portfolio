@@ -8,7 +8,7 @@ const BIO = 'Passionate cybersecurity student focused on ethical hacking and dig
 
 function Home() {
   const [displayName, setDisplayName] = useState('');
-  const [setCursorVisible] = useState(true);
+  const [cursorVisible, setCursorVisible] = useState(true);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
