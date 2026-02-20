@@ -8,7 +8,7 @@ const BIO = 'Passionate cybersecurity student focused on ethical hacking and dig
 
 function Home() {
   const [displayName, setDisplayName] = useState('');
-  const [cursorVisible, setCursorVisible] = useState(true);
+  const [setCursorVisible] = useState(true);
 
   useEffect(() => {
     let i = 0;

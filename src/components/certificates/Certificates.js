@@ -193,11 +193,6 @@ const ISSUER_COLORS = {
   'Hwa Chong Institution':               { bg: 'rgba(159, 26, 17, 0.1)',   color: 'rgb(230, 78, 67)', border: 'rgba(224, 87, 87, 0.35)' },
 };
 
-const CATEGORY_COLORS = {
-  technical:     { bg: 'rgba(167,139,250,0.12)', color: '#a78bfa', border: 'rgba(167,139,250,0.25)' },
-  cybersecurity: { bg: 'rgba(251,113,133,0.12)', color: '#fb7185', border: 'rgba(251,113,133,0.25)' },
-  interpersonal: { bg: 'rgba(52,211,153,0.12)',  color: '#34d399', border: 'rgba(52,211,153,0.25)' },
-};
 
 // ── Modal ────────────────────────────────────────────────────────────────────
 function ImageModal({ src, title, onClose }) {
@@ -304,7 +299,7 @@ function CertCard({ item, onExpand }) {
         )}
 
         {/* Year + issuer row */}
-        <div style={{ marginTop: '0.5rem', display: 'flex', flexDirection: 'column', gap: '0.4rem', marginTop: '0.7rem' }}>
+        <div style={{ marginTop: '0.7rem', display: 'flex', flexDirection: 'column', gap: '0.4rem'}}>
           <span style={{
             display: 'inline-block', alignSelf: 'flex-start',
             fontSize: '0.7rem', fontWeight: 600, letterSpacing: '0.03em',
