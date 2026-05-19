@@ -105,6 +105,15 @@ const CERTIFICATES = [
     year: '2026',
     credlyUrl: null,
   },
+  {
+    title: 'Using Generative AI to Secure the Network',
+    subtitle: 'LinkedIn Online Certification',
+    issuer: 'LinkedIn',
+    image: require('../../images/Aravind_GenAI_Network.png'),
+    categories: ['technical'],
+    year: '2026',
+    credlyUrl: null,
+  },
 
   // ── Cybersecurity ────────────────────────────────────────────────────────
   {
