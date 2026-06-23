@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, memo } from 'react';
 import './Projects.css';
+import useInView from '../../hooks/useInView';
 
 const PROJECTS = [
   {
@@ -15,7 +16,7 @@ const PROJECTS = [
       'Launched to over 1200 students with active daily engagement tracked via Firebase analytics.',
       'Has 2 successful launches in SST with increased engagement from the first year to second',
       'Have receieved funding from NP Sandbox worth $5000 and got our own office within Ngee Ann Polytechnic',
-      'Initially started as a project in 2022, which my groupmates and I have been continously working on for the past 4 years.'
+      'Initially started as a project in 2022, which my groupmates and I have been continously working on for the past 4 years.',
     ],
     contributions: [
       'Implemented GoogleFit Integration into Android App.',
@@ -52,11 +53,11 @@ const PROJECTS = [
     image: require('../../images/projects/crypto.png'),
     role: 'Developer',
     description: [
-      'A research-driven prototype that simulates Apple Pay\'s cryptographic payment flow using post-quantum algorithms.',
+      "A research-driven prototype that simulates Apple Pay's cryptographic payment flow using post-quantum algorithms.",
       'Built to explore how modern payment systems can be hardened against quantum computing threats.',
       'Demonstrates end-to-end key encapsulation and authenticated encryption in a payment context.',
       'Cryptographic Algorithms used: ChaCha20-Poly1305 and CRYSTALS-Kyber',
-      'Project for cryptography module in Ngee Ann Polytechnic 1.2'
+      'Project for cryptography module in Ngee Ann Polytechnic 1.2',
     ],
     contributions: [
       'Built a prototype flow that mimics Apple Pay style payments.',
@@ -78,15 +79,12 @@ const PROJECTS = [
       require('../../images/projects/sitimage4.jpeg'),
       require('../../images/projects/sitimage5.jpeg'),
     ],
-    videos: [
-      require('../../images/projects/sitvid.mp4'),
-      require('../../images/projects/sitvid2.mp4'),
-    ],
+    videos: [require('../../images/projects/sitvid.mp4'), require('../../images/projects/sitvid2.mp4')],
     role: 'Lead Developer',
     description: [
       'A climate-focused innovation project presented at the Singapore Institute of Technology (SIT).',
       'The team ideated and prototyped a solution addressing urban environmental challenges.',
-      'Selected to present at SIT\'s STEM Seeds Social Innovaters of the Future workshop on Battling Climate Change with Technology (2024), as part of a competitive cohort.',
+      "Selected to present at SIT's STEM Seeds Social Innovaters of the Future workshop on Battling Climate Change with Technology (2024), as part of a competitive cohort.",
     ],
     contributions: [
       'Contributed to concept and prototype for a climate‑focused solution.',
@@ -116,39 +114,25 @@ function resolveUrl(src) {
 }
 
 // ── Media renderer ──────────────────────────────────────────
-// Case 1: project.images array → responsive grid of images + optional video
-// Case 2: project.image (single) → image card with action buttons overlay
-// Case 3: neither → renders nothing (text links shown separately)
 function ProjectMedia({ project }) {
-  // Multi-image/video grid
   if (project.images) {
     return (
       <div className="project-media-grid">
         {project.images.map((src, i) => (
           <div key={i} className="project-media-cell">
-            <img
-              src={resolveUrl(src)}
-              alt={`${project.title} ${i + 1}`}
-              className="project-media-img"
-            />
+            <img src={resolveUrl(src)} alt={`${project.title} ${i + 1}`} className="project-media-img" />
           </div>
         ))}
-        {project.videos && project.videos.map((src, i) => (
-          <div key={i} className="project-media-cell project-media-cell--video">
-            <video
-              src={resolveUrl(src)}
-              className="project-media-video"
-              controls
-              playsInline
-              preload="metadata"
-            />
-          </div>
-        ))}
+        {project.videos &&
+          project.videos.map((src, i) => (
+            <div key={i} className="project-media-cell project-media-cell--video">
+              <video src={resolveUrl(src)} className="project-media-video" controls playsInline preload="metadata" />
+            </div>
+          ))}
       </div>
     );
   }
 
-  // Single image with action buttons
   if (project.image) {
     return (
       <div className="project-image-wrap">
@@ -172,17 +156,14 @@ function ProjectMedia({ project }) {
   return null;
 }
 
-// ── Project row ─────────────────────────────────────────────
-function ProjectRow({ project, expanded, onToggle }) {
+// ── Project row (memoized: only the row(s) whose `expanded` prop actually
+// changes re-render when the accordion is toggled) ──────────────────────
+const ProjectRow = memo(function ProjectRow({ project, expanded, onToggle }) {
   const hasMedia = project.image || project.images;
 
   return (
     <li className={`project-item${expanded ? ' expanded' : ''}`}>
-      <button
-        className="project-header"
-        onClick={() => onToggle(project.id)}
-        aria-expanded={expanded}
-      >
+      <button className="project-header" onClick={() => onToggle(project.id)} aria-expanded={expanded}>
         <span className="project-title">{project.title}</span>
         <span className="project-chevron">{expanded ? '▼' : '▶'}</span>
       </button>
@@ -192,11 +173,12 @@ function ProjectRow({ project, expanded, onToggle }) {
           <ProjectMedia project={project} />
 
           <div className="project-info-grid">
-
             <div className="project-info-block">
               <span className="project-info-label">About</span>
               <ul className="project-info-list">
-                {project.description.map((d, i) => <li key={i}>{d}</li>)}
+                {project.description.map((d, i) => (
+                  <li key={i}>{d}</li>
+                ))}
               </ul>
             </div>
 
@@ -208,7 +190,9 @@ function ProjectRow({ project, expanded, onToggle }) {
             <div className="project-info-block">
               <span className="project-info-label">Contributions</span>
               <ul className="project-info-list">
-                {project.contributions.map((c, i) => <li key={i}>{c}</li>)}
+                {project.contributions.map((c, i) => (
+                  <li key={i}>{c}</li>
+                ))}
               </ul>
             </div>
 
@@ -216,14 +200,14 @@ function ProjectRow({ project, expanded, onToggle }) {
               <span className="project-info-label">Tech Stack</span>
               <div className="project-tech-tags">
                 {project.tech.map((t, i) => (
-                  <span key={i} className="project-tech-tag">{t}</span>
+                  <span key={i} className="project-tech-tag">
+                    {t}
+                  </span>
                 ))}
               </div>
             </div>
-
           </div>
 
-          {/* Text links — only when no media AND links exist */}
           {!hasMedia && (project.href || project.websiteUrl) && (
             <div className="project-links">
               {project.href && (
@@ -238,32 +222,31 @@ function ProjectRow({ project, expanded, onToggle }) {
               )}
             </div>
           )}
-
         </div>
       )}
     </li>
   );
-}
+});
 
 // ── Page section ────────────────────────────────────────────
 function Projects() {
   const [expandedId, setExpandedId] = useState(null);
+  const [ref, inView] = useInView();
 
-  const handleToggle = (id) => {
+  const handleToggle = useCallback((id) => {
     setExpandedId((prev) => (prev === id ? null : id));
-  };
+  }, []);
 
   return (
-    <section id="projects" className="page-section projects-section">
-      <h2 className="section-heading">projects</h2>
+    <section
+      id="projects"
+      ref={ref}
+      className={`page-section projects-section reveal${inView ? ' in-view' : ''}`}
+    >
+      <h2 className="section-heading">~/projects</h2>
       <ul className="project-list">
         {PROJECTS.map((p) => (
-          <ProjectRow
-            key={p.id}
-            project={p}
-            expanded={expandedId === p.id}
-            onToggle={handleToggle}
-          />
+          <ProjectRow key={p.id} project={p} expanded={expandedId === p.id} onToggle={handleToggle} />
         ))}
       </ul>
     </section>

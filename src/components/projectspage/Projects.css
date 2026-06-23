@@ -9,7 +9,7 @@
 }
 
 .project-item {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid var(--border);
 }
 
 .project-header {
@@ -29,37 +29,43 @@
 }
 
 .project-header:hover {
-  color: #a78bfa;
+  color: var(--accent);
 }
 
 .project-title {
-  font-weight: 600;
+  font-weight: var(--fw-semibold);
   font-size: 1rem;
+  overflow-wrap: anywhere;
 }
 
 .project-chevron {
   font-size: 0.75rem;
-  color: #71717a;
+  color: var(--text-faint);
   flex-shrink: 0;
 }
 
 .project-item.expanded .project-chevron {
-  color: #a78bfa;
+  color: var(--accent);
 }
 
 /* ── Expanded panel ── */
 .project-details {
   padding: 0 0 1.75rem 0;
   margin-top: -0.25rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.04);
+  border-top: 1px solid var(--border);
   animation: expandIn 0.2s ease-out;
-  /* Prevent any child from overflowing the section width */
   overflow: hidden;
 }
 
 @keyframes expandIn {
-  from { opacity: 0; transform: translateY(-4px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ── Single image card ── */
@@ -69,7 +75,7 @@
   max-width: 390px;
   border-radius: 10px;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--surface);
   margin: 1.25rem 0;
 }
 
@@ -96,16 +102,16 @@
   width: 36px;
   height: 36px;
   border-radius: 8px;
-  background: rgba(15, 15, 18, 0.9);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: #e4e4e7;
+  background: rgba(11, 15, 12, 0.9);
+  border: 1px solid var(--border-strong);
+  color: var(--text);
   text-decoration: none;
   transition: background 0.2s, color 0.2s;
 }
 
 .project-action-btn:hover {
-  background: rgba(124, 58, 237, 0.5);
-  color: #fff;
+  background: var(--accent-glow);
+  color: var(--text);
 }
 
 /* ── Multi-media grid ── */
@@ -121,13 +127,12 @@
 .project-media-cell {
   border-radius: 8px;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--surface);
   aspect-ratio: 4 / 3;
   min-width: 0;
   max-height: 120px;
 }
 
-/* Videos span all 3 columns but stay compact */
 .project-media-cell--video {
   grid-column: 1 / -1;
   aspect-ratio: 16 / 9;
@@ -150,7 +155,6 @@
   width: 100%;
   height: 100%;
   display: block;
-  /* cover keeps video filling the cell without letterboxing */
   object-fit: cover;
 }
 
@@ -165,14 +169,13 @@
   display: flex;
   flex-direction: column;
   gap: 0.45rem;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 8px;
   padding: 0.75rem 0.9rem;
   min-width: 0;
 }
 
-/* About + Contributions span both columns */
 .project-info-block:nth-child(1),
 .project-info-block:nth-child(3) {
   grid-column: 1 / -1;
@@ -180,10 +183,10 @@
 
 .project-info-label {
   font-size: 0.7rem;
-  font-weight: 600;
+  font-weight: var(--fw-semibold);
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #52525b;
+  color: var(--text-faint);
 }
 
 .project-info-list {
@@ -197,27 +200,29 @@
 
 .project-info-list li {
   font-size: 0.875rem;
-  color: #a1a1aa;
+  font-weight: var(--fw-regular);
+  color: var(--text-muted);
   padding-left: 1rem;
   position: relative;
   line-height: 1.5;
+  overflow-wrap: anywhere;
 }
 
 .project-info-list li::before {
   content: '–';
   position: absolute;
   left: 0;
-  color: #52525b;
+  color: var(--text-faint);
 }
 
 /* ── Role badge ── */
 .project-role-badge {
   display: inline-block;
   font-size: 0.8rem;
-  font-weight: 500;
-  color: #c4b5fd;
-  background: rgba(124, 58, 237, 0.12);
-  border: 1px solid rgba(124, 58, 237, 0.25);
+  font-weight: var(--fw-medium);
+  color: var(--accent-strong);
+  background: var(--accent-soft);
+  border: 1px solid rgba(217, 142, 63, 0.3);
   border-radius: 6px;
   padding: 0.2rem 0.6rem;
   width: fit-content;
@@ -232,10 +237,10 @@
 
 .project-tech-tag {
   font-size: 0.75rem;
-  font-weight: 500;
-  color: #a1a1aa;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-weight: var(--fw-medium);
+  color: var(--text-muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 5px;
   padding: 0.2rem 0.55rem;
 }
@@ -250,18 +255,18 @@
 
 .project-github-link {
   font-size: 0.9rem;
-  color: #a78bfa;
+  font-weight: var(--fw-medium);
+  color: var(--accent-teal);
   text-decoration: none;
   transition: color 0.2s;
 }
 
 .project-github-link:hover {
-  color: #c4b5fd;
+  color: var(--accent-teal-strong);
 }
 
 /* ── Mobile ── */
 @media (max-width: 520px) {
-  /* Images drop to 2 columns on small screens */
   .project-media-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }

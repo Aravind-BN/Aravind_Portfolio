@@ -5,25 +5,82 @@
 }
 
 :root {
-  --bg-start: #0f0f12;
-  --bg-end: #1a1a22;
-  --text: #e4e4e7;
-  --text-muted: #a1a1aa;
-  --accent: #7c3aed;
-  --accent-hover: #8b5cf6;
-  --border: rgba(255, 255, 255, 0.06);
+  /* ---- color tokens ---- */
+  --bg-deep: #0b0f0c;
+  --bg-mid: #131810;
+  --text: #ece7da;
+  --text-muted: #9a9c8d;
+  --text-faint: #5b5e52;
+
+  --accent: #d98e3f;
+  --accent-strong: #f0ab5e;
+  --accent-soft: rgba(217, 142, 63, 0.14);
+  --accent-glow: rgba(217, 142, 63, 0.35);
+
+  --accent-teal: #4fa3a1;
+  --accent-teal-strong: #7cc4c2;
+  --accent-teal-soft: rgba(79, 163, 161, 0.14);
+  --accent-teal-glow: rgba(79, 163, 161, 0.35);
+
+  --border: rgba(255, 255, 255, 0.07);
+  --border-strong: rgba(255, 255, 255, 0.16);
+  --surface: rgba(255, 255, 255, 0.035);
+  --surface-hover: rgba(255, 255, 255, 0.055);
+
+  /* ---- type tokens ---- */
+  --font-display: 'Space Grotesk', 'Segoe UI', sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+}
+
+html,
+body {
+  /* Defensive guard: nothing in this layout should ever need to scroll sideways */
+  overflow-x: hidden;
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: var(--font-body);
+  font-weight: var(--fw-regular);
   color: var(--text);
   -webkit-font-smoothing: antialiased;
 }
 
-/* Single gradient background for whole page */
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: var(--fw-bold);
+  color: var(--text);
+}
+
+a {
+  color: inherit;
+}
+
+/* Single ambient background for the whole page. Two soft, named accent
+   glows (amber + teal) sit behind the floating-circle canvas so the
+   palette reads as one deliberate atmosphere rather than a flat gradient. */
 .app-wrap {
+  position: relative;
   min-height: 100vh;
-  background: linear-gradient(180deg, var(--bg-start) 0%, var(--bg-end) 50%, var(--bg-start) 100%);
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  background: radial-gradient(circle at 18% 8%, rgba(217, 142, 63, 0.08), transparent 45%),
+    radial-gradient(circle at 82% 65%, rgba(79, 163, 161, 0.07), transparent 50%),
+    linear-gradient(180deg, var(--bg-mid) 0%, var(--bg-deep) 45%, #07090a 100%);
+}
+
+.app-content {
+  position: relative;
+  z-index: 1;
 }
 
 /* Section layout: max-width, left-aligned heading */
@@ -34,11 +91,32 @@ body {
 }
 
 .section-heading {
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.04em;
   text-transform: lowercase;
-  color: var(--text-muted);
+  color: var(--accent);
   margin-bottom: 1.5rem;
   text-align: left;
+}
+
+/* ---- scroll reveal (single, restrained motion pattern reused by every section) ---- */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
 }

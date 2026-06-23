@@ -12,15 +12,16 @@
   display: inline-block;
   padding: 0.4rem 0.85rem;
   font-size: 0.85rem;
-  color: #a1a1aa;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-weight: var(--fw-medium);
+  color: var(--text-muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 6px;
   transition: color 0.2s, border-color 0.2s, background 0.2s;
 }
 
 .skill-tag:hover {
-  color: #e4e4e7;
-  border-color: rgba(124, 58, 237, 0.4);
-  background: rgba(124, 58, 237, 0.08);
+  color: var(--text);
+  border-color: var(--accent-soft);
+  background: var(--accent-soft);
 }
