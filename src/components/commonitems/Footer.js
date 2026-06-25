@@ -4,7 +4,7 @@ import './Footer.css';
 
 function Footer() {
   return (
-    <div className='footer-container'>
+    <footer className='footer-container'>
       <div className="social-media">
         <div className="social-media-wrap">
           <small className="website-rights">
@@ -12,7 +12,7 @@ function Footer() {
           </small>
         </div>
       </div>
-    </div>
+    </footer>
   );
 }
 

@@ -33,10 +33,17 @@ function Navbar() {
         >
           ~/aravind
         </button>
-        <div className="menu-icon" onClick={toggleMobileMenu} aria-label="Menu">
+        <button
+          type="button"
+          className="menu-icon"
+          onClick={toggleMobileMenu}
+          aria-label="Toggle navigation menu"
+          aria-expanded={click}
+          aria-controls="primary-navigation"
+        >
           <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
-        </div>
-        <ul className={click ? 'nav-menu active' : 'nav-menu'}>
+        </button>
+        <ul id="primary-navigation" className={click ? 'nav-menu active' : 'nav-menu'}>
           <li>
             <button
               type="button"

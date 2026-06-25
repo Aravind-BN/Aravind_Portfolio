@@ -1,4 +1,5 @@
-import React, { useState, useMemo, useCallback, memo } from 'react';
+import React, { useState, useMemo, useCallback, useEffect, useRef, memo } from 'react';
+import { createPortal } from 'react-dom';
 import placeholder from '../../images/placeholder';
 import './Certificates.css';
 import useInView from '../../hooks/useInView';
@@ -212,8 +213,34 @@ const FALLBACK_ISSUER_STYLE = {
 
 // ── Modal ────────────────────────────────────────────────────────────────────
 const ImageModal = memo(function ImageModal({ src, title, onClose }) {
-  return (
-    <div className="cert-modal-overlay" onClick={onClose}>
+  const closeButtonRef = useRef(null);
+
+  useEffect(() => {
+    const previouslyFocused = document.activeElement;
+    closeButtonRef.current?.focus();
+
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') onClose();
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      if (previouslyFocused && typeof previouslyFocused.focus === 'function') {
+        previouslyFocused.focus();
+      }
+    };
+  }, [onClose]);
+
+  return createPortal(
+    <div
+      className="cert-modal-overlay"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-label={title}
+    >
       <div className="cert-modal-content" onClick={(e) => e.stopPropagation()}>
         <img
           src={src}
@@ -223,11 +250,12 @@ const ImageModal = memo(function ImageModal({ src, title, onClose }) {
           }}
           className="cert-modal-image"
         />
-        <button className="cert-modal-close" onClick={onClose} aria-label="Close">
+        <button ref={closeButtonRef} type="button" className="cert-modal-close" onClick={onClose} aria-label="Close">
           ✕
         </button>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 });
 
@@ -315,8 +343,10 @@ function Certificates() {
         {FILTERS.map((f) => (
           <button
             key={f}
+            type="button"
             onClick={() => setFilter(f)}
             className={`cert-filter-btn${filter === f ? ' active' : ''}`}
+            aria-pressed={filter === f}
           >
             {f}
           </button>

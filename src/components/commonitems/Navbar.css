@@ -61,6 +61,10 @@
 
 .menu-icon {
   display: none;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
   background: none;
   border: none;
   color: var(--text);
@@ -71,7 +75,7 @@
 
 @media (max-width: 640px) {
   .menu-icon {
-    display: block;
+    display: flex;
   }
 
   .nav-menu {
