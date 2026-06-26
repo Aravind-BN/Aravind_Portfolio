@@ -44,6 +44,7 @@ function Home() {
           </h1>
           <p className="hero-tagline">{TAGLINE}</p>
           <p className="hero-bio">{BIO}</p>
+          <p className="hero-hint"><em>Press <kbd>/</kbd> to jump around</em></p>
           <div className="hero-links">
             <a
               href="https://github.com/Aravind-BN"

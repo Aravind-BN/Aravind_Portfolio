@@ -85,7 +85,7 @@ a {
 
 /* Section layout: max-width, left-aligned heading */
 .page-section {
-  max-width: 960px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 4rem 1.5rem 5rem;
 }
@@ -119,4 +119,29 @@ a {
     opacity: 1;
     transform: none;
   }
+}
+
+/* Spotlight hover utility: paint-only cursor-following glow. */
+
+.spotlight::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  border-radius: inherit;
+  background: radial-gradient(600px circle at var(--mx) var(--my), var(--accent-glow), transparent 20%);
+  mix-blend-mode: screen;
+  opacity: 0.95;
+  transition: opacity 180ms ease;
+}
+
+@media (hover: none) {
+  .spotlight::after { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spotlight::after { transition: none; }
 }

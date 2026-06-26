@@ -1,0 +1,124 @@
+.cmdk-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  background: rgba(7, 9, 10, 0.7);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 12vh 1.25rem 1.25rem;
+}
+
+.cmdk-panel {
+  width: 100%;
+  max-width: 480px;
+  background: var(--bg-mid);
+  border: 1px solid var(--border-strong);
+  border-radius: 12px;
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.55);
+  overflow: hidden;
+}
+
+.cmdk-input-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.9rem 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.cmdk-prompt {
+  font-family: var(--font-mono);
+  font-weight: var(--fw-semibold);
+  color: var(--accent);
+}
+
+.cmdk-input {
+  flex: 1;
+  min-width: 0;
+  background: none;
+  border: none;
+  outline: none;
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: var(--fw-regular);
+  color: var(--text);
+}
+
+.cmdk-input::placeholder {
+  color: var(--text-faint);
+}
+
+.cmdk-esc {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: var(--fw-medium);
+  color: var(--text-faint);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.15rem 0.4rem;
+}
+
+.cmdk-list {
+  list-style: none;
+  margin: 0;
+  padding: 0.4rem;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.cmdk-empty {
+  padding: 1rem;
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: var(--fw-regular);
+  color: var(--text-faint);
+}
+
+.cmdk-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 44px;
+  padding: 0.6rem 0.75rem;
+  background: none;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+  color: var(--text-muted);
+  transition: background 0.15s, color 0.15s;
+}
+
+.cmdk-item:hover,
+.cmdk-item.active {
+  background: var(--accent-soft);
+  color: var(--text);
+}
+
+.cmdk-item-label {
+  font-size: 0.9rem;
+  font-weight: var(--fw-medium);
+}
+
+.cmdk-item-hint {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: var(--fw-regular);
+  color: var(--text-faint);
+}
+
+.cmdk-item.active .cmdk-item-hint,
+.cmdk-item:hover .cmdk-item-hint {
+  color: var(--accent-strong);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cmdk-overlay {
+    backdrop-filter: none;
+  }
+}

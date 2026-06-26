@@ -8,7 +8,7 @@
 }
 
 .navbar-inner {
-  max-width: 960px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 1rem 1.5rem;
   display: flex;
@@ -72,6 +72,7 @@
   cursor: pointer;
   padding: 0.5rem;
 }
+
 
 @media (max-width: 640px) {
   .menu-icon {
