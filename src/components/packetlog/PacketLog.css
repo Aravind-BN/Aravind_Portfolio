@@ -1,0 +1,273 @@
+.scan-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  font-family: var(--font-mono);
+  max-width: 900px;
+}
+
+.scan-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 1rem;
+  background: rgba(255, 255, 255, 0.02);
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+
+.scan-title {
+  font-size: 0.7rem;
+  font-weight: var(--fw-semibold);
+  color: var(--accent);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.scan-cmd {
+  font-size: 0.68rem;
+  color: var(--text-faint);
+}
+
+.scan-meta {
+  margin-left: auto;
+  font-size: 0.65rem;
+  font-weight: var(--fw-medium);
+  color: var(--accent);
+  letter-spacing: 0.04em;
+}
+
+.scan-meta.done {
+  color: var(--accent-teal);
+}
+
+.scan-columns {
+  display: grid;
+  grid-template-columns: 120px 1fr 100px 90px;
+  gap: 0.5rem;
+  padding: 0.4rem 1rem;
+  font-size: 0.6rem;
+  font-weight: var(--fw-semibold);
+  color: var(--text-faint);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--border);
+}
+
+.scan-results {
+  min-height: 120px;
+}
+
+.scan-host {
+  border-bottom: 1px solid var(--border);
+}
+
+.scan-host:last-child {
+  border-bottom: none;
+}
+
+.scan-host-header {
+  display: grid;
+  grid-template-columns: 120px 1fr 100px 90px 24px;
+  gap: 0.5rem;
+  align-items: center;
+  width: 100%;
+  padding: 0.55rem 1rem;
+  background: none;
+  border: none;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text);
+  cursor: pointer;
+  transition: background 0.15s;
+  text-align: left;
+}
+
+.scan-host-header:hover {
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.scan-host-ip {
+  color: var(--text-muted);
+}
+
+.scan-host-name {
+  color: var(--text);
+  font-weight: var(--fw-semibold);
+}
+
+.scan-host-risk {
+  font-size: 0.65rem;
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.04em;
+}
+
+.scan-green { color: var(--accent-teal); }
+.scan-teal { color: #7cc4c2; }
+.scan-amber { color: var(--accent); }
+.scan-muted { color: var(--text-faint); }
+
+.scan-host-latency {
+  color: var(--text-faint);
+  font-size: 0.68rem;
+  text-align: right;
+}
+
+.scan-chevron {
+  color: var(--text-faint);
+  font-size: 0.6rem;
+  text-align: center;
+}
+
+.scan-host-detail {
+  padding: 0 1rem 0.75rem 1rem;
+  animation: scan-fadeIn 0.25s ease;
+}
+
+.scan-ports {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-bottom: 0.6rem;
+}
+
+.scan-port-row {
+  display: grid;
+  grid-template-columns: 55px 40px 48px 100px 1fr;
+  gap: 0.5rem;
+  padding: 0.3rem 0.75rem;
+  font-size: 0.7rem;
+  border-left: 2px solid var(--border-strong);
+}
+
+.scan-port-num {
+  color: var(--text-muted);
+  font-weight: var(--fw-semibold);
+}
+
+.scan-port-proto {
+  color: var(--text-faint);
+}
+
+.scan-port-state {
+  color: var(--accent-teal);
+  font-weight: var(--fw-medium);
+  font-size: 0.65rem;
+}
+
+.scan-port-svc {
+  color: var(--accent);
+  font-weight: var(--fw-medium);
+}
+
+.scan-port-detail {
+  color: var(--text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.scan-navigate-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.35rem 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: var(--fw-medium);
+  color: var(--accent);
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-glow);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.scan-navigate-btn:hover {
+  background: var(--accent-glow);
+  border-color: var(--accent);
+}
+
+.scan-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.75rem 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.scan-summary-line {
+  font-size: 0.65rem;
+  color: var(--text-faint);
+  letter-spacing: 0.1em;
+  margin-bottom: 0.15rem;
+}
+
+.scan-summary-stat {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+}
+
+.scan-nav {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-top: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+
+.scan-nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.scan-nav-btn:hover {
+  color: var(--accent);
+  border-color: var(--accent-soft);
+}
+
+.scan-nav-ip {
+  color: var(--text-faint);
+}
+
+@keyframes scan-fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (max-width: 768px) {
+  .scan-columns {
+    display: none;
+  }
+
+  .scan-host-header {
+    grid-template-columns: 1fr auto;
+    gap: 0.4rem;
+  }
+
+  .scan-host-ip,
+  .scan-host-latency {
+    display: none;
+  }
+
+  .scan-port-row {
+    grid-template-columns: 45px 1fr;
+  }
+
+  .scan-port-proto,
+  .scan-port-state,
+  .scan-port-svc {
+    display: none;
+  }
+}

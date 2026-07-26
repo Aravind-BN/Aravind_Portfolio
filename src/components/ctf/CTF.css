@@ -1,0 +1,351 @@
+/* ═══════════════════════════════════════════════════════════════
+   CTF — Flag input, ACCESS GRANTED, hidden section, terminal theme
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Flag input overlay ──────────────────────────────────────── */
+.ctf-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  animation: ctf-fadeIn 0.2s ease;
+}
+
+.ctf-panel {
+  background: var(--bg-mid);
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  width: 360px;
+  max-width: 90vw;
+  font-family: var(--font-mono);
+  animation: ctf-slideUp 0.25s ease;
+}
+
+.ctf-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.ctf-panel-title {
+  font-size: 0.7rem;
+  font-weight: var(--fw-semibold);
+  color: var(--accent);
+  letter-spacing: 0.06em;
+}
+
+.ctf-panel-close {
+  background: none;
+  border: none;
+  color: var(--text-faint);
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 0.2rem;
+  line-height: 1;
+  transition: color 0.15s;
+}
+
+.ctf-panel-close:hover {
+  color: var(--text);
+}
+
+.ctf-panel-body {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.ctf-label {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+}
+
+.ctf-flag-input {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  padding: 0.55rem 0.75rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.ctf-flag-input:focus {
+  border-color: var(--accent);
+}
+
+.ctf-flag-input--error {
+  border-color: #f87171;
+  animation: ctf-shake 0.3s ease;
+}
+
+.ctf-error {
+  font-size: 0.7rem;
+  color: #f87171;
+  letter-spacing: 0.02em;
+}
+
+.ctf-submit {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: var(--fw-semibold);
+  padding: 0.5rem 1rem;
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-glow);
+  border-radius: 4px;
+  color: var(--accent);
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.ctf-submit:hover {
+  background: var(--accent-glow);
+  border-color: var(--accent);
+}
+
+/* ── ACCESS GRANTED overlay ──────────────────────────────────── */
+.ctf-granted {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+  animation: ctf-grantedIn 0.3s ease;
+}
+
+.ctf-granted-inner {
+  text-align: center;
+}
+
+.ctf-granted-icon {
+  font-size: 3rem;
+  color: var(--accent-teal);
+  margin-bottom: 1rem;
+  animation: ctf-pulse 1s ease-in-out infinite;
+}
+
+.ctf-granted-title {
+  font-family: var(--font-mono);
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
+  font-weight: var(--fw-bold);
+  color: var(--accent-teal);
+  letter-spacing: 0.15em;
+  margin-bottom: 0.5rem;
+}
+
+.ctf-granted-sub {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+}
+
+/* ── Hidden section ──────────────────────────────────────────── */
+.ctf-secret-section {
+  animation: ctf-fadeIn 0.6s ease;
+}
+
+.ctf-secret-card {
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  padding: 2rem;
+  max-width: 640px;
+}
+
+.ctf-secret-msg {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+.ctf-secret-msg:last-of-type {
+  margin-bottom: 1.5rem;
+}
+
+.ctf-secret-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: var(--fw-semibold);
+  color: var(--text-faint);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+
+.ctf-secret-contact {
+  margin-bottom: 1.25rem;
+}
+
+.ctf-secret-email {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent-soft);
+  transition: border-color 0.15s;
+}
+
+.ctf-secret-email:hover {
+  border-color: var(--accent);
+}
+
+.ctf-secret-phone {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent-soft);
+  transition: border-color 0.15s;
+  margin-top: 0.3rem;
+}
+
+.ctf-secret-phone:hover {
+  border-color: var(--accent);
+}
+
+/* ── Terminal theme toggle ───────────────────────────────────── */
+.ctf-secret-theme {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.ctf-theme-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.ctf-theme-track {
+  position: relative;
+  width: 36px;
+  height: 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.ctf-theme-btn.active .ctf-theme-track {
+  background: var(--accent-teal-soft);
+  border-color: var(--accent-teal);
+}
+
+.ctf-theme-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--text-faint);
+  transition: transform 0.2s, background 0.2s;
+}
+
+.ctf-theme-btn.active .ctf-theme-thumb {
+  transform: translateX(16px);
+  background: var(--accent-teal);
+}
+
+.ctf-theme-state {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: var(--fw-medium);
+  color: var(--text-faint);
+  letter-spacing: 0.04em;
+}
+
+/* ── Animations ──────────────────────────────────────────────── */
+@keyframes ctf-fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes ctf-slideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes ctf-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+}
+
+@keyframes ctf-grantedIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes ctf-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.05); }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   TERMINAL THEME — green-on-black override
+   ═══════════════════════════════════════════════════════════════ */
+body.terminal-theme {
+  --bg-deep: #000000;
+  --bg-mid: #000a00;
+  --text: #00ff41;
+  --text-muted: #00cc33;
+  --text-faint: #005522;
+
+  --accent: #00ff41;
+  --accent-strong: #33ff66;
+  --accent-soft: rgba(0, 255, 65, 0.1);
+  --accent-glow: rgba(0, 255, 65, 0.3);
+
+  --accent-teal: #00ff41;
+  --accent-teal-strong: #33ff66;
+  --accent-teal-soft: rgba(0, 255, 65, 0.1);
+  --accent-teal-glow: rgba(0, 255, 65, 0.3);
+
+  --border: rgba(0, 255, 65, 0.08);
+  --border-strong: rgba(0, 255, 65, 0.18);
+  --surface: rgba(0, 255, 65, 0.04);
+  --surface-hover: rgba(0, 255, 65, 0.07);
+
+  background: #000;
+}
+
+body.terminal-theme .app-wrap {
+  background: #000;
+}
+
+body.terminal-theme .hero-photo-wrap {
+  border-color: rgba(0, 255, 65, 0.15);
+}
+
+body.terminal-theme .hero-bio-tag,
+body.terminal-theme .section-heading {
+  color: #00ff41;
+}
+
+body.terminal-theme .cert-issuer-badge,
+body.terminal-theme .project-tech-tag,
+body.terminal-theme .skill-tag {
+  border-color: rgba(0, 255, 65, 0.15);
+}

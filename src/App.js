@@ -9,6 +9,7 @@ import AchievementsTimeline from './components/achievementpage/AchievementsTimel
 import Footer from './components/commonitems/Footer';
 import FloatingCircles from './FloatingCircles';
 import CommandPalette from './components/commonitems/CommandPalette';
+import CTF from './components/ctf/CTF';
 
 
 const App = () => {
@@ -52,6 +53,7 @@ const App = () => {
       </div>
 
       <CommandPalette open={paletteOpen} onClose={closePalette} />
+      <CTF />
     </div>
   );
 };

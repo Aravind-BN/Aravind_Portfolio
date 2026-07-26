@@ -1,0 +1,83 @@
+.enc-reveal {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  font-family: var(--font-mono);
+  max-width: 720px;
+}
+
+.enc-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 1rem;
+  background: rgba(255, 255, 255, 0.02);
+  border-bottom: 1px solid var(--border);
+}
+
+.enc-tag {
+  font-size: 0.7rem;
+  font-weight: var(--fw-semibold);
+  color: var(--accent);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.enc-status {
+  font-size: 0.7rem;
+  font-weight: var(--fw-medium);
+  color: var(--accent);
+  letter-spacing: 0.04em;
+  animation: enc-blink 1s step-end infinite;
+}
+
+.enc-status.done {
+  color: var(--accent-teal);
+  animation: none;
+}
+
+.enc-progress {
+  margin-left: auto;
+  font-size: 0.7rem;
+  color: var(--text-faint);
+}
+
+.enc-body {
+  padding: 1.25rem 1rem;
+  min-height: 3.5rem;
+}
+
+.enc-text {
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: var(--text);
+  word-break: break-word;
+  white-space: pre-wrap;
+}
+
+.enc-footer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.enc-label {
+  font-size: 0.65rem;
+  font-weight: var(--fw-medium);
+  color: var(--text-faint);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.enc-dots {
+  font-size: 0.6rem;
+  color: var(--accent);
+  letter-spacing: 0.15em;
+}
+
+@keyframes enc-blink {
+  50% { opacity: 0.4; }
+}

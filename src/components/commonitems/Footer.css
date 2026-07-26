@@ -39,3 +39,27 @@
 .social-icon-link:hover {
   color: var(--accent);
 }
+
+.footer-ctf-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.15rem;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--text-faint);
+  letter-spacing: 0.04em;
+  margin-top: 0.25rem;
+}
+
+.footer-ctf-bracket {
+  color: var(--text-faint);
+}
+
+.footer-ctf-blink {
+  animation: ctf-blink 2s step-end infinite;
+}
+
+@keyframes ctf-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.2; }
+}
