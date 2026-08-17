@@ -158,6 +158,39 @@
   animation: ctf-fadeIn 0.6s ease;
 }
 
+.ctf-secret-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.ctf-secret-header .section-heading {
+  margin-bottom: 0;
+}
+
+.ctf-secret-close {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  color: var(--text-faint);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.ctf-secret-close:hover {
+  color: var(--text);
+  border-color: var(--border-strong);
+}
+
 .ctf-secret-card {
   background: var(--surface);
   border: 1px solid var(--border-strong);
@@ -342,6 +375,47 @@ body.terminal-theme .hero-photo-wrap {
 body.terminal-theme .hero-bio-tag,
 body.terminal-theme .section-heading {
   color: #00ff41;
+}
+
+/* Light mode + terminal theme together: the base rules above force full
+   black regardless of the light-theme toggle, which made the terminal
+   easter egg (and its falling-binary canvas effect) feel dark-mode-only.
+   This combo selector has higher specificity than either alone, so it
+   wins whenever both are active — light backdrop stays, green accent is
+   darkened enough to stay readable on white. The canvas rain itself was
+   never theme-gated; it just had no legible surface to fall over. */
+body.light-theme.terminal-theme {
+  --bg-deep: #ffffff;
+  --bg-mid: #f2f7f3;
+  --text: #0a3d1c;
+  --text-muted: #146830;
+  --text-faint: #4a8a5e;
+
+  --accent: #0a8a3a;
+  --accent-strong: #067a30;
+  --accent-soft: rgba(10, 138, 58, 0.1);
+  --accent-glow: rgba(10, 138, 58, 0.25);
+
+  --accent-teal: #0a8a3a;
+  --accent-teal-strong: #067a30;
+  --accent-teal-soft: rgba(10, 138, 58, 0.1);
+  --accent-teal-glow: rgba(10, 138, 58, 0.25);
+
+  --border: rgba(10, 138, 58, 0.2);
+  --border-strong: rgba(10, 138, 58, 0.35);
+  --surface: rgba(10, 138, 58, 0.05);
+  --surface-hover: rgba(10, 138, 58, 0.08);
+
+  background: #ffffff;
+}
+
+body.light-theme.terminal-theme .app-wrap {
+  background: #ffffff;
+}
+
+body.light-theme.terminal-theme .hero-bio-tag,
+body.light-theme.terminal-theme .section-heading {
+  color: #067a30;
 }
 
 body.terminal-theme .cert-issuer-badge,

@@ -4,10 +4,17 @@ import './CTF.css';
 const FLAG = 'FLAG{c1ph3e_m4st3e}';
 const BASE64_CLUE = 'VGhlIG5leHQgaW4gdGhlIHNvdXJjZS4=';
 const GRANTED_DURATION_MS = 3000;
+const SOLVED_KEY = 'ctf-solved';
 
 function CTF() {
   const [showInput, setShowInput] = useState(false);
   const [showGranted, setShowGranted] = useState(false);
+  // Solved persists across visits (no more being asked to re-solve after a
+  // reload); showHidden is just whether the secret panel is open right now,
+  // so it can be closed and reopened without losing the solved state.
+  const [solved, setSolved] = useState(() => {
+    try { return localStorage.getItem(SOLVED_KEY) === 'true'; } catch { return false; }
+  });
   const [showHidden, setShowHidden] = useState(false);
   const [flagValue, setFlagValue] = useState('');
   const [flagError, setFlagError] = useState(false);
@@ -32,17 +39,22 @@ function CTF() {
     );
   }, []);
 
-  // Ctrl+Shift+F listener
+  // Ctrl+Shift+F listener — once solved, this just reopens the secret
+  // panel directly; it never asks for the flag again.
   useEffect(() => {
     const handler = (e) => {
       if (e.ctrlKey && e.shiftKey && e.key === 'F') {
         e.preventDefault();
-        setShowInput(true);
+        if (solved) {
+          setShowHidden((v) => !v);
+        } else {
+          setShowInput(true);
+        }
       }
     };
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
-  }, []);
+  }, [solved]);
 
   // Terminal theme persistence
   useEffect(() => {
@@ -65,6 +77,9 @@ function CTF() {
       setShowGranted(true);
       setTimeout(() => {
         setShowGranted(false);
+        setSolved(true);
+        try { localStorage.setItem(SOLVED_KEY, 'true'); } catch {}
+        window.dispatchEvent(new Event('ctf-solved'));
         setShowHidden(true);
       }, GRANTED_DURATION_MS);
     } else {
@@ -78,6 +93,8 @@ function CTF() {
     setFlagValue('');
     setFlagError(false);
   }, []);
+
+  const closeHidden = useCallback(() => setShowHidden(false), []);
 
   return (
     <>
@@ -132,7 +149,12 @@ function CTF() {
       {showHidden && (
         <section className="ctf-secret-section">
           <div className="page-section">
-            <h2 className="section-heading">~/you-found-it</h2>
+            <div className="ctf-secret-header">
+              <h2 className="section-heading">~/you-found-it</h2>
+              <button className="ctf-secret-close" onClick={closeHidden} aria-label="Close">
+                ✕
+              </button>
+            </div>
             <div className="ctf-secret-card">
               <p className="ctf-secret-msg">
                 Congratulations, you beat my system!
