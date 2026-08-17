@@ -1,81 +1,351 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback, useRef, memo } from 'react';
+import { createPortal } from 'react-dom';
 import './AchievementsTimeline.css';
-import useInView from '../../hooks/useInView';
 
-const TIMELINE = [
+// Years walked through in the horizontal journey. 2021 is skipped — no
+// photos exist for it yet; the journey starts where the photo record does.
+const YEAR_DATA = [
   {
-    year: '2025',
-    items: [
-      { text: 'Received O-Level results (Raw 10, nett 6) and joined Ngee Ann Polytechnic Cybersecurity & Digital Forensics. Accepted as a CSIT scholar.', tag: 'Academic' },
-      { text: 'GrowCalth Launch 2: ~1,200 sign-ups, ~160,000 km walked, ~210 million steps. Secured $5,000 from NP Sandbox and an office at NP Spark; became lead Android developer.', tag: 'Project' },
-      { text: "Maintained 4.0 GPA in Semester 1 and made the Director's List. Represented Westville Rovers at JSSL U16 and travelled to Vietnam with NP.", tag: 'Achievement' },
-      { text: 'Received SST Outstanding Leadership Award (SOLA) for 2024 contributions and began working on online certifications.', tag: 'Leadership' },
-    ],
-  },
-  {
-    year: '2024',
-    items: [
-      { text: 'Upper Sec Blue House Vice-Captain and Vice-Chairperson for Upper Sec Inter-House Games; continued to lead and support house events.', tag: 'Leadership' },
-      { text: 'Represented SST at NSG Football Championships B Division Boys (League 4) and achieved strong team results.', tag: 'Sports' },
-      { text: 'Perse Coding Team Challenge: Gold in Round 1 and Bronze in the Final Round at international level.', tag: 'Competition' },
-      { text: 'Volunteered at Willing Hearts and SST Open House. GrowCalth first public launch: ~800 sign-ups, ~12,000 km walked, ~16 million steps. Completed O Levels.', tag: 'Project' },
-    ],
+    year: '2022',
+    highlight:
+      "Blue House Junior House Leader; started GrowCalth with friends; represented SST at NSG Football C Division (West Zone); joined SSTInc to deepen programming skills under mentorship.",
   },
   {
     year: '2023',
-    items: [
-      { text: 'Became Blue House Vice-Captain. Led Inter-House Cheer & Dance rehearsals and chaired S2 OEE training, recce and hike.', tag: 'Leadership' },
-      { text: "Represented SST House for Hwa Chong Institution's 28th Edition Student Leader Convention 2023.", tag: 'Leadership' },
-      { text: 'Wide range of activities: Games Carnival, Inter-House Cheerleading, OBS, SEP Dragonboat, Sec 2 OEE Camp as facilitator, Technopreneurship Programme.', tag: 'Activities' },
-      { text: 'Represented SST at NSG Football B Division (League 5) and in the international C.B. Paul Science Quiz.', tag: 'Sports' },
-      { text: 'GrowCalth selected as top 3 in SSTInc — earned a learning trip to San Francisco and DeveloperWeek 2023. Received the Eagles Award.', tag: 'Project' },
-    ],
+    highlight:
+      "Blue House Vice-Captain; GrowCalth selected top 3 in SSTInc — earned a trip to San Francisco & DeveloperWeek; received the Eagles Award; competed in SASMO and the Perse Competition; represented SST at Hwa Chong's Student Leaders Convention.",
   },
   {
-    year: '2022',
-    items: [
-      { text: 'Served as Blue House Junior House Leader (JHL), helping organise Inter-House Cheerleading and OEE.', tag: 'Leadership' },
-      { text: 'Completed two leadership modules and represented SST at NSG Football C Division Boys (West Zone).', tag: 'Sports' },
-      { text: 'Sec 2 Learning Alliance Beyond Borders (LABB) with Penabur Secondary Tanjung Duren — community service.', tag: 'Service' },
-      { text: 'Started working on GrowCalth with friends, laying the groundwork for later launches.', tag: 'Project' },
-    ],
+    year: '2024',
+    highlight:
+      "GrowCalth's first public launch — 800+ sign-ups, 16M steps; Perse Coding Team Challenge gold; led Project Technogates at SIT, placing 3rd with a climate-tech prototype; completed AI for Literacy certification; completed O-Levels.",
   },
   {
-    year: '2021',
-    items: [
-      { text: 'Joined SST through DSA and represented the school at NSG Football C Division Boys (West Zone).', tag: 'Sports' },
-      { text: "Joined SSTInc, the school's incubation programme, to deepen programming skills under mentorship.", tag: 'Project' },
-    ],
+    year: '2025',
+    highlight:
+      "Joined Ngee Ann Polytechnic Cybersecurity & Digital Forensics as a CSIT scholar; GrowCalth Launch 2 — 1,200+ sign-ups, $5,000 NP Sandbox funding; made the Director's List; received SOLA; completed IBM, Cisco & Google AI certifications.",
+  },
+  {
+    year: '2026',
+    highlight:
+      'Completed the Google Cybersecurity Certificate and LinkedIn certifications in PowerShell automation, generative AI security, and Windows Subsystem for Linux.',
   },
 ];
 
-function AchievementsTimeline() {
-  const [ref, inView] = useInView();
+// Auto-loads every image dropped into src/images/achievements/<year>/, so
+// adding photos never requires touching this file. Sort order follows
+// filename (numeric-aware) — name files 1.jpg, 2.jpg, 3.jpg per year.
+const photoContext = require.context('../../images/achievements', true, /\.(png|jpe?g|webp)$/i);
+const PHOTOS_BY_YEAR = {};
+photoContext.keys().forEach((key) => {
+  const match = key.match(/^\.\/(\d{4})\//);
+  if (!match) return;
+  const year = match[1];
+  (PHOTOS_BY_YEAR[year] = PHOTOS_BY_YEAR[year] || []).push({ key, src: photoContext(key) });
+});
+Object.values(PHOTOS_BY_YEAR).forEach((arr) =>
+  arr.sort((a, b) => a.key.localeCompare(b.key, undefined, { numeric: true }))
+);
+
+const STEP_VH = 55;
+
+// Photo grid uses the same aspect-ratio-matched mosaic technique as the
+// certificates grid: fixed-width columns, and each tile's row-span is
+// computed from the image's own natural ratio once it loads — so the tile
+// box always matches the real photo shape and object-fit: contain never
+// has to crop anything.
+const ACHV_MOSAIC_GAP_PX = 12;
+const ACHV_MOSAIC_ROW_PX = 14;
+const ACHV_FALLBACK_SPAN = 14;
+
+// Column width scales down as a year has more photos, so a sparse year
+// (e.g. one photo) gets one big showcase tile while a packed year (e.g.
+// eight) still fits inside the slide without needing an internal scroll —
+// scrolling here was easy to miss since the page's main scroll gesture is
+// already spent driving the horizontal journey.
+function colPxFor(count) {
+  if (count >= 7) return 145;
+  if (count >= 4) return 158;
+  return 280;
+}
+
+// One in every five photos runs wide (2 columns) for real mosaic variety
+// instead of a uniform grid of same-width tiles.
+function tileCols(i) {
+  return i % 5 === 2 ? 2 : 1;
+}
+
+// ── Lightbox ─────────────────────────────────────────────────────────────
+const PhotoLightbox = memo(function PhotoLightbox({ src, onClose }) {
+  const closeButtonRef = useRef(null);
+
+  useEffect(() => {
+    const previouslyFocused = document.activeElement;
+    closeButtonRef.current?.focus();
+
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') onClose();
+    };
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      if (previouslyFocused && typeof previouslyFocused.focus === 'function') {
+        previouslyFocused.focus();
+      }
+    };
+  }, [onClose]);
+
+  return createPortal(
+    <div className="timeline-lightbox-overlay" onClick={onClose} role="dialog" aria-modal="true">
+      <div className="timeline-lightbox-content" onClick={(e) => e.stopPropagation()}>
+        <img src={src} alt="Achievement memory" className="timeline-lightbox-image" />
+        <button ref={closeButtonRef} type="button" className="timeline-lightbox-close" onClick={onClose} aria-label="Close">
+          ✕
+        </button>
+      </div>
+    </div>,
+    document.body
+  );
+});
+
+// ── Detects whether the scroll-driven horizontal journey should run.
+// Off for reduced-motion (never scroll-jack) and for narrow/touch viewports
+// (scroll-jacking is a poor fit for touch scroll physics). ───────────────
+function useJourneyEnabled() {
+  const [enabled, setEnabled] = useState(false);
+
+  useEffect(() => {
+    const reduceMq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const widthMq = window.matchMedia('(min-width: 768px)');
+    const update = () => setEnabled(!reduceMq.matches && widthMq.matches);
+    update();
+    reduceMq.addEventListener('change', update);
+    widthMq.addEventListener('change', update);
+    return () => {
+      reduceMq.removeEventListener('change', update);
+      widthMq.removeEventListener('change', update);
+    };
+  }, []);
+
+  return enabled;
+}
+
+// ── Scroll progress (0..1) across the pinned wrapper ────────────────────
+function useScrollProgress(ref, active) {
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    if (!active) return;
+    let rafId = null;
+
+    const compute = () => {
+      rafId = null;
+      const el = ref.current;
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const total = rect.height - window.innerHeight;
+      const raw = total > 0 ? -rect.top / total : 0;
+      setProgress(Math.min(1, Math.max(0, raw)));
+    };
+
+    const onScroll = () => {
+      if (rafId) return;
+      rafId = requestAnimationFrame(compute);
+    };
+
+    compute();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
+  }, [ref, active]);
+
+  return progress;
+}
+
+// ── Journey mode (desktop, motion-safe) ─────────────────────────────────
+function AchievementsJourney({ onOpenPhoto }) {
+  const wrapRef = useRef(null);
+  const progress = useScrollProgress(wrapRef, true);
+  const lastIndex = YEAR_DATA.length - 1;
+  const currentIndex = Math.round(progress * lastIndex);
+  const [spans, setSpans] = useState({});
+
+  const handleLoadSpan = useCallback((key, colPx, cols, naturalWidth, naturalHeight) => {
+    if (!naturalWidth || !naturalHeight) return;
+    const tileWidthPx = cols * colPx + (cols - 1) * ACHV_MOSAIC_GAP_PX;
+    const tileHeightPx = tileWidthPx * (naturalHeight / naturalWidth);
+    // Spanning N row tracks renders N*ROW_PX + (N-1)*GAP_PX tall (the gap
+    // compounds across every internal row line) — solve for N against that.
+    const rowSpan = Math.max(
+      1,
+      Math.round((tileHeightPx + ACHV_MOSAIC_GAP_PX) / (ACHV_MOSAIC_ROW_PX + ACHV_MOSAIC_GAP_PX))
+    );
+    setSpans((prev) => (prev[key] === rowSpan ? prev : { ...prev, [key]: rowSpan }));
+  }, []);
+
+  // Flower-bloom origin: measure each tile's real grid slot once laid out
+  // (and again whenever a row-span updates, since that reshapes the grid),
+  // then set --fx/--fy to the offset from the photo grid's own center so
+  // the CSS entrance can animate "outward from a point" instead of a
+  // generic fade. Pure layout measurement — doesn't touch React state.
+  useEffect(() => {
+    const compute = () => {
+      document.querySelectorAll('.achv-slide-photos').forEach((container) => {
+        const crect = container.getBoundingClientRect();
+        const cx = crect.width / 2;
+        const cy = crect.height / 2;
+        container.querySelectorAll('.achv-photo-tile').forEach((tile) => {
+          const trect = tile.getBoundingClientRect();
+          const tx = trect.left - crect.left + trect.width / 2;
+          const ty = trect.top - crect.top + trect.height / 2;
+          tile.style.setProperty('--fx', `${cx - tx}px`);
+          tile.style.setProperty('--fy', `${cy - ty}px`);
+        });
+      });
+    };
+    compute();
+    window.addEventListener('resize', compute);
+    return () => window.removeEventListener('resize', compute);
+  }, [spans]);
 
   return (
-    <section
-      id="achievements"
-      ref={ref}
-      className={`page-section achievements-timeline-section reveal${inView ? ' in-view' : ''}`}
+    <div
+      ref={wrapRef}
+      className="achv-pin-wrap"
+      style={{ height: `${YEAR_DATA.length * STEP_VH}vh` }}
     >
-      <h2 className="section-heading">~/achievements</h2>
+      <div className="achv-sticky">
+        {/* Text is a fixed overlay, not part of the sliding track — it used
+            to live inside each 100vw slide, so mid-transition it was half
+            scrolled off one side while the next slide's text hadn't
+            arrived yet, leaving neither fully readable. Keying on the year
+            remounts it with a quick crossfade instead. */}
+        <div className="achv-slide-text" key={YEAR_DATA[currentIndex].year}>
+          <span className="achv-slide-year">{YEAR_DATA[currentIndex].year}</span>
+          <p className="achv-slide-highlight">{YEAR_DATA[currentIndex].highlight}</p>
+        </div>
 
-      <div className="timeline">
-        {TIMELINE.map(({ year, items }) => (
-          <div key={year} className="timeline-year-block">
-            <span className="timeline-year">{year}</span>
-            <span className="timeline-dot" aria-hidden="true" />
-            <div className="timeline-year-items">
-              {items.map((item, i) => (
-                <div key={i} className="timeline-card">
-                  <span className={`timeline-tag timeline-tag--${item.tag.toLowerCase()}`}>{item.tag}</span>
-                  <p className="timeline-text">{item.text}</p>
+        <div
+          className="achv-track"
+          style={{ transform: `translateX(-${progress * lastIndex * 100}vw)` }}
+        >
+          {YEAR_DATA.map((y, slideIndex) => {
+            const photos = PHOTOS_BY_YEAR[y.year] || [];
+            const isActive = slideIndex === currentIndex;
+            const colPx = colPxFor(photos.length);
+            return (
+              <div key={y.year} className={`achv-slide${isActive ? ' achv-slide--active' : ''}`}>
+                <div className="achv-slide-photos" style={{ gridTemplateColumns: `repeat(auto-fill, ${colPx}px)` }}>
+                  {photos.length > 0 ? (
+                    photos.map((p, i) => {
+                      const cols = tileCols(i);
+                      return (
+                        <button
+                          key={p.key}
+                          type="button"
+                          className="achv-photo-tile"
+                          style={{
+                            gridColumn: cols > 1 ? `span ${cols}` : undefined,
+                            gridRowEnd: `span ${spans[p.key] || ACHV_FALLBACK_SPAN * cols}`,
+                            transitionDelay: isActive ? `${i * 70}ms` : '0ms',
+                            '--frot': `${(i % 2 === 0 ? 1 : -1) * (14 + (i % 3) * 6)}deg`,
+                          }}
+                          onClick={() => onOpenPhoto(p.src)}
+                          aria-label={`Open ${y.year} photo ${i + 1}`}
+                        >
+                          <img
+                            src={p.src}
+                            alt={`${y.year} memory ${i + 1}`}
+                            onLoad={(e) =>
+                              handleLoadSpan(p.key, colPx, cols, e.target.naturalWidth, e.target.naturalHeight)
+                            }
+                          />
+                        </button>
+                      );
+                    })
+                  ) : (
+                    <span className="achv-no-photos">~/no-photos-yet</span>
+                  )}
                 </div>
-              ))}
-            </div>
-          </div>
-        ))}
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="achv-progress-line" aria-hidden="true">
+          <span className="achv-progress-fill" style={{ transform: `scaleX(${progress})` }} />
+          {YEAR_DATA.map((y, i) => (
+            <span
+              key={y.year}
+              className={`achv-progress-dot${progress >= i / lastIndex - 0.001 ? ' active' : ''}`}
+              style={{ left: `${(i / lastIndex) * 100}%` }}
+            />
+          ))}
+        </div>
       </div>
+    </div>
+  );
+}
+
+// ── Fallback mode (mobile / reduced motion): stacked cards, native swipe ─
+function AchievementsFallback({ onOpenPhoto }) {
+  return (
+    <div className="achv-fallback">
+      {YEAR_DATA.map((y) => {
+        const photos = PHOTOS_BY_YEAR[y.year] || [];
+        return (
+          <div key={y.year} className="achv-fallback-year">
+            <span className="achv-fallback-year-label">{y.year}</span>
+            <p className="achv-fallback-highlight">{y.highlight}</p>
+            {photos.length > 0 && (
+              <div className="achv-fallback-strip">
+                {photos.map((p, i) => (
+                  <button
+                    key={p.key}
+                    type="button"
+                    className="achv-fallback-photo"
+                    onClick={() => onOpenPhoto(p.src)}
+                    aria-label={`Open ${y.year} photo ${i + 1}`}
+                  >
+                    <img src={p.src} alt={`${y.year} memory ${i + 1}`} />
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+function AchievementsTimeline() {
+  const [lightbox, setLightbox] = useState(null);
+  const journeyEnabled = useJourneyEnabled();
+
+  const openLightbox = useCallback((src) => setLightbox(src), []);
+  const closeLightbox = useCallback(() => setLightbox(null), []);
+
+  return (
+    <section id="achievements" className="achievements-timeline-section">
+      <div className="page-section achv-heading-wrap">
+        <h2 className="section-heading">~/achievements</h2>
+      </div>
+
+      {journeyEnabled ? (
+        <AchievementsJourney onOpenPhoto={openLightbox} />
+      ) : (
+        <div className="page-section">
+          <AchievementsFallback onOpenPhoto={openLightbox} />
+        </div>
+      )}
+
+      {lightbox && <PhotoLightbox src={lightbox} onClose={closeLightbox} />}
     </section>
   );
 }

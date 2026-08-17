@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import './Navbar.css';
+import ThemeToggle from './ThemeToggle';
 
 function Navbar() {
   const [click, setClick] = useState(false);
@@ -79,6 +80,9 @@ function Navbar() {
             >
               certificates
             </button>
+          </li>
+          <li>
+            <ThemeToggle />
           </li>
         </ul>
       </div>

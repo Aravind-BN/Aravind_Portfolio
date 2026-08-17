@@ -345,7 +345,6 @@ body.terminal-theme .section-heading {
 }
 
 body.terminal-theme .cert-issuer-badge,
-body.terminal-theme .project-tech-tag,
-body.terminal-theme .skill-tag {
+body.terminal-theme .project-tech-tag {
   border-color: rgba(0, 255, 65, 0.15);
 }

@@ -39,6 +39,24 @@
   overflow: hidden;
   border: 6px solid var(--accent-soft);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+  animation: hero-photo-in 0.7s ease both;
+}
+
+@keyframes hero-photo-in {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-photo-wrap {
+    animation: none;
+  }
 }
 
 .hero-photo {
@@ -81,60 +99,13 @@
   margin-bottom: 1rem;
 }
 
-.hero-bio-wrap {
-  max-width: 840px;
-  margin-bottom: 2rem;
-}
-
-.hero-bio-header {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  margin-bottom: 0.4rem;
-  font-family: var(--font-mono);
-}
-
-.hero-bio-tag {
-  font-size: 0.65rem;
-  font-weight: var(--fw-semibold);
-  color: var(--accent);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
-.hero-bio-status {
-  font-size: 0.65rem;
-  font-weight: var(--fw-medium);
-  color: var(--accent);
-  letter-spacing: 0.04em;
-  animation: enc-blink 1s step-end infinite;
-}
-
-.hero-bio-status.done {
-  color: var(--accent-teal);
-  animation: none;
-}
-
-.hero-bio-key {
-  margin-left: auto;
-  font-size: 0.65rem;
-  font-weight: var(--fw-medium);
-  color: var(--text-faint);
-  letter-spacing: 0.04em;
-}
-
 .hero-bio {
-  font-family: var(--font-mono);
-  font-size: 0.9rem;
+  max-width: 720px;
+  font-size: 1rem;
   font-weight: var(--fw-regular);
   line-height: 1.7;
   color: var(--text-muted);
-  word-break: break-word;
-  white-space: pre-wrap;
-}
-
-@keyframes enc-blink {
-  50% { opacity: 0.4; }
+  margin-bottom: 2rem;
 }
 
 .hero-hint {

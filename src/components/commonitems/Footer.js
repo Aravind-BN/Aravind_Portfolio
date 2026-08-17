@@ -11,8 +11,11 @@ function Footer() {
           </small>
           <span className="footer-ctf-hint">
             <span className="footer-ctf-bracket">[</span>
-            <span className="footer-ctf-blink">access restricted</span>
+            <span className="footer-ctf-blink">hidden challenge on this site</span>
             <span className="footer-ctf-bracket">]</span>
+            <span className="footer-ctf-key">
+              {' '}— <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>F</kbd>
+            </span>
           </span>
         </div>
       </div>

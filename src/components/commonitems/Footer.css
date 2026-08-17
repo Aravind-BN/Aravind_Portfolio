@@ -63,3 +63,23 @@
   0%, 100% { opacity: 1; }
   50% { opacity: 0.2; }
 }
+
+.footer-ctf-key {
+  color: var(--text-faint);
+}
+
+.footer-ctf-hint kbd {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  padding: 0.1rem 0.35rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  color: var(--text-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .footer-ctf-blink {
+    animation: none;
+  }
+}

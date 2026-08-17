@@ -17,6 +17,7 @@ const CERTIFICATES = [
     categories: ['technical'],
     year: '2023',
     credlyUrl: null,
+    size: 'sm',
   },
   {
     title: 'SASMO',
@@ -26,6 +27,7 @@ const CERTIFICATES = [
     categories: ['technical'],
     year: '2023',
     credlyUrl: null,
+    size: 'sm',
   },
   {
     title: "Hwa Chong Institution's 28th Edition Student Leaders Convention 2023",
@@ -35,6 +37,7 @@ const CERTIFICATES = [
     categories: ['interpersonal'],
     year: '2023',
     credlyUrl: null,
+    size: 'sm',
   },
   {
     title: 'C.B. Paul Science Quiz',
@@ -44,6 +47,7 @@ const CERTIFICATES = [
     categories: ['technical'],
     year: '2023',
     credlyUrl: null,
+    size: 'sm',
   },
   {
     title: 'AI for Literacy',
@@ -53,6 +57,7 @@ const CERTIFICATES = [
     categories: ['technical'],
     year: '2024',
     credlyUrl: null,
+    size: 'sm',
   },
   {
     title: 'Google AI Essentials Specialization',
@@ -62,6 +67,7 @@ const CERTIFICATES = [
     categories: ['technical'],
     year: '2025',
     credlyUrl: null,
+    size: 'sm',
   },
   {
     title: 'Edusave Certificate of Academic Achievement',
@@ -71,6 +77,7 @@ const CERTIFICATES = [
     categories: ['technical'],
     year: '2017, 2018, 2019, 2020',
     credlyUrl: null,
+    size: 'sm',
   },
   {
     title: 'Stem Seeds Social Innovators (SIT)',
@@ -80,6 +87,7 @@ const CERTIFICATES = [
     categories: ['technical'],
     year: '2024',
     credlyUrl: null,
+    size: 'sm',
   },
   {
     title: 'CSIT Diploma Scholarship',
@@ -89,6 +97,7 @@ const CERTIFICATES = [
     categories: ['technical'],
     year: '2025',
     credlyUrl: null,
+    size: 'lg',
   },
   {
     title: "Ngee Ann Polytechnic Director's List Sem 1.1",
@@ -98,6 +107,7 @@ const CERTIFICATES = [
     categories: ['technical'],
     year: '2025',
     credlyUrl: null,
+    size: 'lg',
   },
   {
     title: 'PowerShell: Automating IT Administration',
@@ -107,6 +117,7 @@ const CERTIFICATES = [
     categories: ['technical'],
     year: '2026',
     credlyUrl: null,
+    size: 'sm',
   },
   {
     title: 'Using Generative AI to Secure the Network',
@@ -116,6 +127,7 @@ const CERTIFICATES = [
     categories: ['technical'],
     year: '2026',
     credlyUrl: null,
+    size: 'sm',
   },
 
   // ── Cybersecurity ────────────────────────────────────────────────────────
@@ -127,6 +139,7 @@ const CERTIFICATES = [
     categories: ['cybersecurity', 'technical'],
     year: '2026',
     credlyUrl: 'https://www.credly.com/badges/8e1a7770-1f84-45e0-bde4-9918da8cb2be/linked_in_profile',
+    size: 'md',
   },
   {
     title: 'Cybersecurity Fundamentals',
@@ -136,6 +149,7 @@ const CERTIFICATES = [
     categories: ['cybersecurity'],
     year: '2025',
     credlyUrl: 'https://www.credly.com/badges/0592a424-e61c-4f89-a35d-cbe38b97686a/linked_in_profile',
+    size: 'md',
   },
   {
     title: 'CISCO Packet Tracer',
@@ -145,6 +159,7 @@ const CERTIFICATES = [
     categories: ['cybersecurity', 'technical'],
     year: '2025',
     credlyUrl: null,
+    size: 'md',
   },
   {
     title: 'Learning Windows Subsystem for Linux',
@@ -154,6 +169,7 @@ const CERTIFICATES = [
     categories: ['cybersecurity', 'technical'],
     year: '2026',
     credlyUrl: null,
+    size: 'md',
   },
 
   // ── Interpersonal / Leadership ───────────────────────────────────────────
@@ -165,6 +181,7 @@ const CERTIFICATES = [
     categories: ['interpersonal'],
     year: '2023',
     credlyUrl: null,
+    size: 'lg',
   },
   {
     title: 'CCC–CDC Education Merit Award',
@@ -174,6 +191,7 @@ const CERTIFICATES = [
     categories: ['interpersonal'],
     year: '2017, 2018, 2019, 2020',
     credlyUrl: null,
+    size: 'sm',
   },
   {
     title: 'SST Outstanding Leadership Award (House)',
@@ -183,6 +201,7 @@ const CERTIFICATES = [
     categories: ['interpersonal'],
     year: '2025',
     credlyUrl: null,
+    size: 'lg',
   },
 ];
 
@@ -314,10 +333,70 @@ const CertCard = memo(function CertCard({ item, onExpand }) {
   );
 });
 
+// ── Grid tile (image-only, dense mosaic) ────────────────────────────────────
+// Column width is fixed per size tier (CERT_MOSAIC_COL_PX * span, must match
+// Certificates.css); row-span is derived from the image's own natural
+// aspect ratio once it loads, so the tile box always matches the real
+// picture — no cropping, just a tight pack via grid-auto-flow: dense.
+const CERT_MOSAIC_COL_PX = 130;
+const CERT_MOSAIC_GAP_PX = 3;
+const CERT_MOSAIC_ROW_PX = 10;
+const SIZE_COLS = { sm: 1, md: 2, lg: 3 };
+
+const CertGridTile = memo(function CertGridTile({ item, onLoadSpan, onExpand }) {
+  const size = item.size || 'sm';
+  const cols = SIZE_COLS[size] || 1;
+
+  const handleImgLoad = useCallback(
+    (e) => {
+      const { naturalWidth, naturalHeight } = e.target;
+      if (!naturalWidth || !naturalHeight) return;
+      const tileWidthPx = cols * CERT_MOSAIC_COL_PX + (cols - 1) * CERT_MOSAIC_GAP_PX;
+      const tileHeightPx = tileWidthPx * (naturalHeight / naturalWidth);
+      // Spanning N grid rows renders N*ROW_PX + (N-1)*GAP_PX tall, not
+      // N*ROW_PX — the gap compounds across every internal row line. Solve
+      // for N against that, or tall/lg tiles end up far taller than the
+      // image's real ratio needs (and object-fit: cover crops the excess).
+      const rowSpan = Math.max(
+        1,
+        Math.round((tileHeightPx + CERT_MOSAIC_GAP_PX) / (CERT_MOSAIC_ROW_PX + CERT_MOSAIC_GAP_PX))
+      );
+      onLoadSpan(item.title + item.year, rowSpan);
+    },
+    [cols, item.title, item.year, onLoadSpan]
+  );
+
+  return (
+    <button
+      type="button"
+      className="cert-grid-tile"
+      data-size={size}
+      style={{ gridRowEnd: `span ${item._rowSpan || cols * 10}` }}
+      onClick={() => onExpand(item)}
+      title={item.title}
+      aria-label={`View full image for ${item.title}`}
+    >
+      <img
+        src={item.image}
+        alt={item.title}
+        onLoad={handleImgLoad}
+        onError={(e) => {
+          e.target.src = placeholder;
+        }}
+      />
+      <span className="cert-grid-tile-overlay" aria-hidden="true">
+        <span className="cert-grid-tile-title">{item.title}</span>
+      </span>
+    </button>
+  );
+});
+
 // ── Main ─────────────────────────────────────────────────────────────────────
 function Certificates() {
   const [filter, setFilter] = useState('all');
   const [modal, setModal] = useState(null);
+  const [gridView, setGridView] = useState(true);
+  const [spans, setSpans] = useState({});
   const [ref, inView] = useInView();
 
   const filtered = useMemo(() => {
@@ -331,6 +410,10 @@ function Certificates() {
 
   const closeModal = useCallback(() => setModal(null), []);
 
+  const handleLoadSpan = useCallback((key, span) => {
+    setSpans((prev) => (prev[key] === span ? prev : { ...prev, [key]: span }));
+  }, []);
+
   return (
     <section
       id="certificates"
@@ -339,25 +422,52 @@ function Certificates() {
     >
       <h2 className="section-heading">~/certificates</h2>
 
-      <div className="cert-filters">
-        {FILTERS.map((f) => (
-          <button
-            key={f}
-            type="button"
-            onClick={() => setFilter(f)}
-            className={`cert-filter-btn${filter === f ? ' active' : ''}`}
-            aria-pressed={filter === f}
-          >
-            {f}
-          </button>
-        ))}
+      <div className="cert-controls">
+        <div className="cert-filters">
+          {FILTERS.map((f) => (
+            <button
+              key={f}
+              type="button"
+              onClick={() => setFilter(f)}
+              className={`cert-filter-btn${filter === f ? ' active' : ''}`}
+              aria-pressed={filter === f}
+            >
+              {f}
+            </button>
+          ))}
+        </div>
+
+        <button
+          type="button"
+          className={`cert-view-toggle${gridView ? ' active' : ''}`}
+          onClick={() => setGridView((v) => !v)}
+          aria-pressed={gridView}
+        >
+          <span aria-hidden="true">{gridView ? '☰' : '⊞'}</span> {gridView ? 'list view' : 'grid view'}
+        </button>
       </div>
 
-      <div className="cert-list">
-        {filtered.map((item, idx) => (
-          <CertCard key={`${item.title}-${item.subtitle}-${idx}`} item={item} onExpand={handleExpand} />
-        ))}
-      </div>
+      {gridView ? (
+        <div className="cert-grid">
+          {filtered.map((item, idx) => {
+            const key = item.title + item.year;
+            return (
+              <CertGridTile
+                key={`${item.title}-${idx}`}
+                item={{ ...item, _rowSpan: spans[key] }}
+                onLoadSpan={handleLoadSpan}
+                onExpand={handleExpand}
+              />
+            );
+          })}
+        </div>
+      ) : (
+        <div className="cert-list">
+          {filtered.map((item, idx) => (
+            <CertCard key={`${item.title}-${item.subtitle}-${idx}`} item={item} onExpand={handleExpand} />
+          ))}
+        </div>
+      )}
 
       {modal && <ImageModal src={modal.src} title={modal.title} onClose={closeModal} />}
     </section>

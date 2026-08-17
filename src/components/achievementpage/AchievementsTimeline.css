@@ -1,195 +1,320 @@
 .achievements-timeline-section {
-  padding-top: 3rem;
+  position: relative;
 }
 
-.timeline {
+.achv-heading-wrap {
+  padding-bottom: 0;
+}
+
+/* ── Journey mode (desktop, motion-safe) ──
+   .achv-pin-wrap is tall (N * 85vh); .achv-sticky pins to the viewport
+   while its parent scrolls past, and .achv-track translates horizontally
+   in lockstep with that scroll — vertical scroll becomes the year-by-year
+   horizontal walk. ────────────────────────────────────────────────── */
+.achv-pin-wrap {
   position: relative;
+}
+
+.achv-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: 3rem;
-  padding-left: 6.5rem;
+  /* flex-start, not center: if slide content ever runs taller than the
+     viewport, centering clips equally off the top AND bottom — which was
+     cutting the year label off above the visible window. Top-aligned means
+     only the (auto-scrollable) photo grid ever gets clipped, never the
+     year/highlight header. */
+  justify-content: flex-start;
 }
 
-.timeline::before {
-  content: '';
-  position: absolute;
-  left: 4.75rem;
-  top: 0.4rem;
-  bottom: 0.4rem;
-  width: 1px;
+.achv-progress-line {
+  position: relative;
+  flex: 0 0 auto;
+  height: 1px;
+  margin: 0.5rem 8vw 1.75rem;
   background: linear-gradient(
-    180deg,
-    transparent,
-    var(--accent-soft) 8%,
-    rgba(217, 142, 63, 0.18) 92%,
-    transparent
+    to right,
+    var(--border-strong) 0%,
+    var(--border-strong) 60%,
+    transparent 100%
   );
 }
 
-.timeline-year-block {
-  position: relative;
-}
-
-.timeline-year {
+.achv-progress-fill {
   position: absolute;
-  left: -6.5rem;
-  top: 0.3rem;
-  width: 3.25rem;
-  text-align: right;
-  font-family: var(--font-mono);
-  font-size: 0.9rem;
-  font-weight: var(--fw-semibold);
-  color: var(--accent);
-  letter-spacing: 0.02em;
-  transition: color 0.2s;
-}
-
-.timeline-year-block:hover .timeline-year {
-  color: var(--accent-strong);
-}
-
-.timeline-dot {
-  position: absolute;
-  left: -1.85rem;
-  top: 0.3rem;
-  width: 0.9rem;
-  height: 0.9rem;
-  border-radius: 50%;
-  border: 2px solid var(--accent);
-  background: var(--bg-deep);
-  transform: translateX(-50%);
-  transition: background 0.25s ease, box-shadow 0.25s ease;
-}
-
-.timeline-year-block:hover .timeline-dot {
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
   background: var(--accent);
-  box-shadow: 0 0 14px var(--accent-soft);
+  transform: scaleX(0);
+  transform-origin: left;
 }
 
-.timeline-year-items {
+.achv-progress-dot {
+  position: absolute;
+  top: 50%;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: var(--bg-deep);
+  border: 2px solid var(--border-strong);
+  transform: translate(-50%, -50%);
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.achv-progress-dot.active {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+/* Fixed text overlay — sits above the sliding track, never moves
+   horizontally. Remounts (via a `key={year}`) and crossfades in on every
+   year change instead of traveling with the photos. */
+.achv-slide-text {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: baseline;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  /* Top padding clears the sticky navbar — it's also pinned to top:0 and
+     sits above this (also-pinned) section, so without enough clearance it
+     overlaps and clips the year/description. */
+  padding: 6rem 6vw 1rem;
+  animation: achv-text-fade 0.35s ease;
+}
+
+@keyframes achv-text-fade {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .achv-slide-text {
+    animation: none;
+  }
+}
+
+.achv-slide-year {
+  font-family: var(--font-mono);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: var(--fw-bold);
+  color: var(--text);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+body.light-theme .achv-slide-year {
+  color: var(--accent-blue);
+}
+
+.achv-slide-highlight {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  max-width: 62ch;
+}
+
+.achv-track {
+  display: flex;
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+  will-change: transform;
+}
+
+.achv-slide {
+  flex: 0 0 100vw;
+  width: 100vw;
+  height: 100%;
+  min-height: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
+  padding: 0 6vw 2rem;
 }
 
-.timeline-card {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.75rem;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 0.8rem 1rem;
-  transition: border-color 0.2s, background 0.2s, transform 0.2s;
-}
-
-.timeline-year-block:hover .timeline-card {
-  background: var(--surface-hover);
-  border-color: var(--accent-soft);
-  transform: translateX(3px);
-}
-
-.timeline-tag {
-  flex-shrink: 0;
-  width: 82px;
-  text-align: center;
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  font-weight: var(--fw-medium);
-  letter-spacing: 0.02em;
-  padding: 0.2rem 0;
-  border-radius: 4px;
-  line-height: 1.7;
-  margin-top: 1px;
-}
-
-.timeline-text {
-  font-size: 0.88rem;
-  font-weight: var(--fw-regular);
-  color: var(--text-muted);
-  line-height: 1.65;
-  margin: 0;
+.achv-slide-photos {
   flex: 1;
-  min-width: 0;
-  overflow-wrap: anywhere;
-  transition: color 0.2s;
+  min-height: 0;
+  display: grid;
+  /* Fixed-px columns/rows (must match ACHV_MOSAIC_* in AchievementsTimeline.js)
+     so the JS-computed row-span lands on an exact aspect-ratio match. */
+  grid-template-columns: repeat(auto-fill, 240px);
+  grid-auto-rows: 14px;
+  grid-auto-flow: dense;
+  justify-content: start;
+  gap: 12px;
+  overflow-y: auto;
+  align-content: start;
 }
 
-.timeline-year-block:hover .timeline-text {
+/* Flower-bloom entrance: each tile starts collapsed toward the photo grid's
+   center (--fx/--fy computed in JS from real layout), tiny and rotated,
+   then blooms out to its own grid slot at full size — a burst from a
+   single point rather than a plain fade. */
+.achv-photo-tile {
+  --fx: 0px;
+  --fy: 0px;
+  --frot: 0deg;
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--surface);
+  cursor: pointer;
+  opacity: 0;
+  transform: translate(var(--fx), var(--fy)) scale(0.1) rotate(var(--frot));
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.2s;
+}
+
+.achv-slide--active .achv-photo-tile {
+  opacity: 1;
+  transform: translate(0, 0) scale(1) rotate(0deg);
+}
+
+.achv-slide--active .achv-photo-tile:hover {
+  border-color: var(--accent-soft);
+  transform: translate(0, -4px) scale(1) rotate(0deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .achv-photo-tile {
+    transition: border-color 0.2s;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.achv-photo-tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.achv-no-photos {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-faint);
+}
+
+/* ── Fallback mode (mobile / reduced motion) ── */
+.achv-fallback {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.achv-fallback-year {
+  border-top: 1px solid var(--border);
+  padding-top: 1.25rem;
+}
+
+.achv-fallback-year-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+  font-weight: var(--fw-bold);
   color: var(--text);
+  margin-bottom: 0.5rem;
 }
 
-/* tag colors — kept distinct per category, derived from the two core
-   accents plus a few supporting hues so nothing competes with --accent */
-.timeline-tag--academic {
-  background: rgba(99, 179, 237, 0.12);
-  color: #79b8e6;
-  border: 1px solid rgba(99, 179, 237, 0.25);
-}
-.timeline-tag--project {
-  background: var(--accent-teal-soft);
-  color: var(--accent-teal);
-  border: 1px solid rgba(79, 163, 161, 0.3);
-}
-.timeline-tag--achievement {
-  background: var(--accent-soft);
-  color: var(--accent-strong);
-  border: 1px solid rgba(217, 142, 63, 0.3);
-}
-.timeline-tag--leadership {
-  background: rgba(52, 211, 153, 0.12);
-  color: #4fd1a5;
-  border: 1px solid rgba(52, 211, 153, 0.25);
-}
-.timeline-tag--sports {
-  background: rgba(251, 113, 133, 0.12);
-  color: #fb93a4;
-  border: 1px solid rgba(251, 113, 133, 0.25);
-}
-.timeline-tag--competition {
-  background: rgba(253, 186, 116, 0.12);
-  color: #fdc78c;
-  border: 1px solid rgba(253, 186, 116, 0.25);
-}
-.timeline-tag--activities {
-  background: rgba(129, 140, 248, 0.12);
-  color: #9aa3fa;
-  border: 1px solid rgba(129, 140, 248, 0.25);
-}
-.timeline-tag--service {
-  background: rgba(94, 234, 212, 0.12);
-  color: #7ef0db;
-  border: 1px solid rgba(94, 234, 212, 0.25);
+body.light-theme .achv-fallback-year-label {
+  color: var(--accent-blue);
 }
 
-@media (max-width: 600px) {
-  .timeline {
-    padding-left: 3.5rem;
-    gap: 2.25rem;
-  }
+.achv-fallback-highlight {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin-bottom: 0.9rem;
+}
 
-  .timeline::before {
-    left: 1.75rem;
-  }
+.achv-fallback-strip {
+  display: flex;
+  gap: 0.6rem;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 0.4rem;
+}
 
-  .timeline-year {
-    position: static;
-    display: block;
-    text-align: left;
-    width: auto;
-    margin-bottom: 0.5rem;
-  }
+.achv-fallback-photo {
+  flex: 0 0 auto;
+  width: 160px;
+  height: 110px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--surface);
+  cursor: pointer;
+  scroll-snap-align: start;
+}
 
-  .timeline-dot {
-    left: -1.85rem;
-    top: 0.35rem;
-  }
+.achv-fallback-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
 
-  .timeline-card {
-    flex-direction: column;
-  }
+/* ── Lightbox ── */
+.timeline-lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(7, 9, 10, 0.88);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  backdrop-filter: blur(6px);
+}
 
-  .timeline-tag {
-    width: fit-content;
-  }
+.timeline-lightbox-content {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border-strong);
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.6);
+}
+
+.timeline-lightbox-image {
+  display: block;
+  max-width: 90vw;
+  max-height: 85vh;
+  object-fit: contain;
+}
+
+.timeline-lightbox-close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid var(--border-strong);
+  color: var(--text);
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

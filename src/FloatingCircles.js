@@ -42,6 +42,10 @@ function isTerminalTheme() {
   try { return document.body.classList.contains('terminal-theme'); } catch { return false; }
 }
 
+function isLightTheme() {
+  try { return document.body.classList.contains('light-theme'); } catch { return false; }
+}
+
 export default function FloatingCircles() {
   const canvasRef = useRef(null);
 
@@ -76,6 +80,7 @@ export default function FloatingCircles() {
       const W = canvas.width;
       const H = canvas.height;
       const terminal = isTerminalTheme();
+      const light = !terminal && isLightTheme();
 
       ctx.clearRect(0, 0, W, H);
 
@@ -142,8 +147,13 @@ export default function FloatingCircles() {
           if (b.y + b.r > H) { b.y = H - b.r; b.vy = -Math.abs(b.vy); }
 
           const grad = ctx.createRadialGradient(b.x - b.r * 0.3, b.y - b.r * 0.3, 0, b.x, b.y, b.r);
-          grad.addColorStop(0, `hsla(${b.hue}, 80%, 78%, ${b.opacity * 1.8})`);
-          grad.addColorStop(1, `hsla(${b.hue}, 70%, 50%, 0)`);
+          if (light) {
+            grad.addColorStop(0, `hsla(0, 0%, 20%, ${b.opacity * 1.4})`);
+            grad.addColorStop(1, `hsla(0, 0%, 20%, 0)`);
+          } else {
+            grad.addColorStop(0, `hsla(${b.hue}, 80%, 78%, ${b.opacity * 1.8})`);
+            grad.addColorStop(1, `hsla(${b.hue}, 70%, 50%, 0)`);
+          }
 
           ctx.beginPath();
           ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
@@ -152,7 +162,9 @@ export default function FloatingCircles() {
 
           ctx.beginPath();
           ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
-          ctx.strokeStyle = `hsla(${b.hue}, 70%, 75%, ${b.opacity * 0.9})`;
+          ctx.strokeStyle = light
+            ? `hsla(0, 0%, 20%, ${b.opacity * 0.7})`
+            : `hsla(${b.hue}, 70%, 75%, ${b.opacity * 0.9})`;
           ctx.lineWidth = 0.5;
           ctx.stroke();
         });

@@ -2,11 +2,47 @@
   padding-top: 3rem;
 }
 
+.cert-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
 .cert-filters {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  margin-bottom: 1.5rem;
+}
+
+.cert-view-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 44px;
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+  font-weight: var(--fw-medium);
+  font-family: inherit;
+  color: var(--text-muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+
+.cert-view-toggle:hover {
+  color: var(--text);
+  border-color: var(--border-strong);
+}
+
+.cert-view-toggle.active {
+  color: var(--accent-teal-strong);
+  border-color: var(--accent-teal-soft);
+  background: var(--accent-teal-soft);
 }
 
 .cert-filter-btn {
@@ -35,6 +71,12 @@
   color: var(--accent-strong);
   border-color: var(--accent-soft);
   background: var(--accent-soft);
+}
+
+body.light-theme .cert-filter-btn.active {
+  color: var(--accent-blue-strong);
+  border-color: var(--accent-blue-soft);
+  background: var(--accent-blue-soft);
 }
 
 .cert-list {
@@ -118,6 +160,12 @@
   border: 1px solid;
 }
 
+/* Per-issuer badge colors are inline hex (brand recognition in list view);
+   neutralize them in the B&W theme instead of hardcoding a second palette. */
+body.light-theme .cert-issuer-badge {
+  filter: grayscale(1) contrast(1.15);
+}
+
 .cert-year {
   font-family: var(--font-mono);
   font-size: 0.78rem;
@@ -175,6 +223,79 @@
 .cert-thumb-btn:hover .cert-thumb-overlay,
 .cert-thumb-btn:focus-visible .cert-thumb-overlay {
   opacity: 1;
+}
+
+/* ── Grid view: dense mosaic ──
+   Fixed-width columns (130px, must match CERT_MOSAIC_COL_PX in
+   Certificates.js) repeat to fill the row; each tile's row-span is computed
+   in JS from the image's own aspect ratio, then grid-auto-flow: dense packs
+   everything edge to edge — a real photo-collage, no padding, no gaps
+   beyond the seam between tiles. */
+.cert-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 130px);
+  grid-auto-rows: 10px;
+  grid-auto-flow: dense;
+  justify-content: start;
+  gap: 3px;
+}
+
+.cert-grid-tile {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 2px solid var(--border-strong);
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--surface);
+  cursor: pointer;
+  transition: filter 0.2s, border-color 0.2s;
+}
+
+.cert-grid-tile[data-size='md'] {
+  grid-column: span 2;
+}
+
+.cert-grid-tile[data-size='lg'] {
+  grid-column: span 3;
+}
+
+.cert-grid-tile:hover {
+  border-color: var(--accent);
+  filter: brightness(1.08);
+}
+
+.cert-grid-tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.cert-grid-tile-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  padding: 0.6rem;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.75), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.cert-grid-tile:hover .cert-grid-tile-overlay,
+.cert-grid-tile:focus-visible .cert-grid-tile-overlay {
+  opacity: 1;
+}
+
+.cert-grid-tile-title {
+  font-size: 0.75rem;
+  font-weight: var(--fw-medium);
+  color: var(--text);
+  line-height: 1.3;
+  text-align: left;
 }
 
 /* ── Modal ── */

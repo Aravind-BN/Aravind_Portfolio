@@ -1,4 +1,5 @@
-import React, { useState, useCallback, memo } from 'react';
+import React, { useState, useCallback, useEffect, useRef, memo } from 'react';
+import { createPortal } from 'react-dom';
 import './Projects.css';
 import useInView from '../../hooks/useInView';
 
@@ -6,10 +7,10 @@ const PROJECTS = [
   {
     id: 'growcalth',
     title: 'GrowCalth',
-    href: 'https://github.com/cheesetan/growcalth-kotlin.git',
     websiteUrl: 'https://growcalth.com/',
     image: require('../../images/growcalth2.jpg'),
     role: 'Co-Founder & Lead Android Developer',
+    summary: 'A student fitness app that gamifies step counts into house points — 1,200+ students, $5,000 in NP Sandbox funding.',
     description: [
       'GrowCalth is a mobile fitness app built for students by students with the aim of empowering students to live healthier lives, forging a stronger house spirit amongst students as well as to create a more connected community in school',
       'The app gamifies fitness by tying step counts to house points.',
@@ -26,12 +27,45 @@ const PROJECTS = [
     tech: ['Kotlin', 'Google Firebase', 'GoogleFit Integration'],
   },
   {
+    id: 'privacy-puppy',
+    title: 'Privacy Puppy',
+    websiteUrl: null,
+    role: 'Developer',
+    summary: 'A browser extension that blocks non-essential cookies and scans T&Cs / privacy policies to warn you of real risks before you sign up.',
+    description: [
+      'Built at a hackathon: a security-focused browser extension.',
+      'Automatically blocks non-essential cookies, allowing only what a site actually needs to function.',
+      'Scans Terms & Conditions and Privacy Policies to detect and flag risky clauses, warning users before they sign up for an app or service.',
+    ],
+    contributions: [
+      'Designed and built the cookie-blocking logic for the extension.',
+      'Built the policy scanning flow that surfaces risk warnings to the user.',
+    ],
+    tech: ['JavaScript', 'Browser Extension APIs', 'Cookie Management', 'Privacy Policy Analysis'],
+  },
+  {
+    id: 'gamex',
+    title: 'GamEx',
+    websiteUrl: null,
+    role: 'Co-Founder & Developer',
+    summary: 'An online platform that lets anyone create browser games using AI — no coding required.',
+    description: [
+      'GamEx is an online platform for creating browser games with AI, built to make game creation accessible to anyone with an idea.',
+      'Co-founded the project and led development.',
+    ],
+    contributions: [
+      'Co-founded the project and led development.',
+      'Built the front-end in React and integrated AI-driven game generation.',
+    ],
+    tech: ['React', 'Node.js', 'AI/LLM Integration', 'JavaScript'],
+  },
+  {
     id: 'canteen',
     title: 'Can+een',
-    href: 'https://github.com/TheshyanTTT/Comp-Coursework',
     websiteUrl: 'https://sites.google.com/sst.edu.sg/cp-coursework-gallery/2024/can-een?authuser=0',
     image: require('../../images/projects/canteen.png'),
     role: 'Front-end Developer',
+    summary: 'Pre-order app that lets students queue with canteen stalls remotely, cutting break-time wait times.',
     description: [
       "At SST, the canteen stall owners face significant business losses due to the school's small size, leading to long queues and extended waiting times for students during their breaks. To solve this, we created an app that facilitates communication between SST students/staff and canteen stall owners. Students & Staff can seamlessly communicate placed orders to canteen stall owners before break times, which allows stall owners to prepare the orders in advance, thus being able to earn more efficiently and mitigate the issue of long queues and waiting times..",
       'Created for my SST Computing + 2024 Coursework Project.',
@@ -48,10 +82,10 @@ const PROJECTS = [
   {
     id: 'crypto',
     title: 'Apple Pay Cryptography Mockup',
-    href: 'https://github.com/Aravind-BN/Crypto-Assignment',
     websiteUrl: null,
     image: require('../../images/projects/crypto.png'),
     role: 'Developer',
+    summary: 'A post-quantum payment-flow prototype using CRYSTALS-Kyber key encapsulation and ChaCha20-Poly1305 encryption.',
     description: [
       "A research-driven prototype that simulates Apple Pay's cryptographic payment flow using post-quantum algorithms.",
       'Built to explore how modern payment systems can be hardened against quantum computing threats.',
@@ -70,7 +104,6 @@ const PROJECTS = [
   {
     id: 'technogates',
     title: 'Project Technogates (SIT)',
-    href: null,
     websiteUrl: null,
     images: [
       require('../../images/projects/sitimage.png'),
@@ -81,6 +114,7 @@ const PROJECTS = [
     ],
     videos: [require('../../images/projects/sitvid.mp4'), require('../../images/projects/sitvid2.mp4')],
     role: 'Lead Developer',
+    summary: 'Climate-tech prototype selected to present at SIT’s STEM Seeds workshop on fighting climate change with technology.',
     description: [
       'A climate-focused innovation project presented at the Singapore Institute of Technology (SIT).',
       'The team ideated and prototyped a solution addressing urban environmental challenges.',
@@ -94,15 +128,8 @@ const PROJECTS = [
   },
 ];
 
-// ── SVG Icons ───────────────────────────────────────────────
-const GitHubIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
-  </svg>
-);
-
 const ExternalIcon = () => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
     <polyline points="15 3 21 3 21 9" />
     <line x1="10" y1="14" x2="21" y2="3" />
@@ -113,64 +140,89 @@ function resolveUrl(src) {
   return typeof src === 'string' ? process.env.PUBLIC_URL + src : src;
 }
 
-// ── Media renderer ──────────────────────────────────────────
-function ProjectMedia({ project }) {
-  if (project.images) {
-    return (
-      <div className="project-media-grid">
-        {project.images.map((src, i) => (
-          <div key={i} className="project-media-cell">
-            <img src={resolveUrl(src)} alt={`${project.title} ${i + 1}`} className="project-media-img" />
-          </div>
-        ))}
-        {project.videos &&
-          project.videos.map((src, i) => (
-            <div key={i} className="project-media-cell project-media-cell--video">
-              <video src={resolveUrl(src)} className="project-media-video" controls playsInline preload="metadata" />
-            </div>
-          ))}
-      </div>
-    );
-  }
-
-  if (project.image) {
-    return (
-      <div className="project-image-wrap">
-        <img src={resolveUrl(project.image)} alt={project.title} className="project-image" />
-        <div className="project-image-actions">
-          {project.href && (
-            <a href={project.href} target="_blank" rel="noopener noreferrer" className="project-action-btn" title="GitHub">
-              <GitHubIcon />
-            </a>
-          )}
-          {project.websiteUrl && (
-            <a href={project.websiteUrl} target="_blank" rel="noopener noreferrer" className="project-action-btn" title="Live site">
-              <ExternalIcon />
-            </a>
-          )}
-        </div>
-      </div>
-    );
-  }
-
-  return null;
+function coverOf(project) {
+  return project.image || (project.images && project.images[0]);
 }
 
-// ── Project row (memoized: only the row(s) whose `expanded` prop actually
-// changes re-render when the accordion is toggled) ──────────────────────
-const ProjectRow = memo(function ProjectRow({ project, expanded, onToggle }) {
-  const hasMedia = project.image || project.images;
+// ── Extra media gallery (shown only when expanded, multi-asset projects) ──
+function ProjectGallery({ project }) {
+  if (!project.images) return null;
+  const rest = project.images.slice(project.image ? 0 : 1);
+  if (rest.length === 0 && !project.videos) return null;
 
   return (
-    <li className={`project-item${expanded ? ' expanded' : ''}`}>
-      <button className="project-header" onClick={() => onToggle(project.id)} aria-expanded={expanded}>
-        <span className="project-title">{project.title}</span>
-        <span className="project-chevron">{expanded ? '▼' : '▶'}</span>
-      </button>
+    <div className="project-media-grid">
+      {rest.map((src, i) => (
+        <div key={i} className="project-media-cell">
+          <img src={resolveUrl(src)} alt={`${project.title} ${i + 1}`} className="project-media-img" />
+        </div>
+      ))}
+      {project.videos &&
+        project.videos.map((src, i) => (
+          <div key={i} className="project-media-cell project-media-cell--video">
+            <video src={resolveUrl(src)} className="project-media-video" controls playsInline preload="metadata" />
+          </div>
+        ))}
+    </div>
+  );
+}
 
-      {expanded && (
-        <div className="project-details">
-          <ProjectMedia project={project} />
+// ── Detail modal (opened on click, replaces the old inline accordion) ──
+const ProjectModal = memo(function ProjectModal({ project, onClose }) {
+  const closeButtonRef = useRef(null);
+  const cover = coverOf(project);
+
+  useEffect(() => {
+    const previouslyFocused = document.activeElement;
+    closeButtonRef.current?.focus();
+
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') onClose();
+    };
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      if (previouslyFocused && typeof previouslyFocused.focus === 'function') {
+        previouslyFocused.focus();
+      }
+    };
+  }, [onClose]);
+
+  return createPortal(
+    <div className="project-modal-overlay" onClick={onClose} role="dialog" aria-modal="true" aria-label={project.title}>
+      <div className="project-modal-content" onClick={(e) => e.stopPropagation()}>
+        <button ref={closeButtonRef} type="button" className="project-modal-close" onClick={onClose} aria-label="Close">
+          ✕
+        </button>
+
+        {cover && (
+          <div className="project-modal-cover">
+            <img src={resolveUrl(cover)} alt={project.title} />
+          </div>
+        )}
+
+        <div className="project-modal-body">
+          <div className="project-modal-head">
+            <h3 className="project-modal-title">{project.title}</h3>
+            <span className="project-role-badge">{project.role}</span>
+          </div>
+
+          <p className="project-card-summary">{project.summary}</p>
+
+          <div className="project-tech-tags">
+            {project.tech.map((t) => (
+              <span key={t} className="project-tech-tag">{t}</span>
+            ))}
+          </div>
+
+          {project.websiteUrl && (
+            <a href={project.websiteUrl} target="_blank" rel="noopener noreferrer" className="project-live-link">
+              <ExternalIcon /> Live site
+            </a>
+          )}
+
+          <ProjectGallery project={project} />
 
           <div className="project-info-grid">
             <div className="project-info-block">
@@ -183,11 +235,6 @@ const ProjectRow = memo(function ProjectRow({ project, expanded, onToggle }) {
             </div>
 
             <div className="project-info-block">
-              <span className="project-info-label">Role</span>
-              <span className="project-role-badge">{project.role}</span>
-            </div>
-
-            <div className="project-info-block">
               <span className="project-info-label">Contributions</span>
               <ul className="project-info-list">
                 {project.contributions.map((c, i) => (
@@ -195,47 +242,66 @@ const ProjectRow = memo(function ProjectRow({ project, expanded, onToggle }) {
                 ))}
               </ul>
             </div>
-
-            <div className="project-info-block">
-              <span className="project-info-label">Tech Stack</span>
-              <div className="project-tech-tags">
-                {project.tech.map((t, i) => (
-                  <span key={i} className="project-tech-tag">
-                    {t}
-                  </span>
-                ))}
-              </div>
-            </div>
           </div>
-
-          {!hasMedia && (project.href || project.websiteUrl) && (
-            <div className="project-links">
-              {project.href && (
-                <a href={project.href} target="_blank" rel="noopener noreferrer" className="project-github-link">
-                  View on GitHub ↗
-                </a>
-              )}
-              {project.websiteUrl && (
-                <a href={project.websiteUrl} target="_blank" rel="noopener noreferrer" className="project-github-link">
-                  Live Site ↗
-                </a>
-              )}
-            </div>
-          )}
         </div>
-      )}
+      </div>
+    </div>,
+    document.body
+  );
+});
+
+// ── Project card (memoized: static card, opens the modal on click) ──────
+const ProjectCard = memo(function ProjectCard({ project, index, onOpen }) {
+  const cover = coverOf(project);
+
+  return (
+    <li className="project-card" style={{ transitionDelay: `${index * 90}ms` }}>
+      <button type="button" className="project-card-cover" onClick={() => onOpen(project)}>
+        {cover ? (
+          <img src={resolveUrl(cover)} alt={project.title} className="project-cover-img" />
+        ) : (
+          <div className="project-cover-fallback" aria-hidden="true">{'</>'}</div>
+        )}
+        <span className="project-card-role">{project.role}</span>
+      </button>
+
+      <div className="project-card-body">
+        <button type="button" className="project-card-head" onClick={() => onOpen(project)}>
+          <span className="project-card-title">{project.title}</span>
+          <span className="project-card-chevron" aria-hidden="true">＋</span>
+        </button>
+
+        <p className="project-card-summary">{project.summary}</p>
+
+        <div className="project-tech-tags">
+          {project.tech.map((t) => (
+            <span key={t} className="project-tech-tag">{t}</span>
+          ))}
+        </div>
+
+        {project.websiteUrl && (
+          <a
+            href={project.websiteUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="project-live-link"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <ExternalIcon /> Live site
+          </a>
+        )}
+      </div>
     </li>
   );
 });
 
 // ── Page section ────────────────────────────────────────────
 function Projects() {
-  const [expandedId, setExpandedId] = useState(null);
+  const [activeProject, setActiveProject] = useState(null);
   const [ref, inView] = useInView();
 
-  const handleToggle = useCallback((id) => {
-    setExpandedId((prev) => (prev === id ? null : id));
-  }, []);
+  const handleOpen = useCallback((project) => setActiveProject(project), []);
+  const handleClose = useCallback(() => setActiveProject(null), []);
 
   return (
     <section
@@ -244,11 +310,13 @@ function Projects() {
       className={`page-section projects-section reveal${inView ? ' in-view' : ''}`}
     >
       <h2 className="section-heading">~/projects</h2>
-      <ul className="project-list">
-        {PROJECTS.map((p) => (
-          <ProjectRow key={p.id} project={p} expanded={expandedId === p.id} onToggle={handleToggle} />
+      <ul className="project-grid">
+        {PROJECTS.map((p, i) => (
+          <ProjectCard key={p.id} project={p} index={i} onOpen={handleOpen} />
         ))}
       </ul>
+
+      {activeProject && <ProjectModal project={activeProject} onClose={handleClose} />}
     </section>
   );
 }

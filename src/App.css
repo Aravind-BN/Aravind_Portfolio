@@ -38,10 +38,45 @@
   --fw-bold: 700;
 }
 
+/* ---- light theme (experimental toggle, see ThemeToggle.js) ---- */
+body.light-theme {
+  --bg-deep: #ffffff;
+  --bg-mid: #f4f4f4;
+  --text: #111111;
+  --text-muted: #444444;
+  --text-faint: #767676;
+
+  --accent: #000000;
+  --accent-strong: #000000;
+  --accent-soft: rgba(0, 0, 0, 0.06);
+  --accent-glow: rgba(0, 0, 0, 0.18);
+
+  --accent-teal: #333333;
+  --accent-teal-strong: #000000;
+  --accent-teal-soft: rgba(0, 0, 0, 0.06);
+  --accent-teal-glow: rgba(0, 0, 0, 0.18);
+
+  --border: rgba(0, 0, 0, 0.1);
+  --border-strong: rgba(0, 0, 0, 0.22);
+  --surface: rgba(0, 0, 0, 0.03);
+  --surface-hover: rgba(0, 0, 0, 0.05);
+
+  /* One deliberate secondary color, light mode only — used sparingly
+     (stats numbers, achievement year labels, active cert filter) so the
+     rest of the B&W system stays intact. */
+  --accent-blue: #2563eb;
+  --accent-blue-strong: #1d4ed8;
+  --accent-blue-soft: rgba(37, 99, 235, 0.1);
+}
+
 html,
 body {
-  /* Defensive guard: nothing in this layout should ever need to scroll sideways */
-  overflow-x: hidden;
+  /* Defensive guard: nothing in this layout should ever need to scroll sideways.
+     `clip` (not `hidden`) — `hidden` makes these a scroll container per spec,
+     which breaks position:sticky for anything nested inside (e.g. the
+     achievements scroll-journey). `clip` gets the same visual guarantee
+     without that side effect. */
+  overflow-x: clip;
 }
 
 body {
@@ -69,7 +104,7 @@ a {
   min-height: 100vh;
   width: 100%;
   max-width: 100vw;
-  overflow-x: hidden;
+  overflow-x: clip;
   background: var(--bg-deep);
 }
 
