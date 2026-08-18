@@ -13,14 +13,23 @@ function faceOpacity(rotation, k) {
 
 // ── Scroll progress (0..1) across the pinned wrapper, measured against the
 // modal's own scroll container rather than window - same pinned-scrollytelling
-// technique as AchievementsTimeline, adapted for a nested scroll box. ──────
-function useScrollProgress(wrapRef, containerRef) {
+// technique as AchievementsTimeline, adapted for a nested scroll box.
+//
+// The divisor here is the STICKY ELEMENT's own height, not the container's
+// clientHeight - that's what native CSS sticky actually releases against.
+// AchievementsTimeline gets away with using window.innerHeight because its
+// sticky box is deliberately sized to 100vh (so the two are equal there);
+// this box is intentionally smaller than the modal, so they're not the same
+// and using the wrong one made progress hit 1 before the box actually
+// released, leaving it pinned over content for an extra stretch of scroll. ─
+function useScrollProgress(wrapRef, stickyRef, containerRef) {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     const container = containerRef.current;
     const wrap = wrapRef.current;
-    if (!container || !wrap) return undefined;
+    const sticky = stickyRef.current;
+    if (!container || !wrap || !sticky) return undefined;
     let rafId = null;
 
     const compute = () => {
@@ -28,7 +37,7 @@ function useScrollProgress(wrapRef, containerRef) {
       const wrapRect = wrap.getBoundingClientRect();
       const containerRect = container.getBoundingClientRect();
       const relativeTop = wrapRect.top - containerRect.top;
-      const total = wrapRect.height - container.clientHeight;
+      const total = wrapRect.height - sticky.getBoundingClientRect().height;
       const raw = total > 0 ? -relativeTop / total : 0;
       setProgress(clamp(raw, 0, 1));
     };
@@ -46,7 +55,7 @@ function useScrollProgress(wrapRef, containerRef) {
       window.removeEventListener('resize', onScroll);
       if (rafId) cancelAnimationFrame(rafId);
     };
-  }, [wrapRef, containerRef]);
+  }, [wrapRef, stickyRef, containerRef]);
 
   return progress;
 }
@@ -57,12 +66,13 @@ function useScrollProgress(wrapRef, containerRef) {
 // way down to the rest of the project details. ────────────────────────────
 function GrowCalthShowcase({ screens, scrollContainerRef }) {
   const wrapRef = useRef(null);
+  const stickyRef = useRef(null);
   const [reducedMotion] = useState(
     () => typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
   );
   const count = screens.length;
   const lastIndex = count - 1;
-  const progress = useScrollProgress(wrapRef, scrollContainerRef);
+  const progress = useScrollProgress(wrapRef, stickyRef, scrollContainerRef);
   const rotation = progress * lastIndex * 180;
   const activeIndex = clamp(Math.round(rotation / 180), 0, lastIndex);
   const active = screens[activeIndex];
@@ -71,7 +81,7 @@ function GrowCalthShowcase({ screens, scrollContainerRef }) {
 
   return (
     <div className="gc-pin-wrap" ref={wrapRef} style={{ height: `${count * STEP_VH}vh` }}>
-      <div className="gc-sticky">
+      <div className="gc-sticky" ref={stickyRef}>
         <div className="gc-row">
           <div className="gc-phone-wrap">
             <div className="gc-phone" style={!reducedMotion ? { transform: `rotateY(${rotation}deg)` } : undefined}>

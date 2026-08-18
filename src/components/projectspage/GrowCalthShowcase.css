@@ -6,7 +6,12 @@
    modal has exactly one scroll region, so scrolling past this section to
    read the rest of the project is unavoidable, not optional. ─────────── */
 .gc-pin-wrap {
-  --gc-stage-h: clamp(420px, 58vh, 540px);
+  /* Floor is set to comfortably fit phone + caption + progress line + hint
+     stacked with the padding/gaps below, measured against the tallest
+     realistic content - see GrowCalthShowcase.js's useScrollProgress for why
+     this height (not the modal's) is what the scroll math is measured
+     against too. */
+  --gc-stage-h: clamp(640px, 64vh, 700px);
   position: relative;
 }
 
@@ -14,6 +19,10 @@
   position: sticky;
   top: 0;
   height: var(--gc-stage-h);
+  /* Belt-and-suspenders: --gc-stage-h is sized to fit real content, but
+     clipping overflow here means a stray long caption can never bleed past
+     this box's own bounds into whatever has scrolled up underneath it. */
+  overflow: hidden;
   /* flex-start, not center: on desktop the row + progress line + hint can
      run taller than --gc-stage-h, and centering would eat equally into the
      top AND bottom padding to make room - collapsing the top gap this was
@@ -181,7 +190,9 @@
 
 @media (max-width: 639px) {
   .gc-pin-wrap {
-    --gc-stage-h: clamp(480px, 78vh, 620px);
+    /* phone + caption stack vertically here instead of side-by-side, so
+       this needs more height than desktop, not less. */
+    --gc-stage-h: clamp(720px, 88vh, 820px);
   }
   .gc-row {
     flex-direction: column;
