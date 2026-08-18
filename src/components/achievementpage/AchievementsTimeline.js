@@ -18,12 +18,12 @@ const YEAR_DATA = [
   {
     year: '2024',
     highlight:
-      "GrowCalth's first public launch: 800+ sign-ups, 16M steps; Perse Coding Team Challenge gold; led Project Technogates at SIT, placing 3rd with a climate-tech prototype; completed AI for Literacy certification; completed O-Levels.",
+      "GrowCalth's first public launch: 800+ sign-ups, 16M steps; built Can+een for the SST Computing+ coursework; Perse Coding Team Challenge gold; led Project Technogates at SIT, placing 3rd with a climate-tech prototype; completed AI for Literacy certification; completed O-Levels.",
   },
   {
     year: '2025',
     highlight:
-      "Joined Ngee Ann Polytechnic Cybersecurity & Digital Forensics as a CSIT scholar; GrowCalth Launch 2: 1,200+ sign-ups, $5,000 NP Sandbox funding; made the Director's List; received SOLA; completed IBM, Cisco & Google AI certifications.",
+      "Joined Ngee Ann Polytechnic Cybersecurity & Digital Forensics as a CSIT scholar; attended NUS HacknRoll; GrowCalth Launch 2: 1,200+ sign-ups, $5,000 NP Sandbox funding; made the Director's List; received SOLA; completed IBM, Cisco & Google AI certifications.",
   },
   {
     year: '2026',

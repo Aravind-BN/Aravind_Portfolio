@@ -12,6 +12,8 @@ function Footer() {
     return () => window.removeEventListener('ctf-solved', onSolved);
   }, []);
 
+  const reopen = () => window.dispatchEvent(new Event('ctf-reopen'));
+
   return (
     <footer className="footer-container">
       <div className="social-media">
@@ -19,14 +21,23 @@ function Footer() {
           <small className="website-rights">
             © {new Date().getFullYear()} Aravind. All rights reserved.
           </small>
-          <span className="footer-ctf-hint">
-            <span className="footer-ctf-bracket">[</span>
-            <span className="footer-ctf-blink">{solved ? 'challenge solved' : 'hidden challenge on this site'}</span>
-            <span className="footer-ctf-bracket">]</span>
-            <span className="footer-ctf-key">
-              {' '}· <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>F</kbd> {solved ? 'to reopen' : 'to begin'}
+          {solved ? (
+            <button type="button" className="footer-ctf-hint footer-ctf-hint--button" onClick={reopen}>
+              <span className="footer-ctf-bracket">[</span>
+              <span className="footer-ctf-blink">challenge solved</span>
+              <span className="footer-ctf-bracket">]</span>
+              <span className="footer-ctf-key"> · click to reopen</span>
+            </button>
+          ) : (
+            <span className="footer-ctf-hint">
+              <span className="footer-ctf-bracket">[</span>
+              <span className="footer-ctf-blink">hidden challenge on this site</span>
+              <span className="footer-ctf-bracket">]</span>
+              <span className="footer-ctf-key">
+                {' '}· <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>F</kbd> to begin
+              </span>
             </span>
-          </span>
+          )}
         </div>
       </div>
     </footer>

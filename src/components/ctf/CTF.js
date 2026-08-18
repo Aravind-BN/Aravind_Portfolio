@@ -39,6 +39,15 @@ function CTF() {
     );
   }, []);
 
+  // Guaranteed reopen path — the footer's "click to reopen" button dispatches
+  // this instead of relying solely on the keyboard shortcut, which some
+  // browsers/extensions/OSes intercept before it ever reaches the page.
+  useEffect(() => {
+    const onReopen = () => setShowHidden(true);
+    window.addEventListener('ctf-reopen', onReopen);
+    return () => window.removeEventListener('ctf-reopen', onReopen);
+  }, []);
+
   // Ctrl+Shift+F listener — once solved, this just reopens the secret
   // panel directly; it never asks for the flag again.
   useEffect(() => {

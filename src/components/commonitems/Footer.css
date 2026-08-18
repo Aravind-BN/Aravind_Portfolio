@@ -51,6 +51,19 @@
   margin-top: 0.25rem;
 }
 
+.footer-ctf-hint--button {
+  background: none;
+  border: none;
+  padding: 0.3rem;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.footer-ctf-hint--button:hover,
+.footer-ctf-hint--button:hover .footer-ctf-key {
+  color: var(--accent);
+}
+
 .footer-ctf-bracket {
   color: var(--text-faint);
 }
