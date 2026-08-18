@@ -1,0 +1,201 @@
+/* ── GrowCalth 3D scroll showcase ──
+   .gc-pin-wrap is tall (N * 42vh); .gc-sticky pins to the modal's own
+   scroll viewport while its parent scrolls past - same pinned-scrollytelling
+   technique as .achv-pin-wrap/.achv-sticky, just measured against the modal
+   content box instead of the window. No independent scrollbar here: the
+   modal has exactly one scroll region, so scrolling past this section to
+   read the rest of the project is unavoidable, not optional. ─────────── */
+.gc-pin-wrap {
+  --gc-stage-h: clamp(420px, 58vh, 540px);
+  position: relative;
+}
+
+.gc-sticky {
+  position: sticky;
+  top: 0;
+  height: var(--gc-stage-h);
+  /* flex-start, not center: on desktop the row + progress line + hint can
+     run taller than --gc-stage-h, and centering would eat equally into the
+     top AND bottom padding to make room - collapsing the top gap this was
+     meant to create. Top-aligned means only the bottom (hint text) ever
+     gets tight, never the padding above the phone. Same fix as
+     .achv-sticky in AchievementsTimeline. */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1.75rem;
+  padding: 3.75rem 1.25rem 1.5rem;
+  box-sizing: border-box;
+  background: var(--bg-mid);
+  z-index: 1;
+}
+
+.gc-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2.75rem;
+  width: 100%;
+}
+
+/* ── phone ── */
+.gc-phone-wrap {
+  position: relative;
+  flex-shrink: 0;
+  width: 172px;
+  aspect-ratio: 945 / 2048;
+  perspective: 1600px;
+}
+
+.gc-phone-wrap::before {
+  content: '';
+  position: absolute;
+  inset: -30%;
+  background: radial-gradient(circle, var(--gc-glow, rgba(236, 72, 105, 0.22)), transparent 68%);
+  filter: blur(6px);
+  z-index: -1;
+}
+
+.gc-phone {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  will-change: transform;
+  border-radius: 1.9rem;
+  border: 6px solid #0a0a0a;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45), inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  background: #000;
+}
+
+.gc-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  overflow: hidden;
+  border-radius: 1.5rem;
+}
+
+.gc-face-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  user-select: none;
+  pointer-events: none;
+}
+
+.gc-notch {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 34%;
+  height: 8%;
+  max-height: 16px;
+  background: #050505;
+  border-radius: 999px;
+  z-index: 1;
+}
+
+/* ── caption ── */
+.gc-caption {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  max-width: 300px;
+  text-align: left;
+}
+
+.gc-caption-index {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.06em;
+  color: var(--accent-strong);
+}
+
+.gc-caption-title {
+  font-size: 1.35rem;
+  font-weight: var(--fw-semibold);
+  margin: 0;
+}
+
+.gc-caption-blurb {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* ── progress line: passive indicator only, no click-to-skip - the point
+   is that scrolling through every screen isn't optional ── */
+.gc-progress {
+  position: relative;
+  flex: 0 0 auto;
+  width: min(320px, 70%);
+  height: 1px;
+  background: var(--border-strong);
+}
+
+.gc-progress-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.gc-progress-dot {
+  position: absolute;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--border-strong);
+  transform: translate(-50%, -50%);
+  transition: background 0.25s ease;
+}
+
+.gc-progress-dot--active {
+  background: var(--accent);
+}
+
+.gc-scroll-hint {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.05em;
+  color: var(--text-faint);
+  transition: opacity 0.4s ease;
+}
+
+@media (min-width: 640px) {
+  .gc-phone-wrap {
+    width: 208px;
+  }
+}
+
+@media (max-width: 639px) {
+  .gc-pin-wrap {
+    --gc-stage-h: clamp(480px, 78vh, 620px);
+  }
+  .gc-row {
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  .gc-caption {
+    text-align: center;
+    align-items: center;
+    max-width: 280px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gc-face {
+    transition: opacity 0.3s ease;
+  }
+}

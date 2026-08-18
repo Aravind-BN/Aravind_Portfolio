@@ -194,11 +194,16 @@ body.light-theme .project-card-role {
   max-width: min(1040px, 94vw);
   max-height: 88vh;
   overflow-y: auto;
+  overscroll-behavior-y: contain;
   background: var(--bg-mid);
   border: 1px solid var(--border-strong);
   border-radius: 14px;
   box-shadow: 0 32px 80px rgba(0, 0, 0, 0.6);
   animation: project-modal-slide-up 0.25s ease;
+}
+
+.project-modal-content--wide {
+  max-width: min(1160px, 94vw);
 }
 
 @keyframes project-modal-fade-in {
@@ -225,10 +230,14 @@ body.light-theme .project-card-role {
 }
 
 .project-modal-close {
-  position: absolute;
-  top: 0.75rem;
-  right: 0.75rem;
-  z-index: 1;
+  /* fixed, not absolute: the modal content scrolls internally (the
+     GrowCalth showcase forces a long scroll), and an absolutely
+     positioned child of a scrolling container scrolls away with it.
+     Fixed keeps it reachable from anywhere in the modal. */
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: calc(var(--z-modal) + 1);
   width: 40px;
   height: 40px;
   border-radius: 50%;

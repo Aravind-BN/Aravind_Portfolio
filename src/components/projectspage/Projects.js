@@ -2,6 +2,7 @@ import React, { useState, useCallback, useEffect, useRef, memo } from 'react';
 import { createPortal } from 'react-dom';
 import './Projects.css';
 import useInView from '../../hooks/useInView';
+import GrowCalthShowcase from './GrowCalthShowcase';
 
 const PROJECTS = [
   {
@@ -26,6 +27,32 @@ const PROJECTS = [
       "Created GrowCalth's very own pedometer that doesn't depend on steps calculated from other apps.",
     ],
     tech: ['Kotlin', 'Google Firebase', 'GoogleFit Integration'],
+    screens: [
+      {
+        id: 'home',
+        title: 'Home',
+        image: require('../../images/projects/growcalth-home.jpeg'),
+        blurb: 'Live step and distance rings track progress toward the daily goal, with the top-3 house leaderboard front and center.',
+      },
+      {
+        id: 'updates',
+        title: 'Updates',
+        image: require('../../images/projects/growcalth-updates.jpeg'),
+        blurb: 'Season announcements, from leaderboard freezes to double-points events, keep every house in the loop.',
+      },
+      {
+        id: 'challenges',
+        title: 'Challenges',
+        image: require('../../images/projects/growcalth-challenges.jpeg'),
+        blurb: 'Daily push-up, squat, and jumping-jack targets gamify a quick burst of movement between classes.',
+      },
+      {
+        id: 'napfa',
+        title: 'NAPFA',
+        image: require('../../images/projects/growcalth-napfa.jpeg'),
+        blurb: 'The NAPFA leaderboard shows the top 5 performers in each fitness category, ranked across the whole cohort by level.',
+      },
+    ],
   },
   {
     id: 'privacy-puppy',
@@ -172,11 +199,19 @@ function ProjectGallery({ project }) {
 // ── Detail modal (opened on click, replaces the old inline accordion) ──
 const ProjectModal = memo(function ProjectModal({ project, onClose }) {
   const closeButtonRef = useRef(null);
+  const contentRef = useRef(null);
   const cover = coverOf(project);
 
   useEffect(() => {
     const previouslyFocused = document.activeElement;
     closeButtonRef.current?.focus();
+
+    // Locks the page behind the modal so scroll-chaining can't leak past
+    // the modal's own scroll container (e.g. once the GrowCalth showcase's
+    // long pinned scroll bottoms out, further wheel input was moving the
+    // page underneath instead of just stopping).
+    const previousBodyOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
 
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') onClose();
@@ -185,6 +220,7 @@ const ProjectModal = memo(function ProjectModal({ project, onClose }) {
 
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = previousBodyOverflow;
       if (previouslyFocused && typeof previouslyFocused.focus === 'function') {
         previouslyFocused.focus();
       }
@@ -193,7 +229,11 @@ const ProjectModal = memo(function ProjectModal({ project, onClose }) {
 
   return createPortal(
     <div className="project-modal-overlay" onClick={onClose} role="dialog" aria-modal="true" aria-label={project.title}>
-      <div className="project-modal-content" onClick={(e) => e.stopPropagation()}>
+      <div
+        ref={contentRef}
+        className={`project-modal-content${project.screens ? ' project-modal-content--wide' : ''}`}
+        onClick={(e) => e.stopPropagation()}
+      >
         <button ref={closeButtonRef} type="button" className="project-modal-close" onClick={onClose} aria-label="Close">
           ✕
         </button>
@@ -223,6 +263,8 @@ const ProjectModal = memo(function ProjectModal({ project, onClose }) {
               <ExternalIcon /> Live site
             </a>
           )}
+
+          {project.screens && <GrowCalthShowcase screens={project.screens} scrollContainerRef={contentRef} />}
 
           <ProjectGallery project={project} />
 
