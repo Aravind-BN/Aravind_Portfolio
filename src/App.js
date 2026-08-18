@@ -41,6 +41,7 @@ const App = () => {
     <div className="app-wrap" style={{ position: 'relative' }}>
       <FloatingCircles />
       <div style={{ position: 'relative', zIndex: 1 }}>
+        <a href="#home" className="skip-link">Skip to content</a>
         <Navbar />
         <main>
           <section id="home"><Home /></section>

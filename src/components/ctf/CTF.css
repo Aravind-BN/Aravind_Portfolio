@@ -6,7 +6,7 @@
 .ctf-overlay {
   position: fixed;
   inset: 0;
-  z-index: 9999;
+  z-index: var(--z-ctf-overlay);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -118,7 +118,7 @@
 .ctf-granted {
   position: fixed;
   inset: 0;
-  z-index: 10000;
+  z-index: var(--z-ctf-granted);
   display: flex;
   align-items: center;
   justify-content: center;

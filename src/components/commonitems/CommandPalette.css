@@ -1,7 +1,7 @@
 .cmdk-overlay {
   position: fixed;
   inset: 0;
-  z-index: 1100;
+  z-index: var(--z-command-palette);
   background: rgba(7, 9, 10, 0.7);
   backdrop-filter: blur(4px);
   display: flex;

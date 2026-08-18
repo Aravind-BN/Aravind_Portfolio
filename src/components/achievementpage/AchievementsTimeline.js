@@ -35,7 +35,13 @@ const YEAR_DATA = [
 // Auto-loads every image dropped into src/images/achievements/<year>/, so
 // adding photos never requires touching this file. Sort order follows
 // filename (numeric-aware) — name files 1.jpg, 2.jpg, 3.jpg per year.
-const photoContext = require.context('../../images/achievements', true, /\.(png|jpe?g|webp)$/i);
+// `require.context` is webpack-only — Jest sets NODE_ENV=test, so skip it
+// there instead of crashing. (Checking `typeof require.context` instead
+// breaks webpack's static analysis of the call below — hence NODE_ENV.)
+const photoContext =
+  process.env.NODE_ENV === 'test'
+    ? { keys: () => [] }
+    : require.context('../../images/achievements', true, /\.(png|jpe?g|webp)$/i);
 const PHOTOS_BY_YEAR = {};
 photoContext.keys().forEach((key) => {
   const match = key.match(/^\.\/(\d{4})\//);
