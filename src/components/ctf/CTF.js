@@ -124,7 +124,7 @@ function CTF() {
                 spellCheck="false"
               />
               {flagError && (
-                <span className="ctf-error">ACCESS DENIED — invalid flag</span>
+                <span className="ctf-error">ACCESS DENIED: invalid flag</span>
               )}
               <button className="ctf-submit" onClick={handleSubmit}>
                 Submit

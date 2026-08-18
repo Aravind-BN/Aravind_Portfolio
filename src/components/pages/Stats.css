@@ -50,6 +50,7 @@
   color: var(--accent-strong);
   letter-spacing: -0.02em;
   line-height: 1.1;
+  font-variant-numeric: tabular-nums;
 }
 
 body.light-theme .stat-value {

@@ -10,7 +10,7 @@ const PROJECTS = [
     websiteUrl: 'https://growcalth.com/',
     image: require('../../images/growcalth2.jpg'),
     role: 'Co-Founder & Lead Android Developer',
-    summary: 'A student fitness app that gamifies step counts into house points — 1,200+ students, $5,000 in NP Sandbox funding.',
+    summary: 'A student fitness app that gamifies step counts into house points: 1,200+ students, $5,000 in NP Sandbox funding.',
     description: [
       'GrowCalth is a mobile fitness app built for students by students with the aim of empowering students to live healthier lives, forging a stronger house spirit amongst students as well as to create a more connected community in school',
       'The app gamifies fitness by tying step counts to house points.',
@@ -48,7 +48,7 @@ const PROJECTS = [
     title: 'GamEx',
     websiteUrl: null,
     role: 'Co-Founder & Developer',
-    summary: 'An online platform that lets anyone create browser games using AI — no coding required.',
+    summary: 'An online platform that lets anyone create browser games using AI, no coding required.',
     description: [
       'GamEx is an online platform for creating browser games with AI, built to make game creation accessible to anyone with an idea.',
       'Co-founded the project and led development.',

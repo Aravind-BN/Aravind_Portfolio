@@ -24,7 +24,7 @@ function Footer() {
             <span className="footer-ctf-blink">{solved ? 'challenge solved' : 'hidden challenge on this site'}</span>
             <span className="footer-ctf-bracket">]</span>
             <span className="footer-ctf-key">
-              {' '}— <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>F</kbd> {solved ? 'to reopen' : 'to begin'}
+              {' '}· <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>F</kbd> {solved ? 'to reopen' : 'to begin'}
             </span>
           </span>
         </div>

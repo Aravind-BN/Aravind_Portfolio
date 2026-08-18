@@ -13,22 +13,22 @@ const YEAR_DATA = [
   {
     year: '2023',
     highlight:
-      "Blue House Vice-Captain; GrowCalth selected top 3 in SSTInc — earned a trip to San Francisco & DeveloperWeek; received the Eagles Award; competed in SASMO and the Perse Competition; represented SST at Hwa Chong's Student Leaders Convention.",
+      "Blue House Vice-Captain; GrowCalth selected top 3 in SSTInc: earned a trip to San Francisco & DeveloperWeek; received the Eagles Award; competed in SASMO and the Perse Competition; represented SST at Hwa Chong's Student Leaders Convention.",
   },
   {
     year: '2024',
     highlight:
-      "GrowCalth's first public launch — 800+ sign-ups, 16M steps; Perse Coding Team Challenge gold; led Project Technogates at SIT, placing 3rd with a climate-tech prototype; completed AI for Literacy certification; completed O-Levels.",
+      "GrowCalth's first public launch: 800+ sign-ups, 16M steps; Perse Coding Team Challenge gold; led Project Technogates at SIT, placing 3rd with a climate-tech prototype; completed AI for Literacy certification; completed O-Levels.",
   },
   {
     year: '2025',
     highlight:
-      "Joined Ngee Ann Polytechnic Cybersecurity & Digital Forensics as a CSIT scholar; GrowCalth Launch 2 — 1,200+ sign-ups, $5,000 NP Sandbox funding; made the Director's List; received SOLA; completed IBM, Cisco & Google AI certifications.",
+      "Joined Ngee Ann Polytechnic Cybersecurity & Digital Forensics as a CSIT scholar; GrowCalth Launch 2: 1,200+ sign-ups, $5,000 NP Sandbox funding; made the Director's List; received SOLA; completed IBM, Cisco & Google AI certifications.",
   },
   {
     year: '2026',
     highlight:
-      'Completed the Google Cybersecurity Certificate and LinkedIn certifications in PowerShell automation, generative AI security, and Windows Subsystem for Linux.',
+      "Attended TCP Camp; joined nullsec's SecOps exco, teaching cybersecurity concepts to students; won 1st place at NP Innopoly 2026; led GrowCalth's third launch with an in-school booth; completed the Google Cybersecurity Certificate and LinkedIn certifications in PowerShell automation, generative AI security, and Windows Subsystem for Linux.",
   },
 ];
 
