@@ -10,12 +10,13 @@ const PROJECTS = [
     websiteUrl: 'https://growcalth.com/',
     image: require('../../images/growcalth2.jpg'),
     role: 'Co-Founder & Lead Android Developer',
-    summary: 'A student fitness app that gamifies step counts into house points: 1,200+ students, $5,000 in NP Sandbox funding.',
+    summary: 'A student fitness app that gamifies step counts into house points: 1,500+ students, $5,000 in NP Sandbox funding.',
     description: [
       'GrowCalth is a mobile fitness app built for students by students with the aim of empowering students to live healthier lives, forging a stronger house spirit amongst students as well as to create a more connected community in school',
       'The app gamifies fitness by tying step counts to house points.',
-      'Launched to over 1200 students with active daily engagement tracked via Firebase analytics.',
-      'Has 2 successful launches in SST with increased engagement from the first year to second',
+      'Launched to over 1,500 students with active daily engagement tracked via Firebase analytics.',
+      'Has 3 successful launches in SST, with engagement growing season over season.',
+      'Season 3: ~125,000 km walked altogether (more than 3 times around the Earth) and ~8,865 fitness challenges completed across push-ups, squats, and jumping jacks, averaging 3,000 reps each.',
       'Have receieved funding from NP Sandbox worth $5000 and got our own office within Ngee Ann Polytechnic',
       'Initially started as a project in 2022, which my groupmates and I have been continously working on for the past 4 years.',
     ],
@@ -52,6 +53,7 @@ const PROJECTS = [
     description: [
       'GamEx is an online platform for creating browser games with AI, built to make game creation accessible to anyone with an idea.',
       'Co-founded the project and led development.',
+      'Received $3,000 in NP Sandbox funding.',
     ],
     contributions: [
       'Co-founded the project and led development.',

@@ -6,8 +6,8 @@ import useInView from '../../hooks/useInView';
 // Certificates data) — nothing here is invented. `target` is the raw number
 // the count-up animates to; prefix/suffix/comma control display formatting.
 const STATS = [
-  { target: 1200, prefix: '', suffix: '+', comma: true, label: 'GrowCalth users', detail: 'across 2 school-wide launches' },
-  { target: 5000, prefix: '$', suffix: '', comma: true, label: 'Funding raised', detail: 'NP Sandbox grant for GrowCalth' },
+  { target: 1500, prefix: '', suffix: '+', comma: true, label: 'GrowCalth users', detail: 'across 3 school-wide launches' },
+  { target: 8000, prefix: '$', suffix: '', comma: true, label: 'Funding raised', detail: 'NP Sandbox grants for GrowCalth & GamEx' },
   { target: 210, prefix: '', suffix: 'M+', comma: false, label: 'Steps tracked', detail: "through GrowCalth's Launch 2" },
   { target: 8, prefix: '', suffix: '+', comma: false, label: 'Certifications earned', detail: 'cybersecurity, cloud & AI' },
 ];
