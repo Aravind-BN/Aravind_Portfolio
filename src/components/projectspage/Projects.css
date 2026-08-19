@@ -63,6 +63,19 @@
   transition: transform 0.5s ease;
 }
 
+/* For logo/wordmark covers (not a landscape screenshot) — object-fit:
+   cover would crop the edges off a wide, small logo. Contain keeps the
+   whole mark visible, letterboxed on the card's own background. */
+.project-cover-img--contain {
+  object-fit: contain;
+  padding: 1.5rem;
+  background: var(--bg-mid);
+}
+
+.project-card:hover .project-cover-img--contain {
+  transform: none;
+}
+
 .project-card:hover .project-cover-img {
   transform: scale(1.06);
 }
@@ -264,6 +277,12 @@ body.light-theme .project-card-role {
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+.project-modal-cover img.project-cover-img--contain {
+  object-fit: contain;
+  padding: 2.5rem;
+  background: var(--bg-mid);
 }
 
 .project-modal-body {

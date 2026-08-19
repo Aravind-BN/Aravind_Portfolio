@@ -108,6 +108,8 @@ const PROJECTS = [
     id: 'rizzlah',
     title: 'RizzLah',
     websiteUrl: null,
+    image: require('../../images/rizzlah.png'),
+    coverFit: 'contain',
     role: 'Front-End Designer',
     summary:
       'A Singaporean AI app that turns an uploaded chat screenshot into witty, culturally authentic reply suggestions.',
@@ -261,7 +263,11 @@ const ProjectModal = memo(function ProjectModal({ project, onClose }) {
 
         {cover && (
           <div className="project-modal-cover">
-            <img src={resolveUrl(cover)} alt={project.title} />
+            <img
+              src={resolveUrl(cover)}
+              alt={project.title}
+              className={project.coverFit === 'contain' ? 'project-cover-img--contain' : undefined}
+            />
           </div>
         )}
 
@@ -328,7 +334,11 @@ const ProjectCard = memo(function ProjectCard({ project, index, onOpen }) {
     <li className="project-card" style={{ transitionDelay: `${index * 90}ms` }}>
       <button type="button" className="project-card-cover" onClick={() => onOpen(project)}>
         {cover ? (
-          <img src={resolveUrl(cover)} alt={project.title} className="project-cover-img" />
+          <img
+            src={resolveUrl(cover)}
+            alt={project.title}
+            className={`project-cover-img${project.coverFit === 'contain' ? ' project-cover-img--contain' : ''}`}
+          />
         ) : (
           <div className="project-cover-fallback" aria-hidden="true">{'</>'}</div>
         )}

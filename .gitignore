@@ -24,3 +24,6 @@ yarn-error.log*
 
 # brainstorming visual companion
 .superpowers/
+
+# impeccable design-hook cache
+.impeccable/
