@@ -326,32 +326,42 @@ body.light-theme .project-card-role {
   object-fit: cover;
 }
 
-/* ── Info blocks ── */
-.project-info-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 0.75rem;
-}
-
-@media (min-width: 640px) {
-  .project-info-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
+/* ── Info block ── */
 .project-info-block {
   display: flex;
   flex-direction: column;
-  gap: 0.45rem;
+  gap: 0.6rem;
   background: var(--bg-mid);
   border: 1px solid var(--border);
   border-radius: 8px;
-  padding: 0.75rem 0.9rem;
+  padding: 0.9rem 1rem;
   min-width: 0;
 }
 
 .project-info-label {
   font-size: 0.7rem;
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.project-about-text {
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: var(--text-muted);
+}
+
+.project-info-subsection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--border);
+}
+
+.project-info-sublabel {
+  font-size: 0.65rem;
   font-weight: var(--fw-semibold);
   letter-spacing: 0.08em;
   text-transform: uppercase;

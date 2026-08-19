@@ -8,27 +8,27 @@ const YEAR_DATA = [
   {
     year: '2022',
     highlight:
-      "Blue House Junior House Leader; started GrowCalth with friends; represented SST at NSG Football C Division (West Zone); joined SSTInc to deepen programming skills under mentorship.",
+      "Blue House Junior House Leader; started GrowCalth with friends; represented SST at NSG Football C Division (West Zone); joined SSTInc to deepen programming skills under mentorship; joined local football club Nanyang CSN, though the club wasn't yet registered for any competitions.",
   },
   {
     year: '2023',
     highlight:
-      "Blue House Vice-Captain; GrowCalth selected top 3 in SSTInc: earned a trip to San Francisco & DeveloperWeek; received the Eagles Award; competed in SASMO and the Perse Competition; represented SST at Hwa Chong's Student Leaders Convention.",
+      "Blue House Vice-Captain; GrowCalth selected top 3 in SSTInc: earned a trip to San Francisco & DeveloperWeek; received the Eagles Award; competed in SASMO and the Perse Competition; represented SST at Hwa Chong's Student Leaders Convention; selected for the B-Division football team representing SST Football; organised and led inter-house activities including CheerDance, OEE, Interhouse Games, and the Games Carnival; led Blue House to 3rd place overall.",
   },
   {
     year: '2024',
     highlight:
-      "GrowCalth's first public launch: 800+ sign-ups, 16M steps; built Can+een for the SST Computing+ coursework; Perse Coding Team Challenge gold; led Project Technogates at SIT, placing 3rd with a climate-tech prototype; completed AI for Literacy certification; completed O-Levels.",
+      "GrowCalth's first public launch: 800+ sign-ups, 16M steps; built Can+een for the SST Computing+ coursework; Perse Coding Team Challenge gold; led Project Technogates at SIT, placing 3rd with a climate-tech prototype; completed AI for Literacy certification; Blue House exco, mentoring the incoming Sec 3 captains; took a break from Nanyang CSN to focus on academics, the year the club began applying for tournaments and competitions; completed O-Levels — L1R5: 10 (net 6), ELR2B2: 8 (net 6).",
   },
   {
     year: '2025',
     highlight:
-      "Joined Ngee Ann Polytechnic Cybersecurity & Digital Forensics as a CSIT scholar; attended NUS HacknRoll; GrowCalth Launch 2: 1,200+ sign-ups, $5,000 NP Sandbox funding; made the Director's List; received SOLA; completed IBM, Cisco & Google AI certifications.",
+      "Joined Ngee Ann Polytechnic's Cybersecurity & Digital Forensics course, later becoming a CSIT scholar; attended NUS HacknRoll; GrowCalth Launch 2: 1,200+ sign-ups, $5,000 NP Sandbox funding, plus multiple publicity events; made the Director's List; received SOLA; completed IBM, Cisco & Google AI certifications; returned to Nanyang CSN one last time before the club stopped running training sessions for the U16 age group; played in JSSL League 2, making regular appearances for the team.",
   },
   {
     year: '2026',
     highlight:
-      "Attended TCP Camp; joined nullsec's SecOps exco, teaching cybersecurity concepts to students; won 1st place at NP Innopoly 2026; led GrowCalth's third launch with an in-school booth; completed the Google Cybersecurity Certificate and LinkedIn certifications in PowerShell automation, generative AI security, and Windows Subsystem for Linux.",
+      "Attended TCP Camp; joined nullsec's SecOps exco, teaching cybersecurity concepts to students; won 1st place at NP Innopoly 2026; led GrowCalth's third launch with an in-school booth; completed the Google Cybersecurity Certificate and LinkedIn certifications in PowerShell automation, generative AI security, and Windows Subsystem for Linux; attended multiple conferences and hackathons; started working at Nee Lee, my mother's company, helping set up their firewall, handling admin work, and automating processes to save time going forward.",
   },
 ];
 

@@ -12,19 +12,20 @@ const PROJECTS = [
     image: require('../../images/growcalth2.png'),
     role: 'Co-Founder & Lead Android Developer',
     summary: 'A student fitness app that gamifies step counts into house points: 1,500+ students, $5,000 in NP Sandbox funding.',
-    description: [
-      'GrowCalth is a mobile fitness app built for students by students with the aim of empowering students to live healthier lives, forging a stronger house spirit amongst students as well as to create a more connected community in school',
-      'The app gamifies fitness by tying step counts to house points.',
-      'Launched to over 1,500 students with active daily engagement tracked via Firebase analytics.',
-      'Has 3 successful launches in SST, with engagement growing season over season.',
-      'Season 3: ~125,000 km walked altogether (more than 3 times around the Earth) and ~8,865 fitness challenges completed across push-ups, squats, and jumping jacks, averaging 3,000 reps each.',
-      'Have receieved funding from NP Sandbox worth $5000 and got our own office within Ngee Ann Polytechnic',
-      'Initially started as a project in 2022, which my groupmates and I have been continously working on for the past 4 years.',
+    description:
+      "GrowCalth is a mobile fitness app built for students, by students, with the aim of empowering students to live healthier lives, forging a stronger house spirit, and creating a more connected community in school. It gamifies fitness by tying step counts to house points, and has now had 3 successful launches at SST, with engagement growing season over season and tracked via Firebase analytics. The project has received $5,000 in funding from NP Sandbox, earning the team its own office within Ngee Ann Polytechnic. Initially started as a project in 2022, my groupmates and I have been continuously working on it for the past 4 years.",
+    stats: [
+      'Launched to over 1,500 students with active daily engagement.',
+      'Season 3: ~125,000 km walked altogether — more than 3 times around the Earth.',
+      'Season 3: ~3,000 fitness challenges completed across push-ups, squats, and jumping jacks, each made up of 10 reps — averaging 30,000 reps each.',
     ],
     contributions: [
       'Implemented GoogleFit Integration into Android App.',
       'Worked on front-end UI and integration with backend services in the Android side.',
       "Created GrowCalth's very own pedometer that doesn't depend on steps calculated from other apps.",
+      'Co-founded GrowCalth in 2022.',
+      'Implemented the challenges feature together with Aathithya Jegatheesan on Android.',
+      'Collated NAPFA results into a neat format for both iOS and Android to display cleanly.',
     ],
     tech: ['Kotlin', 'Google Firebase', 'GoogleFit Integration'],
     screens: [
@@ -58,35 +59,50 @@ const PROJECTS = [
     id: 'privacy-puppy',
     title: 'Privacy Puppy',
     websiteUrl: null,
+    image: require('../../images/privacy-puppy.png'),
     role: 'Developer',
     summary: 'A browser extension that blocks non-essential cookies and scans T&Cs / privacy policies to warn you of real risks before you sign up.',
-    description: [
-      'Built at a hackathon: a security-focused browser extension.',
-      'Automatically blocks non-essential cookies, allowing only what a site actually needs to function.',
-      'Scans Terms & Conditions and Privacy Policies to detect and flag risky clauses, warning users before they sign up for an app or service.',
-    ],
+    description:
+      'Built at a hackathon, Privacy Puppy is a security-focused browser extension that automatically blocks non-essential cookies, allowing only what a site actually needs to function, while scanning Terms & Conditions and Privacy Policies to detect and flag risky clauses — warning users before they sign up for an app or service.',
     contributions: [
       'Designed and built the cookie-blocking logic for the extension.',
       'Built the policy scanning flow that surfaces risk warnings to the user.',
+      'Integrated the Gemini API to power the policy-scanning analysis.',
+      'Built the Firebase functionality across the extension and companion webpage, together with Tristan Chay.',
     ],
-    tech: ['JavaScript', 'Browser Extension APIs', 'Cookie Management', 'Privacy Policy Analysis'],
+    tech: ['JavaScript', 'Gemini API', 'Firebase', 'Browser Extension APIs', 'Cookie Management'],
   },
   {
     id: 'gamex',
     title: 'GamEx',
     websiteUrl: null,
+    image: require('../../images/gamex.png'),
     role: 'Co-Founder & Developer',
     summary: 'An online platform that lets anyone create browser games using AI, no coding required.',
-    description: [
-      'GamEx is an online platform for creating browser games with AI, built to make game creation accessible to anyone with an idea.',
-      'Co-founded the project and led development.',
-      'Received $3,000 in NP Sandbox funding.',
-    ],
+    description:
+      'GamEx is an online platform for creating browser games with AI, built to make game creation accessible to anyone with an idea — no coding required. I co-founded the project and led development, which received $3,000 in NP Sandbox funding.',
     contributions: [
       'Co-founded the project and led development.',
       'Built the front-end in React and integrated AI-driven game generation.',
+      'Wired up the OpenAI API key powering the game-generation engine.',
     ],
-    tech: ['React', 'Node.js', 'AI/LLM Integration', 'JavaScript'],
+    tech: ['React', 'Node.js', 'OpenAI API', 'JavaScript'],
+  },
+  {
+    id: 'prediction-bot',
+    title: 'Prediction Bot',
+    websiteUrl: null,
+    image: require('../../images/telegram-bot.png'),
+    role: 'Developer',
+    summary: "A Telegram bot that predicts Manchester United's next match result using live data pulled from a football API.",
+    description:
+      "Prediction Bot came out of combining two of my biggest interests — Manchester United and software development. It's a Telegram bot that fetches live football data through an API and uses it to predict the outcome of Manchester United's next game, delivering the prediction straight to Telegram.",
+    contributions: [
+      'Built the Telegram bot interface and command handling.',
+      'Integrated a football data API to fetch fixtures, form, and stats.',
+      'Built the prediction logic that turns fetched data into a match forecast.',
+    ],
+    tech: ['Python', 'Telegram Bot API', 'Football Data API'],
   },
   {
     id: 'canteen',
@@ -95,11 +111,8 @@ const PROJECTS = [
     image: require('../../images/projects/canteen.png'),
     role: 'Front-end Developer',
     summary: 'Pre-order app that lets students queue with canteen stalls remotely, cutting break-time wait times.',
-    description: [
-      "At SST, the canteen stall owners face significant business losses due to the school's small size, leading to long queues and extended waiting times for students during their breaks. To solve this, we created an app that facilitates communication between SST students/staff and canteen stall owners. Students & Staff can seamlessly communicate placed orders to canteen stall owners before break times, which allows stall owners to prepare the orders in advance, thus being able to earn more efficiently and mitigate the issue of long queues and waiting times..",
-      'Created for my SST Computing + 2024 Coursework Project.',
-      'Co-developed by Theshyan Thirun and Timothy Tan.',
-    ],
+    description:
+      "At SST, canteen stall owners face significant business losses due to the school's small size, leading to long queues and extended waiting times for students during breaks. To solve this, we created an app that facilitates communication between SST students/staff and canteen stall owners. Students and staff can seamlessly communicate placed orders to stall owners before break times, letting them prepare orders in advance — earning more efficiently and cutting down on long queues and waiting times. Created for my SST Computing+ 2024 coursework project, co-developed with Theshyan Thirun and Timothy Tan.",
     contributions: [
       'Validations for the entire app.',
       'Basic UI for the app, consisting of widgets for users to sign in respectively.',
@@ -115,13 +128,8 @@ const PROJECTS = [
     image: require('../../images/projects/crypto.png'),
     role: 'Developer',
     summary: 'A post-quantum payment-flow prototype using CRYSTALS-Kyber key encapsulation and ChaCha20-Poly1305 encryption.',
-    description: [
-      "A research-driven prototype that simulates Apple Pay's cryptographic payment flow using post-quantum algorithms.",
-      'Built to explore how modern payment systems can be hardened against quantum computing threats.',
-      'Demonstrates end-to-end key encapsulation and authenticated encryption in a payment context.',
-      'Cryptographic Algorithms used: ChaCha20-Poly1305 and CRYSTALS-Kyber',
-      'Project for cryptography module in Ngee Ann Polytechnic 1.2',
-    ],
+    description:
+      "A research-driven prototype that simulates Apple Pay's cryptographic payment flow using post-quantum algorithms, built to explore how modern payment systems can be hardened against quantum computing threats. It demonstrates end-to-end key encapsulation and authenticated encryption in a payment context, using CRYSTALS-Kyber for key encapsulation and ChaCha20-Poly1305 for authenticated encryption. Built as a project for the cryptography module at Ngee Ann Polytechnic.",
     contributions: [
       'Built a prototype flow that mimics Apple Pay style payments.',
       'Implemented CRYSTALS-Kyber for key encapsulation and ChaCha20‑Poly1305 for authenticated encryption.',
@@ -144,11 +152,8 @@ const PROJECTS = [
     videos: [require('../../images/projects/sitvid.mp4'), require('../../images/projects/sitvid2.mp4')],
     role: 'Lead Developer',
     summary: 'Climate-tech prototype selected to present at SIT’s STEM Seeds workshop on fighting climate change with technology.',
-    description: [
-      'A climate-focused innovation project presented at the Singapore Institute of Technology (SIT).',
-      'The team ideated and prototyped a solution addressing urban environmental challenges.',
-      "Selected to present at SIT's STEM Seeds Social Innovaters of the Future workshop on Battling Climate Change with Technology (2024), as part of a competitive cohort.",
-    ],
+    description:
+      "A climate-focused innovation project presented at the Singapore Institute of Technology (SIT), where the team ideated and prototyped a solution addressing urban environmental challenges. Selected to present at SIT's STEM Seeds Social Innovators of the Future workshop on Battling Climate Change with Technology (2024), as part of a competitive cohort.",
     contributions: [
       'Contributed to concept and prototype for a climate‑focused solution.',
       'Helped prepare and deliver the presentation and demo at SIT.',
@@ -268,18 +273,23 @@ const ProjectModal = memo(function ProjectModal({ project, onClose }) {
 
           <ProjectGallery project={project} />
 
-          <div className="project-info-grid">
-            <div className="project-info-block">
-              <span className="project-info-label">About</span>
-              <ul className="project-info-list">
-                {project.description.map((d, i) => (
-                  <li key={i}>{d}</li>
-                ))}
-              </ul>
-            </div>
+          <div className="project-info-block">
+            <span className="project-info-label">About</span>
+            <p className="project-about-text">{project.description}</p>
 
-            <div className="project-info-block">
-              <span className="project-info-label">Contributions</span>
+            {project.stats && (
+              <div className="project-info-subsection">
+                <span className="project-info-sublabel">Stats</span>
+                <ul className="project-info-list">
+                  {project.stats.map((s, i) => (
+                    <li key={i}>{s}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            <div className="project-info-subsection">
+              <span className="project-info-sublabel">Contributions</span>
               <ul className="project-info-list">
                 {project.contributions.map((c, i) => (
                   <li key={i}>{c}</li>
