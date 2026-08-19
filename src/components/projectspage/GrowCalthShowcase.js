@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './GrowCalthShowcase.css';
+import { stepEase } from '../../utils/scrollEase';
 
 const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
-const STEP_VH = 42;
+const STEP_VH = 60;
 
 // Each screen's face fades in/out around its own resting angle (k * 180deg)
 // so only one is ever visible - backface-visibility alone aliases every
@@ -73,8 +74,12 @@ function GrowCalthShowcase({ screens, scrollContainerRef }) {
   const count = screens.length;
   const lastIndex = count - 1;
   const progress = useScrollProgress(wrapRef, stickyRef, scrollContainerRef);
-  const rotation = progress * lastIndex * 180;
-  const activeIndex = clamp(Math.round(rotation / 180), 0, lastIndex);
+  // Dwell at each screen instead of rotating continuously with every pixel
+  // scrolled — see stepEase for why leaving a resting screen needs
+  // deliberate, sustained scrolling rather than any small nudge.
+  const { position } = stepEase(progress * lastIndex, lastIndex);
+  const rotation = position * 180;
+  const activeIndex = clamp(Math.round(progress * lastIndex), 0, lastIndex);
   const active = screens[activeIndex];
   const atEnd = activeIndex === lastIndex;
   const showHint = progress < 0.04 || atEnd;

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef, memo } from 'react';
 import { createPortal } from 'react-dom';
 import './AchievementsTimeline.css';
+import { stepEase } from '../../utils/scrollEase';
 
 // Years walked through in the horizontal journey. 2021 is skipped — no
 // photos exist for it yet; the journey starts where the photo record does.
@@ -53,7 +54,7 @@ Object.values(PHOTOS_BY_YEAR).forEach((arr) =>
   arr.sort((a, b) => a.key.localeCompare(b.key, undefined, { numeric: true }))
 );
 
-const STEP_VH = 55;
+const STEP_VH = 75;
 
 // Photo grid uses the same aspect-ratio-matched mosaic technique as the
 // certificates grid: fixed-width columns, and each tile's row-span is
@@ -179,6 +180,10 @@ function AchievementsJourney({ onOpenPhoto }) {
   const progress = useScrollProgress(wrapRef, true);
   const lastIndex = YEAR_DATA.length - 1;
   const currentIndex = Math.round(progress * lastIndex);
+  // Dwell on each year instead of sliding continuously with every pixel
+  // scrolled — see stepEase for why leaving a settled year needs
+  // deliberate, sustained scrolling rather than any small nudge.
+  const { position: trackPosition } = stepEase(progress * lastIndex, lastIndex);
   const [spans, setSpans] = useState({});
 
   const handleLoadSpan = useCallback((key, colPx, cols, naturalWidth, naturalHeight) => {
@@ -238,7 +243,7 @@ function AchievementsJourney({ onOpenPhoto }) {
 
         <div
           className="achv-track"
-          style={{ transform: `translateX(-${progress * lastIndex * 100}vw)` }}
+          style={{ transform: `translateX(-${trackPosition * 100}vw)` }}
         >
           {YEAR_DATA.map((y, slideIndex) => {
             const photos = PHOTOS_BY_YEAR[y.year] || [];
