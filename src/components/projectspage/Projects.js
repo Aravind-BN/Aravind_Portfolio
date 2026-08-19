@@ -105,6 +105,22 @@ const PROJECTS = [
     tech: ['Python', 'Telegram Bot API', 'Football Data API'],
   },
   {
+    id: 'rizzlah',
+    title: 'RizzLah',
+    websiteUrl: null,
+    role: 'Front-End Designer',
+    summary:
+      'A Singaporean AI app that turns an uploaded chat screenshot into witty, culturally authentic reply suggestions.',
+    description:
+      "Built at HacknRoll 2025, RizzLah is a Singaporean AI app that helps you level up your conversational game. Upload a chat screenshot and it generates witty, engaging replies with an authentic Singaporean vibe, personalized by your age, your chat partner's gender, and multiple interests like Sports, Music, and Travel, all through a drag-and-drop interface.",
+    contributions: [
+      'Designed and built the front-end in React.',
+      'Built the drag-and-drop screenshot upload flow.',
+      'Built the personalization inputs for age, partner gender, and multi-interest selection.',
+    ],
+    tech: ['React', 'ChatGPT API', 'CSS'],
+  },
+  {
     id: 'canteen',
     title: 'Can+een',
     websiteUrl: 'https://sites.google.com/sst.edu.sg/cp-coursework-gallery/2024/can-een?authuser=0',
