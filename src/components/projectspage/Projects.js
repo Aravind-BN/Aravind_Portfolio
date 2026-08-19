@@ -16,8 +16,8 @@ const PROJECTS = [
       "GrowCalth is a mobile fitness app built for students, by students, with the aim of empowering students to live healthier lives, forging a stronger house spirit, and creating a more connected community in school. It gamifies fitness by tying step counts to house points, and has now had 3 successful launches at SST, with engagement growing season over season and tracked via Firebase analytics. The project has received $5,000 in funding from NP Sandbox, earning the team its own office within Ngee Ann Polytechnic. Initially started as a project in 2022, my groupmates and I have been continuously working on it for the past 4 years.",
     stats: [
       'Launched to over 1,500 students with active daily engagement.',
-      'Season 3: ~125,000 km walked altogether — more than 3 times around the Earth.',
-      'Season 3: ~3,000 fitness challenges completed across push-ups, squats, and jumping jacks, each made up of 10 reps — averaging 30,000 reps each.',
+      'Season 3: ~125,000 km walked altogether, more than 3 times around the Earth.',
+      'Season 3: ~3,000 fitness challenges completed across push-ups, squats, and jumping jacks, each made up of 10 reps, averaging 30,000 reps each.',
     ],
     contributions: [
       'Implemented GoogleFit Integration into Android App.',
@@ -63,7 +63,7 @@ const PROJECTS = [
     role: 'Developer',
     summary: 'A browser extension that blocks non-essential cookies and scans T&Cs / privacy policies to warn you of real risks before you sign up.',
     description:
-      'Built at a hackathon, Privacy Puppy is a security-focused browser extension that automatically blocks non-essential cookies, allowing only what a site actually needs to function, while scanning Terms & Conditions and Privacy Policies to detect and flag risky clauses — warning users before they sign up for an app or service.',
+      'Built at a hackathon, Privacy Puppy is a security-focused browser extension that automatically blocks non-essential cookies, allowing only what a site actually needs to function, while scanning Terms & Conditions and Privacy Policies to detect and flag risky clauses, warning users before they sign up for an app or service.',
     contributions: [
       'Designed and built the cookie-blocking logic for the extension.',
       'Built the policy scanning flow that surfaces risk warnings to the user.',
@@ -80,7 +80,7 @@ const PROJECTS = [
     role: 'Co-Founder & Developer',
     summary: 'An online platform that lets anyone create browser games using AI, no coding required.',
     description:
-      'GamEx is an online platform for creating browser games with AI, built to make game creation accessible to anyone with an idea — no coding required. I co-founded the project and led development, which received $3,000 in NP Sandbox funding.',
+      'GamEx is an online platform for creating browser games with AI, built to make game creation accessible to anyone with an idea, no coding required. I co-founded the project and led development, which received $3,000 in NP Sandbox funding.',
     contributions: [
       'Co-founded the project and led development.',
       'Built the front-end in React and integrated AI-driven game generation.',
@@ -96,7 +96,7 @@ const PROJECTS = [
     role: 'Developer',
     summary: "A Telegram bot that predicts Manchester United's next match result using live data pulled from a football API.",
     description:
-      "Prediction Bot came out of combining two of my biggest interests — Manchester United and software development. It's a Telegram bot that fetches live football data through an API and uses it to predict the outcome of Manchester United's next game, delivering the prediction straight to Telegram.",
+      "Prediction Bot came out of combining two of my biggest interests: Manchester United and software development. It's a Telegram bot that fetches live football data through an API and uses it to predict the outcome of Manchester United's next game, delivering the prediction straight to Telegram.",
     contributions: [
       'Built the Telegram bot interface and command handling.',
       'Integrated a football data API to fetch fixtures, form, and stats.',
@@ -128,7 +128,7 @@ const PROJECTS = [
     role: 'Front-end Developer',
     summary: 'Pre-order app that lets students queue with canteen stalls remotely, cutting break-time wait times.',
     description:
-      "At SST, canteen stall owners face significant business losses due to the school's small size, leading to long queues and extended waiting times for students during breaks. To solve this, we created an app that facilitates communication between SST students/staff and canteen stall owners. Students and staff can seamlessly communicate placed orders to stall owners before break times, letting them prepare orders in advance — earning more efficiently and cutting down on long queues and waiting times. Created for my SST Computing+ 2024 coursework project, co-developed with Theshyan Thirun and Timothy Tan.",
+      "At SST, canteen stall owners face significant business losses due to the school's small size, leading to long queues and extended waiting times for students during breaks. To solve this, we created an app that facilitates communication between SST students/staff and canteen stall owners. Students and staff can seamlessly communicate placed orders to stall owners before break times, letting them prepare orders in advance, earning more efficiently and cutting down on long queues and waiting times. Created for my SST Computing+ 2024 coursework project, co-developed with Theshyan Thirun and Timothy Tan.",
     contributions: [
       'Validations for the entire app.',
       'Basic UI for the app, consisting of widgets for users to sign in respectively.',

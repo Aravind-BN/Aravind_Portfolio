@@ -18,7 +18,7 @@ const YEAR_DATA = [
   {
     year: '2024',
     highlight:
-      "GrowCalth's first public launch: 800+ sign-ups, 16M steps; built Can+een for the SST Computing+ coursework; Perse Coding Team Challenge gold; led Project Technogates at SIT, placing 3rd with a climate-tech prototype; completed AI for Literacy certification; Blue House exco, mentoring the incoming Sec 3 captains; took a break from Nanyang CSN to focus on academics, the year the club began applying for tournaments and competitions; completed O-Levels — L1R5: 10 (net 6), ELR2B2: 8 (net 6).",
+      "GrowCalth's first public launch: 800+ sign-ups, 16M steps; built Can+een for the SST Computing+ coursework; Perse Competition: Distinction in Round 1, Higher Participation in Round 2; led Project Technogates at SIT, placing 3rd with a climate-tech prototype; completed AI for Literacy certification; Blue House exco, mentoring the incoming Sec 3 captains; took a break from Nanyang CSN to focus on academics, the year the club began applying for tournaments and competitions; completed O-Levels: L1R5 10 (net 6), ELR2B2 8 (net 6).",
   },
   {
     year: '2025',
