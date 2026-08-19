@@ -122,6 +122,10 @@
   font-variant-numeric: tabular-nums;
 }
 
+body.light-theme .highlight-stat-value {
+  color: var(--accent-blue);
+}
+
 .highlight-stat-label {
   font-size: 0.75rem;
   font-weight: var(--fw-medium);

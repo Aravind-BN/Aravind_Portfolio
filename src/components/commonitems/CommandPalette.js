@@ -4,7 +4,7 @@ import './CommandPalette.css';
 
 const COMMANDS = [
   { id: 'home', label: 'go to home', hint: '~/home', kind: 'nav', target: 'home' },
-  { id: 'stats', label: 'go to impact', hint: '~/impact', kind: 'nav', target: 'stats' },
+  { id: 'highlights', label: 'go to highlights', hint: '~/highlights', kind: 'nav', target: 'highlights' },
   { id: 'projects', label: 'go to projects', hint: '~/projects', kind: 'nav', target: 'projects' },
   { id: 'achievements', label: 'go to achievements', hint: '~/achievements', kind: 'nav', target: 'achievements' },
   { id: 'certificates', label: 'go to certificates', hint: '~/certificates', kind: 'nav', target: 'certificates' },
