@@ -9,7 +9,7 @@ const PROJECTS = [
     id: 'growcalth',
     title: 'GrowCalth',
     websiteUrl: 'https://growcalth.com/',
-    image: require('../../images/growcalth2.jpg'),
+    image: require('../../images/growcalth2.png'),
     role: 'Co-Founder & Lead Android Developer',
     summary: 'A student fitness app that gamifies step counts into house points: 1,500+ students, $5,000 in NP Sandbox funding.',
     description: [
