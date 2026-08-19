@@ -2,26 +2,27 @@
   padding-top: 2rem;
 }
 
-.highlights-columns {
+/* Bento grid: on desktop, grid-auto-flow: column fills column 1 (feature
+   tiles, in DOM order) top to bottom, then column 2 (stat tiles) top to
+   bottom — pairing item N of each into the same row. Grid's default
+   align-items: stretch then makes both cells in a row match its tallest
+   cell's height, so a highlight and its paired stat always line up. */
+.highlights-bento {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1.25rem;
-  align-items: start;
+  gap: 0.85rem;
 }
 
 @media (min-width: 720px) {
-  .highlights-columns {
+  .highlights-bento {
     grid-template-columns: 1.35fr 1fr;
+    grid-template-rows: repeat(4, auto);
+    grid-auto-flow: column;
+    gap: 0.85rem 0.9rem;
   }
 }
 
 /* ── Feature tiles ── */
-.highlights-features {
-  display: flex;
-  flex-direction: column;
-  gap: 0.85rem;
-}
-
 .highlight-tile {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -65,6 +66,14 @@
   padding: 0.1rem 0.5rem;
 }
 
+/* Emphasis color: light mode only, same restrained accent-blue used
+   elsewhere in the site (stats, achievement years, active cert filter). */
+body.light-theme .highlight-badge {
+  color: var(--accent-blue);
+  background: var(--accent-blue-soft);
+  border-color: var(--accent-blue-soft);
+}
+
 .highlight-tile-body {
   margin: 0;
   font-size: 0.85rem;
@@ -72,44 +81,26 @@
   color: var(--text-muted);
 }
 
-/* ── Impact stats block ── */
-.highlights-stats-block {
+/* ── Stat tiles: same card language as feature tiles, teal-tinted so they
+   read as a distinct "number" kind of tile ── */
+.highlight-stat-tile {
   background: var(--accent-teal-soft);
   border: 1px solid var(--border);
   border-radius: 12px;
-  padding: 1.1rem 1.2rem;
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.5s ease, transform 0.3s ease;
-}
-
-.highlights-section.in-view .highlights-stats-block {
-  opacity: 1;
-  transform: none;
-}
-
-.highlights-stats-label {
-  display: block;
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  font-weight: var(--fw-medium);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--accent-teal-strong);
-  margin-bottom: 0.9rem;
-}
-
-.highlights-stats-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.9rem 0.8rem;
-}
-
-.highlight-stat-tile {
+  padding: 1.1rem 1.3rem;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 0.2rem;
   min-width: 0;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s ease, transform 0.3s ease, border-color 0.25s ease;
+}
+
+.highlights-section.in-view .highlight-stat-tile {
+  opacity: 1;
+  transform: none;
 }
 
 .highlight-stat-value {
@@ -139,7 +130,7 @@ body.light-theme .highlight-stat-value {
 
 @media (prefers-reduced-motion: reduce) {
   .highlight-tile,
-  .highlights-stats-block {
+  .highlight-stat-tile {
     transition: none;
     opacity: 1;
     transform: none;

@@ -26,13 +26,6 @@ const HIGHLIGHTS = [
       "Won 1st place at NP Innopoly 2026, Ngee Ann Polytechnic's flagship innovation and entrepreneurship competition.",
   },
   {
-    id: 'perse',
-    title: 'Perse Competition',
-    badge: 'Distinction, Round 1',
-    body:
-      'Achieved a Distinction in Round 1 of the Perse Competition hosted by The Perse School, advancing to Round 2 with a Higher Participation result.',
-  },
-  {
     id: 'wapt',
     title: 'Web App Pentest',
     badge: 'Undisclosed target',
@@ -131,21 +124,18 @@ function Highlights() {
       className={`page-section highlights-section reveal${inView ? ' in-view' : ''}`}
     >
       <h2 className="section-heading">~/highlights</h2>
-      <div className="highlights-columns">
-        <div className="highlights-features">
-          {HIGHLIGHTS.map((item) => (
-            <HighlightTile key={item.id} item={item} />
-          ))}
-        </div>
-
-        <div className="highlights-stats-block">
-          <span className="highlights-stats-label">Impact</span>
-          <div className="highlights-stats-grid">
-            {STATS.map((s, i) => (
-              <StatTile key={s.label} stat={s} index={i} inView={inView} />
-            ))}
-          </div>
-        </div>
+      {/* grid-auto-flow: column (see Highlights.css) fills the left column
+          with every HIGHLIGHT first, then the right column with every STAT —
+          so item N in each array lands in the same row and stretches to
+          match its row partner's height, no JS measurement needed. Keep the
+          two arrays the same length so every row pairs up. */}
+      <div className="highlights-bento">
+        {HIGHLIGHTS.map((item) => (
+          <HighlightTile key={item.id} item={item} />
+        ))}
+        {STATS.map((s, i) => (
+          <StatTile key={s.label} stat={s} index={i} inView={inView} />
+        ))}
       </div>
     </section>
   );
