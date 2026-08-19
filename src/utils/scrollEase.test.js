@@ -2,11 +2,11 @@ import { stepEase } from './scrollEase';
 
 test('stays pinned at the resting position through the dwell zone on both sides', () => {
   const lastIndex = 3;
-  // Within step 1 (continuous in [1,2)), fraction 0..0.32 and 0.68..1 are dwell zones.
+  // Within step 1 (continuous in [1,2)), fraction 0..0.2 and 0.8..1 are dwell zones.
   expect(stepEase(1.0, lastIndex).position).toBeCloseTo(1, 5);
   expect(stepEase(1.1, lastIndex).position).toBeCloseTo(1, 5);
-  expect(stepEase(1.31, lastIndex).position).toBeCloseTo(1, 2);
-  expect(stepEase(1.69, lastIndex).position).toBeCloseTo(2, 2);
+  expect(stepEase(1.19, lastIndex).position).toBeCloseTo(1, 2);
+  expect(stepEase(1.81, lastIndex).position).toBeCloseTo(2, 2);
   expect(stepEase(1.9, lastIndex).position).toBeCloseTo(2, 5);
 });
 

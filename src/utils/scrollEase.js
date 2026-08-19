@@ -13,7 +13,7 @@ const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
  * next. So leaving a settled step takes deliberate, sustained scrolling
  * through that dwell zone rather than any small scroll nudging it along.
  */
-export function stepEase(continuous, lastIndex, dwell = 0.32) {
+export function stepEase(continuous, lastIndex, dwell = 0.2) {
   const clamped = clamp(continuous, 0, lastIndex);
   const stepIndex = Math.min(Math.floor(clamped), lastIndex);
   const fraction = clamped - stepIndex;
