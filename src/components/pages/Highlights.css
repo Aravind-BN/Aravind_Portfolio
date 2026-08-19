@@ -2,23 +2,19 @@
   padding-top: 2rem;
 }
 
-/* Bento grid: on desktop, grid-auto-flow: column fills column 1 (feature
-   tiles, in DOM order) top to bottom, then column 2 (stat tiles) top to
-   bottom — pairing item N of each into the same row. Grid's default
-   align-items: stretch then makes both cells in a row match its tallest
-   cell's height, so a highlight and its paired stat always line up. */
-.highlights-bento {
+/* Highlights: a plain 2-column wrap grid — 4 tiles form 2 rows on desktop,
+   1 column on mobile. No pairing with the stats grid below; keeping them
+   as two independent grids avoids implying a highlight/stat correspondence
+   that doesn't actually exist. */
+.highlights-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 0.85rem;
 }
 
-@media (min-width: 720px) {
-  .highlights-bento {
-    grid-template-columns: 1.35fr 1fr;
-    grid-template-rows: repeat(4, auto);
-    grid-auto-flow: column;
-    gap: 0.85rem 0.9rem;
+@media (min-width: 640px) {
+  .highlights-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -81,10 +77,37 @@ body.light-theme .highlight-badge {
   color: var(--text-muted);
 }
 
-/* ── Stat tiles: same card language as feature tiles, teal-tinted so they
-   read as a distinct "number" kind of tile ── */
+/* ── Impact stats: its own labeled block below Highlights, also a
+   2-column wrap grid (4 stats -> 2 rows) ── */
+.highlights-stats-section {
+  margin-top: 1.6rem;
+}
+
+.highlights-stats-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: 0.9rem;
+}
+
+.highlights-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.85rem;
+}
+
+@media (min-width: 640px) {
+  .highlights-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 .highlight-stat-tile {
-  background: var(--accent-teal-soft);
+  background: var(--accent-soft);
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 1.1rem 1.3rem;
@@ -107,12 +130,13 @@ body.light-theme .highlight-badge {
   font-family: var(--font-display);
   font-size: clamp(1.3rem, 3vw, 1.6rem);
   font-weight: var(--fw-bold);
-  color: var(--accent-teal-strong);
+  color: var(--accent-strong);
   letter-spacing: -0.02em;
   line-height: 1.1;
   font-variant-numeric: tabular-nums;
 }
 
+/* Light mode only, same restrained accent-blue used elsewhere in the site. */
 body.light-theme .highlight-stat-value {
   color: var(--accent-blue);
 }

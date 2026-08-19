@@ -124,18 +124,19 @@ function Highlights() {
       className={`page-section highlights-section reveal${inView ? ' in-view' : ''}`}
     >
       <h2 className="section-heading">~/highlights</h2>
-      {/* grid-auto-flow: column (see Highlights.css) fills the left column
-          with every HIGHLIGHT first, then the right column with every STAT —
-          so item N in each array lands in the same row and stretches to
-          match its row partner's height, no JS measurement needed. Keep the
-          two arrays the same length so every row pairs up. */}
-      <div className="highlights-bento">
+      <div className="highlights-grid">
         {HIGHLIGHTS.map((item) => (
           <HighlightTile key={item.id} item={item} />
         ))}
-        {STATS.map((s, i) => (
-          <StatTile key={s.label} stat={s} index={i} inView={inView} />
-        ))}
+      </div>
+
+      <div className="highlights-stats-section">
+        <span className="highlights-stats-label">Impact</span>
+        <div className="highlights-stats-grid">
+          {STATS.map((s, i) => (
+            <StatTile key={s.label} stat={s} index={i} inView={inView} />
+          ))}
+        </div>
       </div>
     </section>
   );

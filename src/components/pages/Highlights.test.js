@@ -15,6 +15,7 @@ test('renders all highlight tiles, badges, and stat labels', () => {
   expect(screen.getByText('Undisclosed target')).toBeInTheDocument();
 
   // absorbed impact stats
+  expect(screen.getByText('Impact')).toBeInTheDocument();
   expect(screen.getByText('GrowCalth users')).toBeInTheDocument();
   expect(screen.getByText('Funding raised')).toBeInTheDocument();
   expect(screen.getByText('Steps tracked')).toBeInTheDocument();
