@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import './App.css';
 import Navbar from './components/commonitems/Navbar';
 import Home from './components/pages/Home';
-import Stats from './components/pages/Stats';
+import Highlights from './components/pages/Highlights';
 import Projects from './components/projectspage/Projects';
 import Certificates from './components/certificates/Certificates';
 import AchievementsTimeline from './components/achievementpage/AchievementsTimeline';
@@ -45,7 +45,7 @@ const App = () => {
         <Navbar />
         <main>
           <section id="home"><Home /></section>
-          <section id="stats"><Stats /></section>
+          <section id="highlights"><Highlights /></section>
           <section id="projects"><Projects /></section>
           <section id="achievements"><AchievementsTimeline /></section>
           <section id="certificates"><Certificates /></section>
