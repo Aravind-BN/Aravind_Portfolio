@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './Highlights.css';
 import useInView from '../../hooks/useInView';
+import useScrolledIntoView from '../../hooks/useScrolledIntoView';
 
 // Feature tiles: only outright wins or the highest attainable placing
 // qualify here.
@@ -116,6 +117,11 @@ function StatTile({ stat, index, inView }) {
 
 function Highlights() {
   const [ref, inView] = useInView();
+  // Separate, stricter trigger for the count-up: this section sits high
+  // enough on the page (right after a 70vh-tall hero) that it's already
+  // partly on screen at load, which would otherwise fire the count-up
+  // immediately instead of when it's actually scrolled into view.
+  const [statsRef, statsInView] = useScrolledIntoView();
 
   return (
     <section
@@ -130,11 +136,11 @@ function Highlights() {
         ))}
       </div>
 
-      <div className="highlights-stats-section">
+      <div className="highlights-stats-section" ref={statsRef}>
         <span className="highlights-stats-label">Impact</span>
         <div className="highlights-stats-grid">
           {STATS.map((s, i) => (
-            <StatTile key={s.label} stat={s} index={i} inView={inView} />
+            <StatTile key={s.label} stat={s} index={i} inView={statsInView} />
           ))}
         </div>
       </div>
