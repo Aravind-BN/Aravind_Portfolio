@@ -160,18 +160,21 @@ const PROJECTS = [
     id: 'technogates',
     title: 'Project Technogates (SIT)',
     websiteUrl: null,
+    pressUrl: 'https://www.singaporetech.edu.sg/news/equipping-young-talents-demand-tech-skills-discover-camp',
+    pressLabel: 'Featured on SIT’s website',
     images: [
       require('../../images/projects/sitimage.png'),
       require('../../images/projects/sitimage2.jpeg'),
       require('../../images/projects/sitimage3.jpeg'),
       require('../../images/projects/sitimage4.jpeg'),
       require('../../images/projects/sitimage5.jpeg'),
+      require('../../images/projects/technogates-workshop.jpg'),
     ],
     videos: [require('../../images/projects/sitvid.mp4'), require('../../images/projects/sitvid2.mp4')],
     role: 'Lead Developer',
     summary: 'Climate-tech prototype selected to present at SIT’s STEM Seeds workshop on fighting climate change with technology.',
     description:
-      "A climate-focused innovation project presented at the Singapore Institute of Technology (SIT), where the team ideated and prototyped a solution addressing urban environmental challenges. Selected to present at SIT's STEM Seeds Social Innovators of the Future workshop on Battling Climate Change with Technology (2024), as part of a competitive cohort.",
+      "A climate-focused innovation project presented at the Singapore Institute of Technology (SIT), where the team ideated and prototyped a solution addressing urban environmental challenges. Selected to present at SIT's STEM Seeds Social Innovators of the Future workshop on Battling Climate Change with Technology (2024), as part of a competitive cohort. The workshop was also featured on SIT's official website.",
     contributions: [
       'Contributed to concept and prototype for a climate‑focused solution.',
       'Helped prepare and deliver the presentation and demo at SIT.',
@@ -288,6 +291,12 @@ const ProjectModal = memo(function ProjectModal({ project, onClose }) {
           {project.websiteUrl && (
             <a href={project.websiteUrl} target="_blank" rel="noopener noreferrer" className="project-live-link">
               <ExternalIcon /> Live site
+            </a>
+          )}
+
+          {project.pressUrl && (
+            <a href={project.pressUrl} target="_blank" rel="noopener noreferrer" className="project-live-link">
+              <ExternalIcon /> {project.pressLabel || 'Press coverage'}
             </a>
           )}
 
